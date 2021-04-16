@@ -100,7 +100,6 @@ custom_emoji_library = {
     'sie rozgrzac': 'witczak',
     'oczadły': 'tomek',
     'oczadly': 'tomek',
-    'tomek': 'tomek',
     'witczak': 'witczak',
     'bazyl': 'bazyl',
     'najman': 'najman',
@@ -162,6 +161,7 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
 
     # los santos customs (ultra customowe rzeczy)
+    # Joins the channel and plays tense rage compliation (No way to disconnect from channel!)
     if content == 'dajesz tensa' or content == 'dawaj tensa':
         channel = message.author.voice.channel
         await channel.connect()
@@ -171,8 +171,16 @@ async def on_message(message):
         voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
         await message.channel.send('Currently playing: tense1983 rage compilation')
 
+    # Witczak combinations for ending the call
     if 'witczak' in content or ('spotkanie' in content and (
             'zakonczyl' in content or 'zakończył' in content or 'zamknął' in content or 'zamknal' in content)):
+        emoji = get(client.emojis, name='witczak')
+        await message.add_reaction(emoji)
+
+    # Two reactions for 'tomek'
+    if 'tomek' in content:
+        emoji = get(client.emojis, name='tomek')
+        await message.add_reaction(emoji)
         emoji = get(client.emojis, name='witczak')
         await message.add_reaction(emoji)
 
@@ -188,6 +196,4 @@ def reaction():
 
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')
-
-# Podpis Senterana
 # Podipis Krupiera
