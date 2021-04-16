@@ -229,7 +229,7 @@ async def on_message(message):
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
-        file = open('reactions.txt', 'r')
+        file = open('data/reactions.txt', 'r')
         reactions = file.read()
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
     
@@ -279,11 +279,11 @@ async def on_message(message):
 
 
 def reaction():
-    file = open('reactions.txt', 'r')
+    file = open('data/reactions.txt', 'r')
     reactions = int(file.read())
     reactions = reactions + 1
     file.close()
-    file = open('reactions.txt', 'w')
+    file = open('data/reactions.txt', 'w')
     file.write(str(reactions))
     file.close()
 
