@@ -188,3 +188,4 @@ def reaction():
 
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')
+#Podpis Senterana
