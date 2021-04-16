@@ -165,7 +165,7 @@ async def on_message(message):
     if content == 'dajesz tensa' or content == 'dawaj tensa':
         channel = message.author.voice.channel
         await channel.connect()
-        filename = 'rage.mp3'
+        filename = 'src/rage.mp3'
         server = message.guild
         voice_channel = server.voice_client
         voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
@@ -196,4 +196,3 @@ def reaction():
 
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')
-# Podipis Krupiera
