@@ -202,7 +202,7 @@ async def on_message(message):
     
     # Ręczna odpowiedź
     if 'cześć emojimeister!' in content:
-        response = input('Input the response to \'cześć emojimeister!\'')
+        response = input('Input the response to ' + content + ': ')
         await message.reply(response)
 
     # los santos customs (ultra customowe rzeczy)
