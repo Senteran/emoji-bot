@@ -199,6 +199,11 @@ async def on_message(message):
     if 'erty wznów' in content:
         await message.add_reaction('⏯')
         message.guild.voice_client.resume()
+    
+    # Ręczna odpowiedź
+    if 'cześć emojimeister!' in content:
+        response = input('Input the response to \'cześć emojimeister!\'')
+        await message.reply(response)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
