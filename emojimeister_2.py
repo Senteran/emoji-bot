@@ -162,14 +162,11 @@ async def on_message(message):
             try:
                 await channel.connect()
             except:
-                print('',end='')
+                pass
             filename = 'src/' + music_library[element]
             server = message.guild
             voice_channel = server.voice_client
-            try: 
-                voice_channel.stop
-            except:
-                print('',end='')
+            voice_channel.stop()
             voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
     # send messages
@@ -183,10 +180,26 @@ async def on_message(message):
         reactions = file.read()
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
 
+    # Wychodzenie z kanału
     if 'emojimeister wyjdź' in content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
-        
+    
+    # Stop muzyki
+    if 'emojimeister stop' in content:
+        await message.add_reaction('🛑')
+        server.voice_client.stop()
+    
+    # Pauza muzyki
+    if 'emojimeister pauza' in content:
+        await message.add_reaction('🛑')
+        server.voice_client.pause()
+    
+    # Wstrzymanie muzyki
+    if 'emojimeister wznów' in content:
+        await message.add_reaction('🛑')
+        server.voice_client.resume()
+      
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
     if 'witczak' in content or ('spotkanie' in content and (
