@@ -165,9 +165,9 @@ async def on_message(message):
                 pass
             filename = 'src/' + music_library[element]
             server = message.guild
-            voice_channel = server.voice_client
-            voice_channel.stop()
-            voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
+            voice_client = server.voice_client
+            voice_client.stop()
+            voice_client.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
     # send messages
     for element in send_library:
@@ -181,25 +181,25 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
 
     # Wychodzenie z kanału
-    if 'emojimeister wyjdź' in content:
+    if 'erty wyjdź' in content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
     # Stop muzyki
-    if 'emojimeister stop' in content:
+    if 'erty stop' in content:
         await message.add_reaction('🛑')
-        server.voice_client.stop()
+        message.guild.voice_client.stop()
     
     # Pauza muzyki
-    if 'emojimeister pauza' in content:
-        await message.add_reaction('🛑')
-        server.voice_client.pause()
+    if 'erty pauza' in content:
+        await message.add_reaction('⏸')
+        message.guild.voice_client.pause()
     
     # Wstrzymanie muzyki
-    if 'emojimeister wznów' in content:
-        await message.add_reaction('🛑')
-        server.voice_client.resume()
-      
+    if 'erty wznów' in content:
+        await message.add_reaction('⏯')
+        message.guild.voice_client.resume()
+
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
     if 'witczak' in content or ('spotkanie' in content and (
