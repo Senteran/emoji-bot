@@ -31,7 +31,7 @@ emoji_library = {
     'co sie dzieje': '❓',
     'co sie stalo': '❓',
     'kiedy': '❓',
-    'emojimeister': '🐱‍👤',
+    'emojimeister': '🤚',
     '-p': '▶',
     '-leave': '👋',
     'stop': '🛑',
