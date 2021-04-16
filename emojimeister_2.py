@@ -121,6 +121,12 @@ send_library = {
     'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing'
 }
 
+music_library = {
+    'dajesz tensa':'rage.mp3',
+    'dajesz powrót': 'powrót_krupiera.mp3',
+    'dajesz special': 'senteran_special_20k_subów.mp4'
+}
+
 client = discord.Client()
 
 
@@ -149,28 +155,39 @@ async def on_message(message):
             emoji = get(client.emojis, name=custom_emoji_library[element])
             await message.add_reaction(emoji)
             reaction()
-
+    # Granie muzyki
+    for element in music_library:
+        if element in content:
+            channel = message.author.voice.channel
+            try:
+                await channel.connect()
+            except:
+                print('',end='')
+            filename = 'src/' + music_library[element]
+            server = message.guild
+            voice_channel = server.voice_client
+            try: 
+                voice_channel.stop
+            except:
+                print('',end='')
+            voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
+            await message.channel.send('Currently playing: ' + music_library[element])
     # send messages
     for element in send_library:
         if element in content:
             await message.channel.send(send_library[element])
 
+    # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
         file = open('reactions.txt', 'r')
         reactions = file.read()
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
 
+    if 'emojimeister wyjdź' in content:
+        await message.add_reaction('👋')
+        await message.guild.voice_client.disconnect()
+        
     # los santos customs (ultra customowe rzeczy)
-    # Joins the channel and plays tense rage compliation (No way to disconnect from channel!)
-    if content == 'dajesz tensa' or content == 'dawaj tensa':
-        channel = message.author.voice.channel
-        await channel.connect()
-        filename = 'src/rage.mp3'
-        server = message.guild
-        voice_channel = server.voice_client
-        voice_channel.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
-        await message.channel.send('Currently playing: tense1983 rage compilation')
-
     # Witczak combinations for ending the call
     if 'witczak' in content or ('spotkanie' in content and (
             'zakonczyl' in content or 'zakończył' in content or 'zamknął' in content or 'zamknal' in content)):
