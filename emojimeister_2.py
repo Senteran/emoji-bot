@@ -165,7 +165,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         if 'entries' in data:
             data = data['entries'][0]
         filename = data['title'] if stream else ytdl.prepare_filename(data)
-        filename = 'temp_src/' + filename
+        filename = filename
         return filename
 
 
