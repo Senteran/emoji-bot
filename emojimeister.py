@@ -2,14 +2,13 @@ import discord
 from discord.utils import get
 import youtube_dl
 import asyncio
+from os import remove
 
 emoji_library = {
     'haha': '😆',
     'kurwa': '🚫',
     'nie wiem': '🤷',
-    'śpi': '💤',
     'spi': '💤',
-    'świat': '🌍',
     'swiat': '🌍',
     'tak': '✅',
     'krupiergames.000webhostapp.com/ia': '🛑',
@@ -21,7 +20,6 @@ emoji_library = {
     'bruh': '🦕',
     'xd': '😂',
     'kurde': '😯',
-    'proszę': '🙏',
     'prosze': '🙏',
     'agar': '🔴',
     'ok': '👌',
@@ -38,18 +36,15 @@ emoji_library = {
     '-leave': '👋',
     'stop': '🛑',
     'hej': '👋',
-    'cześć': '👋',
     'czesc': '👋',
     'siema': '👋',
     'hello': '👋',
     'halo': '👋',
     '?': '🧐',
     'rage': '👺',
-    'wściekły': '👺',
     'wsciekly': '👺',
     'wkurwi': '👺',
     'denerwuj': '👺',
-    'zły': '👺',
     'zly': '👺',
     'ola': '👩',
     'karolina': '👩‍🦰'
@@ -70,9 +65,7 @@ custom_emoji_library = {
     'seba': 'sebek',
     'timm': 'sebek',
     'exeos': 'exeos',
-    'paweł': 'exeos',
     'pawel': 'exeos',
-    'zając': 'exeos',
     'zajac': 'exeos',
     'kuchta': 'kuchta',
     'mariusz': 'kuchta',
@@ -98,9 +91,7 @@ custom_emoji_library = {
     'skoda': 'auto',
     'benet': 'benet_rekord',
     'business merger': 'business_merger',
-    'się rozgrzać': 'witczak',
     'sie rozgrzac': 'witczak',
-    'oczadły': 'tomek',
     'oczadly': 'tomek',
     'witczak': 'witczak',
     'bazyl': 'bazyl',
@@ -118,7 +109,7 @@ send_library = {
     'ile masz lat': 'urodziłęm się 15 kwietnia 2021, możesz chyba samodzielnie obliczyć!',
     'co potrafisz?': 'reagować na wiadomości!',
     'kiedy się spotykamy': 'Ja mogę z wami zawsze być ♥',
-    'jak się nauczyć grać w poe?': 'Polecam ten poradnik: https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
+    'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
     'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing'
 }
@@ -210,8 +201,10 @@ async def on_message(message):
                 content = content + polskie_znaki[znak]
                 # Skoro został dodany znak to znak_dodany = True, aby na przykład nie zmienić 'ą' na 'a' i potem też dodać 'ą'
                 znak_dodany = True
+        # Jeżeli char z contentu nie został znaleziony w dzienniku to normalny znak zostaje dodany do content
         if not znak_dodany:
             content = content + char
+        # Na końcu trzeba powrócić znak_dodany do False aby w następnej iteracji głównego for wszystko działało poprawnie
         znak_dodany = False
 
     # emoji reactions
@@ -238,7 +231,7 @@ async def on_message(message):
             server = message.guild
             voice_client = server.voice_client
             voice_client.stop()
-            voice_client.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
+            voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
         
     # Granie muzyki los santos
@@ -250,8 +243,14 @@ async def on_message(message):
         url = text.removeprefix('erty zagraj')
         filename = await YTDLSource.from_url(url, loop=True)
         voice_client.stop()
-        voice_client.play(discord.FFmpegPCMAudio(executable='ffmpeg.exe', source=filename))
+        voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
         await message.channel.send('**Now playing:** {}'.format(filename))
+
+        # remove_song jest dopiero tu, ponieważ musi się stać po voice_client.stop() aby nie próbować usunąć pliku w użyciu oraz ponieważ jak było tuż po nim to czasami nie działało
+        # sensowną opcją jest więc danie go tu ponieważ jest po await send czyli minie chwila i plik powinien mieć wystarczająco czasu aby przestać być zablokowanym
+        remove_song()
+        write_song_filename(filename)
+        
 
     # send messages
     for element in send_library:
@@ -265,12 +264,12 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
     
     # Wchodzenie na kanał
-    if 'erty wejdź' in content:
+    if 'erty wejdz' in content:
         channel = message.author.voice.channel
         await channel.connect()
 
     # Wychodzenie z kanału
-    if 'erty wyjdź' in content:
+    if 'erty wyjdz' in content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
@@ -285,19 +284,18 @@ async def on_message(message):
         message.guild.voice_client.pause()
     
     # Wstrzymanie muzyki
-    if 'erty wznów' in content:
+    if 'erty wznuw' in content:
         await message.add_reaction('⏯')
         message.guild.voice_client.resume()
     
     # Ręczna odpowiedź
-    if 'cześć emojimeister!' in content:
+    if 'czesc emojimeister!' in content:
         response = input('Input the response to ' + message.content + ': ')
         await message.reply(response)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
-    if 'witczak' in content or ('spotkanie' in content and (
-            'zakonczyl' in content or 'zakończył' in content or 'zamknął' in content or 'zamknal' in content)):
+    if 'witczak' in content or ('spotkanie' in content and ('zakonczyl' in content or 'zamknal' in content)):
         emoji = get(client.emojis, name='witczak')
         await message.add_reaction(emoji)
 
@@ -308,7 +306,24 @@ async def on_message(message):
         emoji = get(client.emojis, name='witczak')
         await message.add_reaction(emoji)
 
+# Usuwa piosenke aktualnie zapisaną w pliku data/song.txt
+def remove_song():
+    file = open('data/song.txt', 'r')
+    filename = file.read()
+    file.close
+    if not (filename == ''):
+        remove(filename)
+        file = open('data/song.txt', 'w')
+        file.write('')
+        file.close
 
+# Dodaje ścieżkę danej piosenki do pliko data/song.txt
+def write_song_filename(filename):
+    file = open('data/song.txt', 'w')
+    file.write(filename)
+    file.close
+
+# Dodaje 1 do pliku data/reactions.txt
 def reaction():
     file = open('data/reactions.txt', 'r')
     reactions = int(file.read())
