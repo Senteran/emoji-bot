@@ -1,3 +1,7 @@
+import sys
+# prevent __pycache__ folder from being created
+sys.dont_write_bytecode = True
+
 import discord
 from discord.utils import get
 import youtube_dl
