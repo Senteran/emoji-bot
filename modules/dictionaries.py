@@ -110,6 +110,6 @@ send_library = {
 
 music_library = {
     'dajesz tensa':'rage.mp3',
-    'dajesz powrót': 'powrót_krupiera.mp3',
+    'dajesz powrot': 'powrót_krupiera.mp3',
     'dajesz special': 'senteran_special_20k_subów.mp4'
 }
