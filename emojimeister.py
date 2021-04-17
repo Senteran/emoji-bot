@@ -123,6 +123,19 @@ send_library = {
     'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing'
 }
 
+# Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
+polskie_znaki = {
+    'ą': 'a',
+    'ć': 'c',
+    'ę': 'e',
+    'ó': 'u',
+    'ż': 'z',
+    'ź': 'z',
+    'ł': 'l',
+    'ś': 's',
+    'ń': 'n'
+}
+
 music_library = {
     'dajesz tensa':'rage.mp3',
     'dajesz powrót': 'powrót_krupiera.mp3',
@@ -180,8 +193,26 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    content = message.content
-    content = content.lower()
+    # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
+    temp_content = message.content
+    temp_content = temp_content.lower()
+    # Stworzenie pustego content który bęzdie przechowywał string bez polskich znaków
+    content = ""
+    # Przechowuje czy znak został dodany jako przemieniony
+    znak_dodany = False
+
+    # Iteruje przez każdy znak z temp_content
+    for char in temp_content:
+        # Iteruje przez każdy znak w dzienniku polskie_znaki
+        for znak in polskie_znaki:
+            # Jeżeli aktualny znak z dzienniku jest równy char z contentu wiadomości to go zamieniamy
+            if znak == char:
+                content = content + polskie_znaki[znak]
+                # Skoro został dodany znak to znak_dodany = True, aby na przykład nie zmienić 'ą' na 'a' i potem też dodać 'ą'
+                znak_dodany = True
+        if not znak_dodany:
+            content = content + char
+        znak_dodany = False
 
     # emoji reactions
     # default emoji
@@ -211,7 +242,7 @@ async def on_message(message):
             await message.channel.send('Currently playing: ' + music_library[element])
         
     # Granie muzyki los santos
-    if 'erty zagraj ' in content:
+    if 'erty zagraj ' in message.content:
         server = message.guild
         voice_client = server.voice_client
 
