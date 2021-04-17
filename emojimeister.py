@@ -192,6 +192,8 @@ async def on_message(message):
     # Przechowuje czy znak został dodany jako przemieniony
     znak_dodany = False
 
+    # Celem tego całego bloku jest przejście przez każdy znak w message.content i zamienienie polskich znaków takich jak 'ą' i 'ć' na ich odpowiedniki, czyli w tym przypadku 'a' i 'c'
+    # Jest to przydatne inaczej trzeba sprawdzać dwie opcje wiadomości na przykład 'zły' i 'zly', po zamianie natomiast trzeba sprawdzać tylko 'zly'
     # Iteruje przez każdy znak z temp_content
     for char in temp_content:
         # Iteruje przez każdy znak w dzienniku polskie_znaki
