@@ -59,6 +59,8 @@ custom_emoji_library = {
     'timm': 'sebek',
     'exeos': 'exeos',
     'pawel': 'exeos',
+    'mobil': 'exeos_mobile',
+    'telefon': 'exeos_mobile',
     'zajac': 'exeos',
     'kuchta': 'kuchta',
     'mariusz': 'kuchta',
@@ -92,6 +94,7 @@ custom_emoji_library = {
     'najman': 'najman',
     'mama': 'mama',
     'lis': 'lis',
+    'fur': 'lis',
     'kp': 'kp',
     'an': 'an',
     'presentetaio': 'presentetaio'
