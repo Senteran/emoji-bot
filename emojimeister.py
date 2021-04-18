@@ -9,19 +9,7 @@ import youtube_dl
 import asyncio
 from os import remove
 from modules.dictionaries import *
-
-# Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
-polskie_znaki = {
-    'ą': 'a',
-    'ć': 'c',
-    'ę': 'e',
-    'ó': 'o',
-    'ż': 'z',
-    'ź': 'z',
-    'ł': 'l',
-    'ś': 's',
-    'ń': 'n'
-}
+from modules.functions import *
 
 client = discord.Client()
 
@@ -76,29 +64,9 @@ async def on_message(message):
         return
 
     # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
-    temp_content = message.content
-    temp_content = temp_content.lower()
-    # Stworzenie pustego content który bęzdie przechowywał string bez polskich znaków
-    content = ""
-    # Przechowuje czy znak został dodany jako przemieniony
-    znak_dodany = False
-
-    # Celem tego całego bloku jest przejście przez każdy znak w message.content i zamienienie polskich znaków takich jak 'ą' i 'ć' na ich odpowiedniki, czyli w tym przypadku 'a' i 'c'
-    # Jest to przydatne inaczej trzeba sprawdzać dwie opcje wiadomości na przykład 'zły' i 'zly', po zamianie natomiast trzeba sprawdzać tylko 'zly'
-    # Iteruje przez każdy znak z temp_content
-    for char in temp_content:
-        # Iteruje przez każdy znak w dzienniku polskie_znaki
-        for znak in polskie_znaki:
-            # Jeżeli aktualny znak z dzienniku jest równy char z contentu wiadomości to go zamieniamy
-            if znak == char:
-                content = content + polskie_znaki[znak]
-                # Skoro został dodany znak to znak_dodany = True, aby na przykład nie zmienić 'ą' na 'a' i potem też dodać 'ą'
-                znak_dodany = True
-        # Jeżeli char z contentu nie został znaleziony w dzienniku to normalny znak zostaje dodany do content
-        if not znak_dodany:
-            content = content + char
-        # Na końcu trzeba powrócić znak_dodany do False aby w następnej iteracji głównego for wszystko działało poprawnie
-        znak_dodany = False
+    content = message.content
+    content = content.lower()
+    content = to_en_str(content)
 
     # emoji reactions
     # default emoji
