@@ -65,6 +65,7 @@ custom_emoji_library = {
     'praczyns': 'praczyns',
     'raczynski': 'praczyns',
     'alan': 'hot_dog_nibba',
+    'teams': 'teams_monocle',
     'frido': 'frido',
     'fat pusher': 'fat_pusher',
     'wf': 'tomek',
