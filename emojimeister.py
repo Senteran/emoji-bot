@@ -3,6 +3,7 @@ import sys
 sys.dont_write_bytecode = True
 
 import discord
+import shutil
 from discord.utils import get
 import youtube_dl
 import asyncio
@@ -58,7 +59,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
         if 'entries' in data:
             data = data['entries'][0]
         filename = data['title'] if stream else ytdl.prepare_filename(data)
-        filename = filename
+        shutil.move(filename, 'songs')
+        filename = 'songs/' + filename
         return filename
 
 
