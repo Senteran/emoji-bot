@@ -54,6 +54,7 @@ custom_emoji_library = {
     'jan': 'krupier',
     'pytel': 'krupier',
     'krup': 'krupier',
+    'furnik': 'krupier',
     'sebek': 'sebek',
     'seba': 'sebek',
     'timm': 'sebek',
