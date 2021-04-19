@@ -3,10 +3,7 @@ import sys
 sys.dont_write_bytecode = True
 
 import discord
-import shutil
 from discord.utils import get
-import youtube_dl
-import asyncio
 from os import remove
 from modules.dictionaries import *
 from modules.functions import *
