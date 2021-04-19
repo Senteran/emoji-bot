@@ -82,6 +82,8 @@ custom_emoji_library = {
     'clyde': 'clyde',
     'cas': 'cas',
     'bw': 'bw',
+    'js': 'js',
+    'javascript': 'js',
     'auto': 'auto',
     'bmw': 'auto',
     'ford': 'auto',
