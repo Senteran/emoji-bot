@@ -20,11 +20,6 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # W celu rozpowszechnienia emoji teams_monocle te dwie linijki beda dawaly taka reakcje na każdą wiadomość
-    emoji = get(client.emojis, name='teams_monocle')
-    await message.add_reaction(emoji)
-
-
     # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
     content = message.content
     content = content.lower()
