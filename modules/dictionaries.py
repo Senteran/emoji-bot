@@ -9,6 +9,7 @@ emoji_library = {
     'nie': '❎',
     'stundink': '🧑‍🎤',
     'studnik': '🧑‍🎤',
+    'singer': '🧑‍🎤',
     'spicy': '🌶',
     'ostr': '🌶',
     'bruh': '🦕',
