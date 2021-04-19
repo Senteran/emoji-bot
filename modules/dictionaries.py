@@ -64,6 +64,8 @@ custom_emoji_library = {
     'mobil': 'exeos_mobile',
     'telefon': 'exeos_mobile',
     'zajac': 'exeos',
+    'kato': 'kato',
+    'kamil': 'kato',
     'kuchta': 'kuchta',
     'mariusz': 'kuchta',
     'praczyns': 'praczyns',
