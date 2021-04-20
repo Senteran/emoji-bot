@@ -41,7 +41,6 @@ emoji_library = {
     'wkurwi': '👺',
     'denerwuj': '👺',
     'zly': '👺',
-    'ola': '👩',
     'karolina': '👩‍🦰'
 }
 
@@ -91,6 +90,9 @@ custom_emoji_library = {
     'bmw': 'auto',
     'ford': 'auto',
     'skoda': 'auto',
+    'ola': 'aleksandra_pawlik',
+    'aleksandra': 'aleksandra_pawlik',
+    'pawlik': 'aleksandra_pawlik',
     'benet': 'benet_rekord',
     'business merger': 'business_merger',
     'sie rozgrzac': 'witczak',
