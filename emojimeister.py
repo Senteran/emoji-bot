@@ -53,16 +53,17 @@ async def on_message(message):
             await message.channel.send('Currently playing: ' + music_library[element])
         
     # Granie muzyki los santos
-    if 'erty zagraj ' in message.content:
+    if 'emoji zagraj ' in message.content:
         server = message.guild
         voice_client = server.voice_client
 
         text = message.content
-        url = text.removeprefix('erty zagraj')
+        url = text.removeprefix('emoji zagraj')
         filename = await yt_download(url, 'songs/')
         voice_client.stop()
         voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
-        await message.channel.send('**Now playing:** {}'.format(filename))
+        await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
+        
 
         # remove_song jest dopiero tu, ponieważ musi się stać po voice_client.stop() aby nie próbować usunąć pliku w użyciu oraz ponieważ jak było tuż po nim to czasami nie działało
         # sensowną opcją jest więc danie go tu ponieważ jest po await send czyli minie chwila i plik powinien mieć wystarczająco czasu aby przestać być zablokowanym
@@ -82,27 +83,27 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
     
     # Wchodzenie na kanał
-    if 'erty wejdz' in content:
+    if 'emoji wejdz' in content:
         channel = message.author.voice.channel
         await channel.connect()
 
     # Wychodzenie z kanału
-    if 'erty wyjdz' in content:
+    if 'emoji wyjdz' in content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
     # Stop muzyki
-    if 'erty stop' in content:
+    if 'emoji stop' in content:
         await message.add_reaction('🛑')
         message.guild.voice_client.stop()
     
     # Pauza muzyki
-    if 'erty pauza' in content:
+    if 'emoji pauza' in content:
         await message.add_reaction('⏸')
         message.guild.voice_client.pause()
     
     # Wstrzymanie muzyki
-    if 'erty wznuw' in content:
+    if 'emoji wznow' in content:
         await message.add_reaction('⏯')
         message.guild.voice_client.resume()
     

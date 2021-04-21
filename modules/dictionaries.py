@@ -76,7 +76,6 @@ custom_emoji_library = {
     'wf': 'tomek',
     'chad': 'chad',
     'fajrancik': 'fajrancik',
-    'nie odpisuje': 'ertymaster',
     'eleganc': 'koneser',
     'wtf': 'wtf',
     'ertymi': 'ertymi',
