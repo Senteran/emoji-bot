@@ -60,7 +60,11 @@ async def on_message(message):
         text = message.content
         url = text.removeprefix('emoji zagraj')
         filename = await yt_download(url, 'songs/')
-        voice_client.stop()
+        try:
+            voice_client.stop()
+        except:
+            channel = message.author.voice.channel
+            await channel.connect()
         voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
         await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
         
