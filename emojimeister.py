@@ -63,8 +63,7 @@ async def on_message(message):
         try:
             voice_client.stop()
         except:
-            channel = message.author.voice.channel
-            await channel.connect()
+            pass
         voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
         await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
         
@@ -92,7 +91,7 @@ async def on_message(message):
         await channel.connect()
 
     # Wychodzenie z kanału
-    if 'emoji wyjdz' in content:
+    if 'emoji wyjdz' in content or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
