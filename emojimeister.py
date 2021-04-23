@@ -10,6 +10,10 @@ from modules.functions import *
 
 client = discord.Client()
 
+file = open('data/prefix.txt', 'r')
+prefix = file.read()
+file.close()
+
 @client.event
 async def on_ready():
     print("Logged in as {0.user}".format(client))
@@ -51,9 +55,23 @@ async def on_message(message):
             voice_client.stop()
             voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
-        
+
+    # Zmienienie prefiksu
+    if content.startswith('nowy prefix '):
+        new_prefix = content.removeprefix('nowy prefix ')
+        file = open('data/prefix.txt', 'w')
+        file.write(new_prefix)
+        file.close()
+        global prefix
+        prefix = new_prefix
+        await message.guild.me.edit(nick=prefix+'meister')
+    
+    # Wyświetlenie prefiksu
+    if 'jaki prefix' in content or 'jaki prefiks' in content:
+        await message.channel.send('Aktualny prefiks to: ' + prefix) 
+
     # Granie muzyki los santos
-    if 'emoji zagraj ' in message.content:
+    if prefix + ' zagraj ' in message.content:
         server = message.guild
         voice_client = server.voice_client
 
@@ -86,32 +104,32 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
     
     # Wchodzenie na kanał
-    if 'emoji wejdz' in content:
+    if prefix + ' wejdz' in content:
         channel = message.author.voice.channel
         await channel.connect()
 
     # Wychodzenie z kanału
-    if 'emoji wyjdz' in content or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
+    if prefix + ' wyjdz' in content or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
     # Stop muzyki
-    if 'emoji stop' in content:
+    if prefix + ' stop' in content:
         await message.add_reaction('🛑')
         message.guild.voice_client.stop()
     
     # Pauza muzyki
-    if 'emoji pauza' in content:
+    if prefix + ' pauza' in content:
         await message.add_reaction('⏸')
         message.guild.voice_client.pause()
     
     # Wstrzymanie muzyki
-    if 'emoji wznow' in content:
+    if prefix + ' wznow' in content:
         await message.add_reaction('⏯')
         message.guild.voice_client.resume()
     
     # Ręczna odpowiedź
-    if 'czesc emojimeister!' in content:
+    if prefix + ' emojimeister!' in content:
         response = input('Input the response to ' + message.content + ': ')
         await message.reply(response)
 
