@@ -62,8 +62,9 @@ async def on_message(message):
             new_prefix = message.content.removeprefix('nowy prefix')
         else:
             new_prefix = message.content.removeprefix('nowy prefiks ')
-        file = open('data/prefix.txt', 'w')
-        file.write(new_prefix)
+        encoded_prefix = new_prefix.encode('utf-8')
+        file = open('data/prefix.txt', 'wb')
+        file.write(encoded_prefix)
         file.close()
         global prefix
         prefix = new_prefix
