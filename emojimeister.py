@@ -57,8 +57,11 @@ async def on_message(message):
             await message.channel.send('Currently playing: ' + music_library[element])
 
     # Zmienienie prefiksu
-    if content.startswith('nowy prefix '):
-        new_prefix = content.removeprefix('nowy prefix ')
+    if message.content.startswith('nowy prefix ') or message.content.startswith('nowy prefiks '):
+        if message.content.startswith('nowy prefix '):
+            new_prefix = message.content.removeprefix('nowy prefix')
+        else:
+            new_prefix = message.content.removeprefix('nowy prefiks ')
         file = open('data/prefix.txt', 'w')
         file.write(new_prefix)
         file.close()
