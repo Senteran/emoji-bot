@@ -108,32 +108,32 @@ async def on_message(message):
         await message.reply('Już zareagowałem: ' + reactions + ' razy!')
     
     # Wchodzenie na kanał
-    if prefix + ' wejdz' in content:
+    if message.content.startswith(prefix) and ' wejdz' in content:
         channel = message.author.voice.channel
         await channel.connect()
 
     # Wychodzenie z kanału
-    if prefix + ' wyjdz' in content or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
+    if (message.content.startswith(prefix) and ' wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
         await message.add_reaction('👋')
         await message.guild.voice_client.disconnect()
     
     # Stop muzyki
-    if prefix + ' stop' in content:
+    if message.content.startswith(prefix) and ' stop' in content:
         await message.add_reaction('🛑')
         message.guild.voice_client.stop()
     
     # Pauza muzyki
-    if prefix + ' pauza' in content:
+    if message.content.startswith(prefix) and ' pauza' in content:
         await message.add_reaction('⏸')
         message.guild.voice_client.pause()
     
     # Wstrzymanie muzyki
-    if prefix + ' wznow' in content:
+    if message.content.startswith(prefix) and ' wznow' in content:
         await message.add_reaction('⏯')
         message.guild.voice_client.resume()
     
     # Ręczna odpowiedź
-    if prefix + ' emojimeister!' in content:
+    if 'czesc' in content and ' ' + prefix in message.content and 'meister' in content:
         response = input('Input the response to ' + message.content + ': ')
         await message.reply(response)
 
