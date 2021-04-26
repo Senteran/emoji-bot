@@ -68,7 +68,10 @@ async def on_message(message):
         file.close()
         global prefix
         prefix = new_prefix
-        await message.guild.me.edit(nick=prefix+'meister')
+        if(len(prefix) >= 24):
+            await message.guild.me.edit(nick=prefix[0 : 23]+'meitser')
+        else:
+            await message.guild.me.edit(nick=prefix+'meister')
     
     # Wyświetlenie prefiksu
     if 'jaki prefix' in content or 'jaki prefiks' in content:
