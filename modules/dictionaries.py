@@ -40,8 +40,7 @@ emoji_library = {
     'wsciekly': '👺',
     'wkurwi': '👺',
     'denerwuj': '👺',
-    'zly': '👺',
-    'karolina': '👩‍🦰'
+    'zly': '👺'
 }
 
 custom_emoji_library = {
@@ -89,6 +88,9 @@ custom_emoji_library = {
     'bmw': 'auto',
     'ford': 'auto',
     'skoda': 'auto',
+    'karolina': 'KFrankVegeta',
+    'kfrankvegeta': 'KFrankVegeta',
+    'rys': 'KFrankVegeta',
     'ola': 'aleksandra_pawlik',
     'aleksandra': 'aleksandra_pawlik',
     'pawlik': 'aleksandra_pawlik',
