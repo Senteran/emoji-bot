@@ -84,3 +84,16 @@ async def yt_download(url, destination):
     ret = await YTDLSource.from_url(url, loop=True)
     return ret
 
+def word_triangle(message):
+    string = ""
+    prev = ""
+
+    for char in message:
+        prev += char
+        if not char == ' ':
+            string = string + "\n" + prev
+    for char in message[:0:-1]:
+        prev = prev.removesuffix(char)
+        if not char == ' ':
+            string = string + "\n" + prev
+    return string

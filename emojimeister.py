@@ -47,7 +47,7 @@ async def on_message(message):
             channel = message.author.voice.channel
             try:
                 await channel.connect()
-            except:
+            except AttributeError:
                 pass
             filename = 'src/' + music_library[element]
             server = message.guild
@@ -68,15 +68,13 @@ async def on_message(message):
         file.close()
         global prefix
         prefix = new_prefix
-        if(len(prefix) >= 24):
+        if len(prefix) >= 24:
             await message.guild.me.edit(nick=prefix[0 : 23]+'meitser')
         else:
             await message.guild.me.edit(nick=prefix+'meister')
-    
     # Wyświetlenie prefiksu
     if 'jaki prefix' in content or 'jaki prefiks' in content:
-        await message.channel.send('Aktualny prefiks to: ' + prefix) 
-
+        await message.channel.send('Aktualny prefiks to: ' + prefix)
     # Granie muzyki los santos
     if prefix + ' zagraj ' in message.content:
         server = message.guild
@@ -103,6 +101,13 @@ async def on_message(message):
     for element in send_library:
         if element in content:
             await message.channel.send(send_library[element])
+    
+    if message.content.startswith("trójkąt "):
+        string = word_triangle(message.content.removeprefix("trójkąt "))
+        try:
+            await message.channel.send(string)
+        except discord.errors.HTTPException:
+            await message.channel.send("Ta wiadomość byłaby za długa")
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
@@ -157,18 +162,18 @@ async def on_message(message):
 def remove_song():
     file = open('data/song.txt', 'r')
     filename = file.read()
-    file.close
+    file.close()
     if not (filename == ''):
         remove(filename)
         file = open('data/song.txt', 'w')
         file.write('')
-        file.close
+        file.close()
 
 # Dodaje ścieżkę danej piosenki do pliko data/song.txt
 def write_song_filename(filename):
     file = open('data/song.txt', 'w')
     file.write(filename)
-    file.close
+    file.close()
 
 # Dodaje 1 do pliku data/reactions.txt
 def reaction():
