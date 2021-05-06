@@ -48,7 +48,7 @@ async def on_message(message):
             try:
                 await channel.connect()
             except AttributeError:
-                pass
+                await message.channel.send("Musisz być połączony do kanału!")
             filename = 'src/' + music_library[element]
             server = message.guild
             voice_client = server.voice_client
@@ -85,8 +85,10 @@ async def on_message(message):
         filename = await yt_download(url, 'songs/')
         try:
             voice_client.stop()
-        except:
-            pass
+        except AttributeError:
+            channel = message.author.voice.channel
+            await channel.connect()
+            voice_client.stop()
         voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
         await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
         
@@ -105,9 +107,10 @@ async def on_message(message):
     if message.content.startswith("trójkąt "):
         string = word_triangle(message.content.removeprefix("trójkąt "))
         try:
-            await message.channel.send(string)
+            for element in string:
+                await message.channel.send(element)
         except discord.errors.HTTPException:
-            await message.channel.send("Ta wiadomość byłaby za długa")
+            await message.channel.send("Ta wiadomość byłaby za długa :(")
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:

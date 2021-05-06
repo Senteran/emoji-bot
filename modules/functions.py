@@ -96,4 +96,26 @@ def word_triangle(message):
         prev = prev.removesuffix(char)
         if not char == ' ':
             string = string + "\n" + prev
-    return string
+    return seperate_into_2000_words(string)
+
+def seperate_into_2000_words(message):
+    count = 0
+    ret = []
+    last_enter = 0
+    last_append = 0
+    string = ""
+    for i in range(0, len(message)):
+        if count == 1999:
+            string = string.removesuffix(message[i:last_enter-2:-1])
+            ret.append(string)
+            string = ""
+            last_append = i
+            i = last_enter
+            count = 0
+        else:
+            if message[i] == '\n':
+                last_enter = i+1
+            string += message[i]
+            count += 1
+    ret.append(message[last_append:len(message)])
+    return ret
