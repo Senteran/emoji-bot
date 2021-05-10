@@ -125,3 +125,16 @@ music_library = {
     'dajesz powrot': 'powrót_krupiera.mp3',
     'dajesz special': 'senteran_special_20k_subów.mp4'
 }
+
+deletion_responses = [
+    'It was a mistake to cum here',
+    'Your cum sucks dick',
+    'A splash of cum to seal the deal',
+    'Counsel of cum',
+    'All-consuming Lord of Cum',
+    'Dick. Heir of the Cum Throne',
+    'Swallow your rod',
+    'Cum-suck God',
+    'Cum-Messiah',
+    'Give me the Cum Scar'
+]

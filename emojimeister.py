@@ -3,6 +3,7 @@ import sys
 sys.dont_write_bytecode = True
 
 import discord
+import random
 from discord.utils import get
 from os import remove
 from modules.dictionaries import *
@@ -13,6 +14,9 @@ client = discord.Client()
 file = open('data/prefix.txt', 'r')
 prefix = file.read()
 file.close()
+file = open('data/banned_ids.txt', 'r')
+with open('data/banned_ids.txt') as f:
+    banned_ids = [line.rstrip() for line in f]
 
 @client.event
 async def on_ready():
@@ -22,6 +26,11 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author == client.user:
+        return
+    
+    if (str(message.author.id) in banned_ids) and (random.randint(1, 100) == 10):
+        await message.delete()
+        await message.channel.send(random.choice(deletion_responses))
         return
 
     # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
