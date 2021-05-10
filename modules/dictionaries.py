@@ -114,7 +114,7 @@ send_library = {
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe także +6, + 7), hasło: senteran12',
     'ile masz lat': 'urodziłęm się 15 kwietnia 2021, możesz chyba samodzielnie obliczyć!',
     'co potrafisz?': 'reagować na wiadomości!',
-    'kiedy się spotykamy': 'Ja mogę z wami zawsze być ♥',
+    'kiedy sie spotykamy': 'Ja mogę z wami zawsze być ♥',
     'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
     'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing'
