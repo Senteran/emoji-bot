@@ -14,6 +14,9 @@ client = discord.Client()
 file = open('data/prefix.txt', 'r')
 prefix = file.read()
 file.close()
+file = open('data/suffix.txt', 'r')
+suffix = file.read()
+file.close()
 file = open('data/banned_ids.txt', 'r')
 with open('data/banned_ids.txt') as f:
     banned_ids = [line.rstrip() for line in f]
@@ -76,14 +79,38 @@ async def on_message(message):
         file.write(encoded_prefix)
         file.close()
         global prefix
+        file = open('data/suffix.txt', 'r')
+        suf = file.read()
+        file.close()
         prefix = new_prefix
-        if len(prefix) >= 24:
-            await message.guild.me.edit(nick=prefix[0 : 23]+'meitser')
+        if len(prefix + suf) >= 30:
+            await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
         else:
-            await message.guild.me.edit(nick=prefix+'meister')
+            await message.guild.me.edit(nick=prefix+suf)
     # Wyświetlenie prefiksu
     if 'jaki prefix' in content or 'jaki prefiks' in content:
         await message.channel.send('Aktualny prefiks to: ' + prefix)
+    
+    # Zmienienie sufiksu
+    if message.content.startswith('nowy sufiks ') or message.content.startswith('nowy suffix'):
+        if message.content.startswith('nowy sufiks '):
+            new_suffix = message.content.removeprefix('nowy sufiks ')
+        else:
+            new_suffix = message.content.removeprefix('nowy suffix ')
+        encoded_suffix = new_suffix.encode('utf-8')
+        file = open('data/suffix.txt', 'wb')
+        file.write(encoded_suffix)
+        file.close()
+        global suffix
+        suffix = new_suffix
+        if len(prefix + suffix) >= 30:
+            await message.guild.me.edit(nick=prefix + suffix[0 : 29 - len(prefix)])
+        else:
+            await message.guild.me.edit(nick=prefix+suffix)
+    
+    # Wyświetlenie sufiksu
+    if 'jaki sufix' in content or 'jaki suffix' in content:
+        await message.channel.send('Aktualny sufiks to: ' + suffix)
     # Granie muzyki los santos
     if prefix + ' zagraj ' in message.content:
         server = message.guild
