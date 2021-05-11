@@ -144,7 +144,7 @@ async def on_message(message):
         string = word_triangle(message.content.removeprefix("trójkąt "))
         try:
             for element in string:
-                await message.channel.send(element)
+                await message.author.send(element)
         except discord.errors.HTTPException:
             await message.channel.send("Ta wiadomość byłaby za długa :(")
 
@@ -183,6 +183,23 @@ async def on_message(message):
     if 'czesc' in content and ' ' + prefix in message.content and 'meister' in content:
         response = input('Input the response to ' + message.content + ': ')
         await message.reply(response)
+    
+    # I am the cum beast
+    if 'co wy macie z tym kamem?' == content:
+        file = open('data/cum_beast.jpg', 'rb')
+        pfp = file.read()
+        file.close()
+        await client.user.edit(avatar=pfp)
+        await message.guild.me.edit(nick='The cum beast')
+        await message.channel.send('I am the cum beast')
+    
+    # The return of emojimeister
+    if 'emojimeister wroc' == content:
+        file = open('data/emoji_fp.png', 'rb')
+        pfp = file.read()
+        file.close()
+        await client.user.edit(avatar=pfp)
+        await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 29)] + suffix[0 : 29 - len(prefix)])
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
