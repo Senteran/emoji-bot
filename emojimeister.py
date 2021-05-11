@@ -31,7 +31,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    if (str(message.author.id) in banned_ids) and (random.randint(1, 100) > 10):
+    if str(message.author.id) in banned_ids:
         await message.delete()
         await message.channel.send(random.choice(deletion_responses))
         return
