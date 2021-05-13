@@ -188,8 +188,12 @@ async def on_message(message):
                 file = open('pictures/img.png', 'rb')
                 path = 'pictures/img.png'
             except FileNotFoundError:
-                file = open('pictures/img.gif', 'rb')
-                path = 'pictures/img.gif'
+                try:
+                    file = open('pictures/img.gif', 'rb')
+                    path = 'pictures/img.gif'
+                except FileNotFoundError:
+                    await message.channel.send('Image not found')
+                    return
         avatar = file.read()
         file.close()
         await client.user.edit(avatar=avatar)
