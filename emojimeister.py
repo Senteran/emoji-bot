@@ -5,6 +5,7 @@ from discord.activity import Game
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
+import time
 import discord
 import random
 from discord.utils import get
@@ -204,6 +205,7 @@ async def on_message(message):
         avatar = file.read()
         file.close()
         await client.user.edit(avatar=avatar)
+        time.sleep(1)
         remove(path)
 
     # Wyświetlenie liczby reakcji
