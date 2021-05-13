@@ -266,11 +266,11 @@ async def on_message(message):
         await message.add_reaction(emoji)
 
     # Beast mode on
-    if message.content == 'cum_beast_mode on':
+    if message.content == 'cum_beast_mode on' and isinstance(message.channel, discord.channel.DMChannel):
         beast_mode = True
         await client.change_presence(activity=discord.Game('Cum Beast Mode'))
     # Beast mdode off
-    if message.content == 'cum_beast_mode off':
+    if message.content == 'cum_beast_mode off' and isinstance(message.channel, discord.channel.DMChannel):
         beast_mode = False
         await client.change_presence(status=None)
 
