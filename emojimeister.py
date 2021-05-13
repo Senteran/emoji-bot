@@ -69,14 +69,20 @@ async def on_message(message):
     # default emoji
     for element in emoji_library:
         if element in content:
-            await message.add_reaction(emoji_library[element])
-            reaction()
+            try:
+                await message.add_reaction(emoji_library[element])
+                reaction()
+            except discord.errors.Forbidden:
+                pass
     # customowe emoji
     for element in custom_emoji_library:
         if element in content:
-            emoji = get(client.emojis, name=custom_emoji_library[element])
-            await message.add_reaction(emoji)
-            reaction()
+            try:
+                emoji = get(client.emojis, name=custom_emoji_library[element])
+                await message.add_reaction(emoji)
+                reaction()
+            except discord.errors.Forbidden:
+                pass
     # Granie muzyki
     for element in music_library:
         if element in content:
@@ -174,6 +180,7 @@ async def on_message(message):
 
     # Zdjęcie profilowe z Google Image Search
     if message.content.startswith('emoji zdjęcie '):
+        print('zdjęcie...')
         query = message.content.removeprefix('emoji zdjęcie ')
         image_search_params['q'] = query
         gis.search(search_params=image_search_params, custom_image_name='img')
@@ -266,13 +273,17 @@ async def on_message(message):
         await message.add_reaction(emoji)
 
     # Beast mode on
-    if message.content == 'cum_beast_mode on' and isinstance(message.channel, discord.channel.DMChannel):
+    if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:
         beast_mode = True
         await client.change_presence(activity=discord.Game('Cum Beast Mode'))
     # Beast mdode off
-    if message.content == 'cum_beast_mode off' and isinstance(message.channel, discord.channel.DMChannel):
+    if message.content == 'cum_beast_mode off' and message.author.id in admin_ids:
         beast_mode = False
         await client.change_presence(status=None)
+    
+    # Erty jest zajęty
+    if message.content == 'erty?':
+        await message.reply('erty jest zaerty')
 
 # Usuwa piosenke aktualnie zapisaną w pliku data/song.txt
 def remove_song():
