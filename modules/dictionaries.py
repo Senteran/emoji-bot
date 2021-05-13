@@ -138,3 +138,8 @@ deletion_responses = [
     'Cum-Messiah',
     'Give me the Cum Scar'
 ]
+
+image_search_params = {
+    'q': '...',
+    'num': 1,
+}

@@ -1,4 +1,7 @@
 import sys
+
+from discord import channel
+from discord.activity import Game
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
@@ -8,8 +11,14 @@ from discord.utils import get
 from os import remove
 from modules.dictionaries import *
 from modules.functions import *
+from google_images_search import GoogleImagesSearch
+
+#
+# WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
+#
 
 client = discord.Client()
+gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
 
 file = open('data/prefix.txt', 'r')
 prefix = file.read()
@@ -20,6 +29,9 @@ file.close()
 file = open('data/banned_ids.txt', 'r')
 with open('data/banned_ids.txt') as f:
     banned_ids = [line.rstrip() for line in f]
+with open('data/beast_banned_ids.txt') as f:
+    beast_banned_ids = [line.rstrip() for line in f]
+beast_mode = False
 
 @client.event
 async def on_ready():
@@ -28,12 +40,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    global beast_mode
+    global prefix
+    global suffix
+
     if message.author == client.user:
         return
     
-    if str(message.author.id) in banned_ids:
+    # Normal bans
+    if str(message.author.id) in banned_ids and not isinstance(message.channel, discord.channel.DMChannel):
         await message.delete()
         await message.channel.send(random.choice(deletion_responses))
+        return
+    
+    # Beast mode bans
+    if beast_mode == True and str(message.author.id) in beast_banned_ids and not isinstance(message.channel, discord.channel.DMChannel):
+        await message.delete()
+        await message.channel.send(random.choice(deletion_responses))
+        await message.author.send(random.choice(deletion_responses))
         return
 
     # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
@@ -148,6 +172,29 @@ async def on_message(message):
         except discord.errors.HTTPException:
             await message.channel.send("Ta wiadomość byłaby za długa :(")
 
+    # Zdjęcie profilowe z Google Image Search
+    if message.content.startswith('emoji zdjęcie '):
+        query = message.content.removeprefix('emoji zdjęcie ')
+        image_search_params['q'] = query
+        gis.search(search_params=image_search_params, custom_image_name='img')
+        for image in gis.results():
+            image.download('pictures/')
+            
+        try:
+            file = open('pictures/img.jpg', 'rb')
+            path = 'pictures/img.jpg'
+        except FileNotFoundError:
+            try:
+                file = open('pictures/img.png', 'rb')
+                path = 'pictures/img.png'
+            except FileNotFoundError:
+                file = open('pictures/img.gif', 'rb')
+                path = 'pictures/img.gif'
+        avatar = file.read()
+        file.close()
+        await client.user.edit(avatar=avatar)
+        remove(path)
+
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
         file = open('data/reactions.txt', 'r')
@@ -186,7 +233,7 @@ async def on_message(message):
     
     # I am the cum beast
     if 'co wy macie z tym kamem?' == content:
-        file = open('data/cum_beast.jpg', 'rb')
+        file = open('pictures/cum_beast.jpg', 'rb')
         pfp = file.read()
         file.close()
         await client.user.edit(avatar=pfp)
@@ -195,7 +242,7 @@ async def on_message(message):
     
     # The return of emojimeister
     if 'emojimeister wroc' == content:
-        file = open('data/emoji_fp.png', 'rb')
+        file = open('pictures/emoji_fp.png', 'rb')
         pfp = file.read()
         file.close()
         await client.user.edit(avatar=pfp)
@@ -213,6 +260,15 @@ async def on_message(message):
         await message.add_reaction(emoji)
         emoji = get(client.emojis, name='witczak')
         await message.add_reaction(emoji)
+
+    # Beast mode on
+    if message.content == 'cum_beast_mode on':
+        beast_mode = True
+        await client.change_presence(activity=discord.Game('Cum Beast Mode'))
+    # Beast mdode off
+    if message.content == 'cum_beast_mode off':
+        beast_mode = False
+        await client.change_presence(status=None)
 
 # Usuwa piosenke aktualnie zapisaną w pliku data/song.txt
 def remove_song():
