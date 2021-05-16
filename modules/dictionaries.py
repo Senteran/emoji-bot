@@ -165,6 +165,7 @@ deletion_responses = [
 image_search_params = {
     'q': '...',
     'num': 1,
+    'safe': 'medium'
 }
 
 admin_ids = [
