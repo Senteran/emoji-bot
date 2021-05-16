@@ -18,7 +18,6 @@ import youtube_dl
 import shutil
 
 
-
 def to_en_str(pl_str):
     # Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
     polish_symbols = {
@@ -388,3 +387,10 @@ async def beast_mode_off(client):
 
 async def reply_to_message(message, content):
     await message.reply(content)
+                message.channel.send('Image not found')
+                return
+    avatar = file.read()
+    file.close()
+    client.user.edit(avatar=avatar)
+    time.sleep(1)
+    remove(path)
