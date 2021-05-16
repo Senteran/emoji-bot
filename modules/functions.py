@@ -155,10 +155,10 @@ def Initilise_Variables():
         beast_banned_ids = [line.rstrip() for line in f]
 
 async def delete_message(message):
-    message.delete()
+    await message.delete()
 
 async def send_message(message, content):
-    message.channel.send(content)
+    await message.channel.send(content)
 
 def process_content(content):
     string = content.lower()
@@ -168,7 +168,7 @@ async def default_reactions(message, content):
     for element in emoji_library:
         if element in content:
             try:
-                message.add_reaction(emoji_library[element])
+                await message.add_reaction(emoji_library[element])
                 reaction()
             except discord.errors.Forbidden:
                 pass
@@ -178,7 +178,7 @@ async def custom_reactions(message, client, content):
         if element in content:
             try:
                 emoji = get(client.emojis, name=custom_emoji_library[element])
-                message.add_reaction(emoji)
+                await message.add_reaction(emoji)
                 reaction()
             except discord.errors.Forbidden:
                 pass
@@ -205,7 +205,7 @@ async def play_default_music(message, content):
             voice_client = server.voice_client
             voice_client.stop()
             voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
-            message.channel.send('Currently playing: ' + music_library[element])
+            await message.channel.send('Currently playing: ' + music_library[element])
 
 async def change_prefix(message):
     if message.content.startswith('nowy prefix '):
@@ -222,12 +222,12 @@ async def change_prefix(message):
     file.close()
     prefix = new_prefix
     if len(prefix + suf) >= 30:
-        message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
+        await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
     else:
-        message.guild.me.edit(nick=prefix+suf)
+        await message.guild.me.edit(nick=prefix+suf)
     
 async def display_prefix(message):
-    message.channel.send('Aktualny prefiks to: ' + prefix)
+    await message.channel.send('Aktualny prefiks to: ' + prefix)
 
 # Dodaje ścieżkę danej piosenki do pliko data/song.txt
 def write_song_filename(filename):
@@ -236,7 +236,7 @@ def write_song_filename(filename):
     file.close()
 
 # Usuwa piosenke aktualnie zapisaną w pliku data/song.txt
-async def remove_song():
+def remove_song():
     file = open('data/song.txt', 'r')
     filename = file.read()
     file.close()
@@ -258,9 +258,9 @@ async def change_suffix(message):
         global suffix
         suffix = new_suffix
         if len(prefix + suffix) >= 30:
-            message.guild.me.edit(nick=prefix + suffix[0 : 29 - len(prefix)])
+            await message.guild.me.edit(nick=prefix + suffix[0 : 29 - len(prefix)])
         else:
-            message.guild.me.edit(nick=prefix+suffix)
+            await message.guild.me.edit(nick=prefix+suffix)
 
 async def display_suffix(message):
     message.channel.send('Aktualny sufiks to: ' + suffix)
@@ -276,10 +276,10 @@ async def play_music(message):
         voice_client.stop()
     except AttributeError:
         channel = message.author.voice.channel
-        channel.connect()
+        await channel.connect()
         voice_client.stop()
     voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
-    message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
+    await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
         
     # remove_song jest dopiero tu, ponieważ musi się stać po voice_client.stop() aby nie próbować usunąć pliku w użyciu oraz ponieważ jak było tuż po nim to czasami nie działało
     # sensowną opcją jest więc danie go tu ponieważ jest po await send czyli minie chwila i plik powinien mieć wystarczająco czasu aby przestać być zablokowanym
@@ -289,15 +289,15 @@ async def play_music(message):
 async def send_messages(content, message):
     for element in send_library:
         if element in content:
-            message.channel.send(send_library[element])
+            await message.channel.send(send_library[element])
 
 async def send_word_triangle(message, content):
     string = word_triangle(message.content.removeprefix("trójkąt "))
     try:
         for element in string:
-            message.author.send(element)
+            await message.author.send(element)
     except discord.errors.HTTPException:
-        message.channel.send("Ta wiadomość byłaby za długa :(")
+        await message.channel.send("Ta wiadomość byłaby za długa :(")
 
 async def search_for_image(message, client, gis):
     print('zdjęcie...')
@@ -319,6 +319,74 @@ async def search_for_image(message, client, gis):
                 file = open('pictures/img.gif', 'rb')
                 path = 'pictures/img.gif'
             except FileNotFoundError:
+                await message.channel.send('Image not found')
+                return
+    avatar = file.read()
+    file.close()
+    await client.user.edit(avatar=avatar)
+    time.sleep(1)
+    remove(path)
+
+async def display_reactions(message):
+    file = open('data/reactions.txt', 'r')
+    reactions = file.read()
+    await message.reply('Już zareagowałem: ' + reactions + ' razy!')
+
+async def join_voice_channel(message):
+    channel = message.author.voice.channel
+    await channel.connect()
+
+async def leave_voice_channel(message):
+    await message.add_reaction('👋')
+    await message.guild.voice_client.disconnect()
+
+async def pause_music(message):
+    await message.add_reaction('⏸')
+    message.guild.voice_client.pause()
+
+async def stop_music(message):
+    await message.add_reaction('🛑')
+    message.guild.voice_client.stop()
+
+async def resume_music(message):
+    await message.add_reaction('⏯')
+    message.guild.voice_client.resume()
+
+async def manual_response(message):
+    response = input('Input the response to ' + message.content + ': ')
+    await message.reply(response)
+
+async def i_am_the_cum_beast(message, client):
+    file = open('pictures/cum_beast.jpg', 'rb')
+    pfp = file.read()
+    file.close()
+    await client.user.edit(avatar=pfp)
+    await message.guild.me.edit(nick='The cum beast')
+    await message.channel.send('I am the cum beast')
+
+async def emojimeister_return(message, client):
+    file = open('pictures/emoji_fp.png', 'rb')
+    pfp = file.read()
+    file.close()
+    await client.user.edit(avatar=pfp)
+    await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 29)] + suffix[0 : 29 - len(prefix)])
+
+async def custom_reaction(message, client, emoji_name):
+    emoji = get(client.emojis, name=emoji_name)
+    await message.add_reaction(emoji)
+
+async def beast_mode_on(client):
+    global beast_mode
+    beast_mode = True
+    await client.change_presence(activity=discord.Game('Cum Beast Mode'))
+
+async def beast_mode_off(client):
+    global beast_mode
+    beast_mode = False
+    client.change_presence(status=None)
+
+async def reply_to_message(message, content):
+    await message.reply(content)
                 message.channel.send('Image not found')
                 return
     avatar = file.read()

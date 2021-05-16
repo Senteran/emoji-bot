@@ -71,15 +71,15 @@ async def on_message(message):
 
     # Zmienienie prefiksu
     if message.content.startswith('nowy prefix ') or message.content.startswith('nowy prefiks '):
-        change_prefix(message)
+        await change_prefix(message)
 
     # Wyświetlenie prefiksu
     if 'jaki prefix' in content or 'jaki prefiks' in content:
-        display_prefix(message)
+        await display_prefix(message)
     
     # Zmienienie sufiksu
     if message.content.startswith('nowy sufiks ') or message.content.startswith('nowy suffix'):
-        change_suffix(message)
+        await change_suffix(message)
 
     # Wyświetlenie sufiksu
     if 'jaki sufix' in content or 'jaki suffix' in content:
@@ -102,109 +102,60 @@ async def on_message(message):
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
-        """ function
-        file = open('data/reactions.txt', 'r')
-        reactions = file.read()
-        await message.reply('Już zareagowałem: ' + reactions + ' razy!')
-        """
+        await display_reactions(message)
     
     # Wchodzenie na kanał
     if message.content.startswith(prefix) and ' wejdz' in content:
-        """ function
-        channel = message.author.voice.channel
-        await channel.connect()
-        """
+        await join_voice_channel(message)
 
     # Wychodzenie z kanału
     if (message.content.startswith(prefix) and ' wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
-        """ function
-        await message.add_reaction('👋')
-        await message.guild.voice_client.disconnect()
-        """
+        await leave_voice_channel(message)
     
     # Stop muzyki
     if message.content.startswith(prefix) and ' stop' in content:
-        """ function
-        await message.add_reaction('🛑')
-        message.guild.voice_client.stop()
-        """
+        await pause_music(message)
     
     # Pauza muzyki
     if message.content.startswith(prefix) and ' pauza' in content:
-        """ function
-        await message.add_reaction('⏸')
-        message.guild.voice_client.pause()
-        """
+        await pause_music(message)
     
     # Wstrzymanie muzyki
     if message.content.startswith(prefix) and ' wznow' in content:
-        """ function
-        await message.add_reaction('⏯')
-        message.guild.voice_client.resume()
-        """
+        await resume_music(message)
     
     # Ręczna odpowiedź
     if 'czesc' in content and ' ' + prefix in message.content and 'meister' in content:
-        """ function
-        response = input('Input the response to ' + message.content + ': ')
-        await message.reply(response)
-        """
+        await manual_response(message)
     
     # I am the cum beast
     if 'co wy macie z tym kamem?' == content:
-        """ function
-        file = open('pictures/cum_beast.jpg', 'rb')
-        pfp = file.read()
-        file.close()
-        await client.user.edit(avatar=pfp)
-        await message.guild.me.edit(nick='The cum beast')
-        await message.channel.send('I am the cum beast')
-        """
+        await i_am_the_cum_beast(message, client)
     
     # The return of emojimeister
     if 'emojimeister wroc' == content:
-        """ function
-        file = open('pictures/emoji_fp.png', 'rb')
-        pfp = file.read()
-        file.close()
-        await client.user.edit(avatar=pfp)
-        await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 29)] + suffix[0 : 29 - len(prefix)])
-        """
+        await emojimeister_return(message, client)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
     if 'witczak' in content or ('spotkanie' in content and ('zakonczyl' in content or 'zamknal' in content)):
-        """ function
-        emoji = get(client.emojis, name='witczak')
-        await message.add_reaction(emoji)
-        """
+        await custom_reaction(message, client, 'witczak')
 
     # Two reactions for 'tomek'
     if 'tomek' in content:
-        """ function
-        emoji = get(client.emojis, name='tomek')
-        await message.add_reaction(emoji)
-        emoji = get(client.emojis, name='witczak')
-        await message.add_reaction(emoji)
-        """
+        await custom_reaction(message, client, 'witczak')
+        await custom_reaction(message, client, 'tomek')
 
     # Beast mode on
     if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:
-        """ function
-        beast_mode = True
-        await client.change_presence(activity=discord.Game('Cum Beast Mode'))
-        """
+        await beast_mode_on(client)
+
     # Beast mode off
     if message.content == 'cum_beast_mode off' and message.author.id in admin_ids:
-        """ function
-        beast_mode = False
-        await client.change_presence(status=None)
-        """
+        await beast_mode_off(client)
     
     # Erty jest zajęty
     if message.content == 'erty?':
-        """ function
-        await message.reply('erty jest zaerty')
-        """
+        await reply_to_message(message, 'erty jest zajety')
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')
