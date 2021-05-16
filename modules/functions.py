@@ -306,7 +306,6 @@ async def search_for_image(message, client, gis):
     gis.search(search_params=image_search_params, custom_image_name='img')
     for image in gis.results():
         image.download('pictures/')
-
     try:
         file = open('pictures/img.jpg', 'rb')
         path = 'pictures/img.jpg'
@@ -387,10 +386,5 @@ async def beast_mode_off(client):
 
 async def reply_to_message(message, content):
     await message.reply(content)
-                message.channel.send('Image not found')
-                return
-    avatar = file.read()
-    file.close()
-    client.user.edit(avatar=avatar)
-    time.sleep(1)
-    remove(path)
+    message.channel.send('Image not found')
+    return
