@@ -386,5 +386,5 @@ async def beast_mode_off(client):
 
 async def reply_to_message(message, content):
     await message.reply(content)
-    message.channel.send('Image not found')
+    await message.channel.send('Image not found')
     return
