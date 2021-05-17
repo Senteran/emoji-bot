@@ -271,7 +271,7 @@ async def play_music(message):
 
     text = message.content
     url = text.removeprefix('emoji zagraj')
-    filename = yt_download(url, 'songs/')
+    filename = await yt_download(url, 'songs/')
     try:
         voice_client.stop()
     except AttributeError:
