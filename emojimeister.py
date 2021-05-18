@@ -16,7 +16,7 @@ from google_images_search import GoogleImagesSearch
 
 #
 # WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
-#
+# dzięki, pomocny komentarz!
 
 client = discord.Client()
 gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
