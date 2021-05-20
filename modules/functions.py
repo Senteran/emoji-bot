@@ -203,12 +203,6 @@ async def play_default_music(message, content):
             filename = 'src/' + music_library[element]
             server = message.guild
             voice_client = server.voice_client
-            try:
-                voice_client.stop()
-            except AttributeError:
-                channel = message.author.voice.channel
-                await channel.connect()
-                voice_client.stop()
             voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
 
