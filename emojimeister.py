@@ -100,6 +100,9 @@ async def on_message(message):
     if message.content.startswith('emoji zdjęcie '):
         await search_for_image(message, client, gis)
 
+    if message.content == 'emoji zdjęcie':
+        await change_to_attached_image(message, client)
+
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
         await display_reactions(message)

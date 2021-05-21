@@ -16,6 +16,7 @@ from google_images_search import GoogleImagesSearch
 import asyncio
 import youtube_dl
 import shutil
+import io
 
 
 def to_en_str(pl_str):
@@ -324,6 +325,18 @@ async def search_for_image(message, client, gis):
     await client.user.edit(avatar=avatar)
     time.sleep(1)
     remove(path)
+
+async def change_to_attached_image(message, client):
+    return
+    for file in message.attachments:
+        fp = io.BytesIO()
+        await file.save(fp)
+        pfp = discord.File(fp, filename=file.filename)
+        # f = open('/pictures/' + file.filename, 'w+')
+        # f.write(pfp)
+        # f.close()
+        await client.user.edit(avatar=pfp)
+
 
 async def display_reactions(message):
     file = open('data/reactions.txt', 'r')
