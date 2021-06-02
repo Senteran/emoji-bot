@@ -160,5 +160,7 @@ async def on_message(message):
     # Erty jest zajęty
     if message.content == 'erty?':
         await reply_to_message(message, 'erty jest zajety')
-
+    # Erty jest zajęty
+    if message.content == 'jak wielki jest penis seby?':
+        await reply_to_message(message, '40 centymetrów flacid')
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')

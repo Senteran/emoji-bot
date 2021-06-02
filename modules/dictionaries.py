@@ -36,6 +36,7 @@ emoji_library = {
     'hello': '👋',
     'halo': '👋',
     '?': '🧐',
+    'penis':'🍆',
     'rage': '👺',
     'wsciekly': '👺',
     'wkurwi': '👺',
