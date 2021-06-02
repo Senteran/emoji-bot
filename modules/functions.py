@@ -94,7 +94,11 @@ async def yt_download(url, destination):
             if 'entries' in data:
                 data = data['entries'][0]
             filename = data['title'] if stream else ytdl.prepare_filename(data)
-            shutil.move(filename, 'songs')
+            try:
+                shutil.move(filename, 'songs')
+            except shutil.Error:
+                remove_song()
+                shutil.move(filename, 'songs')
             filename = destination + filename
             return filename
     
