@@ -119,7 +119,8 @@ send_library = {
     'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
     'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing',
-    'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne'
+    'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
+    'jak wielki jest penis seby?': '40 centymetrów flacid'
 }
 
 music_library = {

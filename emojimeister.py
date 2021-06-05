@@ -70,7 +70,7 @@ async def on_message(message):
     await play_default_music(message, content)
 
     # Zmienienie prefiksu
-    if message.content.startswith('nowy prefix ') or message.content.startswith('nowy prefiks '):
+    if message.content.startswith('emoji prefix ') or message.content.startswith('emoji prefiks '):
         await change_prefix(message)
 
     # Wyświetlenie prefiksu
@@ -78,7 +78,7 @@ async def on_message(message):
         await display_prefix(message)
     
     # Zmienienie sufiksu
-    if message.content.startswith('nowy sufiks ') or message.content.startswith('nowy suffix'):
+    if message.content.startswith('emoji sufiks ') or message.content.startswith('emoji suffix'):
         await change_suffix(message)
 
     # Wyświetlenie sufiksu
@@ -160,7 +160,26 @@ async def on_message(message):
     # Erty jest zajęty
     if message.content == 'erty?':
         await reply_to_message(message, 'erty jest zajety')
-    # Erty jest zajęty
-    if message.content == 'jak wielki jest penis seby?':
-        await reply_to_message(message, '40 centymetrów flacid')
+
+    if content == 'emoji help':
+        await help(message)
+
+    if content == 'emoji commands':
+        await help_commands(message)
+
+    if content == 'emoji replies':
+        await help_replies(message)
+
+    if content == 'emoji songs':
+        await help_songs(message)
+
+    if content == 'emoji deletion':
+        await help_deletion(message)
+
+    if content == 'emoji emoji':
+        await help_emoji(message)
+
+    if content == 'emoji emoji_krupier':
+        await help_custom_emoji(message, client)
+
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')

@@ -1,3 +1,4 @@
+from gc import set_debug
 import sys
 
 from discord import channel
@@ -212,10 +213,10 @@ async def play_default_music(message, content):
             await message.channel.send('Currently playing: ' + music_library[element])
 
 async def change_prefix(message):
-    if message.content.startswith('nowy prefix '):
-            new_prefix = message.content.removeprefix('nowy prefix')
+    if message.content.startswith('emoji prefix '):
+            new_prefix = message.content.removeprefix('emoji prefix')
     else:
-        new_prefix = message.content.removeprefix('nowy prefiks ')
+        new_prefix = message.content.removeprefix('emoji prefiks ')
     encoded_prefix = new_prefix.encode('utf-8')
     file = open('data/prefix.txt', 'wb')
     file.write(encoded_prefix)
@@ -251,10 +252,10 @@ def remove_song():
         file.close()
 
 async def change_suffix(message):
-        if message.content.startswith('nowy sufiks '):
-            new_suffix = message.content.removeprefix('nowy sufiks ')
+        if message.content.startswith('emoji sufiks '):
+            new_suffix = message.content.removeprefix('emoji sufiks ')
         else:
-            new_suffix = message.content.removeprefix('nowy suffix ')
+            new_suffix = message.content.removeprefix('emoji suffix ')
         encoded_suffix = new_suffix.encode('utf-8')
         file = open('data/suffix.txt', 'wb')
         file.write(encoded_suffix)
@@ -403,3 +404,40 @@ async def beast_mode_off(client):
 async def reply_to_message(message, content):
     await message.reply(content)
     return
+
+async def help(message):
+    await send_message(message, '- emoji commands - wyświetla komendy\n- emoji replies - wyświetla zapytania i odpowiedzi\n- emoji songs - wyświetle wbudowane piosenki do zagrania\n- emoji deletion - wyświetla wiadomości wysyłane po usunięciu\n- emoji emoji - wyświetla zestaw domyślnych emoji\n- emoji emoji_krupier - wyświetla customowe reakcje emoji')
+
+async def help_commands(message):
+    await send_message(message, 'prefix wejdz - wchodzi do kanału\nprefix wyjdz - wychodzi z kanału\nprefix zagraj {nazwa piosenki} - gra piosenkę z YouTube\nemoji zdjęcie {nazwa zdjęcia} - szuka zdjęcia na Google Image i ustawia je jako profilowe\nemoji prefix {prefix} - zmienia prefix bota\nemoji suffix {suffix} - zmienia suffix bota\nile reakcji? - wyświetla ilość reakcji wykonanych')
+
+async def help_replies(message):
+    cont = ""
+    for element in send_library:
+        cont = cont + element + ' - ' + send_library[element] + '\n'
+    await send_message(message, cont)
+
+async def help_songs(message):
+    cont = ""
+    for element in music_library:
+        cont = cont + element + ' - ' + music_library[element] + '\n'
+    await send_message(message, cont)
+
+async def help_deletion(message):
+    cont = ""
+    for i in range(len(deletion_responses)):
+        cont = cont + deletion_responses[i] + '\n'
+    await send_message(message, cont)    
+
+async def help_emoji(message):
+    cont = ""
+    for element in emoji_library:
+        cont = cont + element + ' - ' + emoji_library[element] + '\n'
+    await send_message(message, cont)
+
+async def help_custom_emoji(message, client):
+    cont = ""
+    for element in custom_emoji_library:
+        emoji = get(client.emojis, name=custom_emoji_library[element])
+        await send_message(message, element)
+        await send_message(message, emoji)
