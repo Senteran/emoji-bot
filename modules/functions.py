@@ -3,6 +3,7 @@ import sys
 
 from discord import channel
 from discord.activity import Game
+from discord.errors import HTTPException
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
@@ -106,7 +107,7 @@ async def yt_download(url, destination):
     ret = await YTDLSource.from_url(url, loop=True)
     return ret
 
-async def word_triangle(message):
+def word_triangle(message):
     string = ""
     prev = ""
 
@@ -120,7 +121,7 @@ async def word_triangle(message):
             string = string + "\n" + prev
     return seperate_into_2000_words(string)
 
-async def seperate_into_2000_words(message):
+def seperate_into_2000_words(message):
     count = 0
     ret = []
     last_enter = 0
@@ -439,5 +440,11 @@ async def help_custom_emoji(message, client):
     cont = ""
     for element in custom_emoji_library:
         emoji = get(client.emojis, name=custom_emoji_library[element])
-        await send_message(message, element)
-        await send_message(message, emoji)
+        try:
+            await send_message(message, element)
+            await send_message(message, emoji)
+        except discord.errors.HTTPException:
+            try:
+                print('Empty message caught in help_custom_emoji. Element: ' + element + ' . Emoji: ' + emoji)
+            except:
+                pass

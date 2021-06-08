@@ -130,6 +130,49 @@ music_library = {
     'dajesz powrot 2': 'powrot_krupiera2.mp3'
 }
 
+krupier_users = {
+    'Senteran' : 351780319306973194,
+    'Krupier' : 443836613609390080
+}
+
+names_j = [
+    'janek',
+    'jacek'
+]
+names_m = [
+    'mariusz'
+]
+names_p = [
+    'piotr',
+    'pawel'
+]
+names_s = [
+    'sebastian'
+]
+names_k = [
+    'kamil'
+]
+names_a = [
+    'adam'
+]
+names_kz = [
+    'karolina'
+]
+
+nick_to_name_beginning_dictionary = {
+    'Senteran': names_j,
+    'Krupier' : names_j,
+    'Kuchta' : names_m,
+    'Lakey' : names_p,
+    'Sebek' : names_s,
+    'Kato' : names_k,
+    'ertymaster' : names_a,
+    'Exeos' : names_p,
+    'KFrankVegeta' : names_kz
+}
+
+
+
 deletion_responses = [
     'It was a mistake to cum here',
     'Your cum sucks dick',
