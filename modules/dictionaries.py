@@ -132,32 +132,69 @@ music_library = {
 
 krupier_users = {
     'Senteran' : 351780319306973194,
-    'Krupier' : 443836613609390080
+    'Krupier' : 443836613609390080,
+    'Kato' : 181373861575524352,
+    'ertymaster' : 521779771600797716,
+    'exeos' : 329675010291662848,
+    'KFrankVegeta' : 692034532966137886,
+    'Lakey' : 249196779965251584,
+    'Sebek' : 479613178272153600,
+    'Kuchta' : 255768379200241665
 }
+
+krupier_users_list = [
+    'Senteran',
+    'Krupier',
+    'Kato',
+    'ertymaster',
+    'exeos',
+    'KFrankVegeta',
+    'Lakey',
+    'Sebek',
+    'Kuchta'
+]
 
 names_j = [
     'janek',
-    'jacek'
+    'jacek',
+    'jakub',
+    'jaroslaw',
+    'jakub',
+    'jakub',
+    'jakub',
+    'jakub'
 ]
 names_m = [
-    'mariusz'
+    'mariusz',
+    'mikolaj'
 ]
 names_p = [
     'piotr',
-    'pawel'
+    'pawel',
+    'polak'
 ]
 names_s = [
-    'sebastian'
+    'sebastian',
+    'sam'
 ]
 names_k = [
-    'kamil'
+    'kamil',
+    'krzysztof'
 ]
 names_a = [
-    'adam'
+    'adam',
+    'alfons'
 ]
 names_kz = [
-    'karolina'
+    'karolina',
+    'kaja'
 ]
+nazwiska_k = []
+nazwiska_p = []
+nazwiska_t = []
+nazwiska_b = []
+nazwiska_z = []
+nazwiska_r = []
 
 nick_to_name_beginning_dictionary = {
     'Senteran': names_j,
@@ -167,11 +204,25 @@ nick_to_name_beginning_dictionary = {
     'Sebek' : names_s,
     'Kato' : names_k,
     'ertymaster' : names_a,
-    'Exeos' : names_p,
+    'exeos' : names_p,
     'KFrankVegeta' : names_kz
 }
 
+nick_to_surname_dictionary = {
+    'Senteran': names_k,
+    'Krupier' : nazwiska_p,
+    'Kuchta' : nazwiska_k,
+    'Lakey' : nazwiska_p,
+    'Sebek' : nazwiska_t,
+    'Kato' : nazwiska_k,
+    'ertymaster' : nazwiska_b,
+    'exeos' : nazwiska_z,
+    'KFrankVegeta' : nazwiska_r
+}
 
+nazwiska = [
+    'Bigas'
+]
 
 deletion_responses = [
     'It was a mistake to cum here',
