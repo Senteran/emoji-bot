@@ -28,6 +28,7 @@ beast_banned_ids = []
 prefix = ''
 suffix = ''
 Initilise_Variables()
+create_lists()
 
 
 @client.event
@@ -181,5 +182,11 @@ async def on_message(message):
 
     if content == 'emoji emoji_krupier':
         await help_custom_emoji(message, client)
+
+    if message.content == 'fgjaurihg78y3w4ouireldnsfv':
+        await new_day(client)
+    
+    if message.content == 'hguwrsvlghiosulnfdjku5489r':
+        create_lists()
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')

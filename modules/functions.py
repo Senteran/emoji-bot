@@ -3,6 +3,7 @@ import sys
 
 from discord import channel
 from discord.activity import Game
+from discord.enums import UserFlags
 from discord.errors import HTTPException
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -19,6 +20,7 @@ import asyncio
 import youtube_dl
 import shutil
 import io
+import csv
 
 
 def to_en_str(pl_str):
@@ -63,7 +65,7 @@ def to_en_str(pl_str):
 async def yt_download(url, destination):
     global youtube_dl
     youtube_dl.utils.bug_reports_message = lambda: ''
-
+    
     ytdl_format_options = {
         'format': 'bestaudio/best',
         'restrictfilenames': True,
@@ -448,3 +450,77 @@ async def help_custom_emoji(message, client):
                 print('Empty message caught in help_custom_emoji. Element: ' + element + ' . Emoji: ' + emoji)
             except:
                 pass
+
+async def new_day(client):
+    i = 0
+    names = []
+    surnames = []
+    for element in krupier_users:
+        names.append(random.choice(nick_to_name_beginning_dictionary[element]))
+        surnames.append(random.choice(nick_to_surname_dictionary[element]))
+        user = client.get_user(krupier_users[element])
+        message = "Cześć " + element + "! Twoje dzisiejsze imię to: " + names[i]
+        try:
+            pass
+            # await user.send(message)
+        except discord.errors.HTTPException:
+            print("User " + element + " failed to receive message")
+        i = i + 1
+    message = "Dziejsza lista imion:"
+    for j in range(len(krupier_users)):        
+        message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
+    channel = client.get_channel(768865472552108115)
+    await channel.send(message)
+
+def create_lists():
+    with open('csv/male_names.txt', 'r', encoding='utf-8') as file:
+        global names_j
+        global names_a
+        global names_s
+        global names_m
+        global names_p
+        global names_k
+        content = file.read()
+        content_list = content.split('\n')
+        for row in content_list:
+            if '-' in row:
+                pass
+            elif row.startswith('J'):
+                names_j.append(row)
+            elif row.startswith('M'):
+                names_m.append(row)
+            elif row.startswith('P'):
+                names_p.append(row)
+            elif row.startswith('K'):
+                names_k.append(row)
+            elif row.startswith('S'):
+                names_s.append(row)
+            elif row.startswith('A'):
+                names_a.append(row)
+    with open('csv/female_names.txt', 'r', encoding='utf-8') as file:
+        global names_kz
+        for row in file.read().split('\n'):
+            if '-' in row:
+                pass
+            elif row.startswith('K'):
+                names_kz.append(row)
+    with open('csv/surnames.txt', 'r', encoding='utf-8') as file:
+        global nazwiska_k
+        global nazwiska_p
+        global nazwiska_z
+        global nazwiska_t
+        global nazwiska_r
+        global nazwiska_b
+        for row in file.read().split('\n'):
+            if row.startswith('K'):
+                nazwiska_k.append(row)
+            if row.startswith('P'):
+                nazwiska_p.append(row)
+            if row.startswith('Z'):
+                nazwiska_z.append(row)
+            if row.startswith('T'):
+                nazwiska_t.append(row)
+            if row.startswith('R'):
+                nazwiska_r.append(row)
+            if row.startswith('B'):
+                nazwiska_b.append(row)
