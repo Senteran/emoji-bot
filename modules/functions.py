@@ -470,7 +470,7 @@ async def new_day(client):
     for j in range(len(krupier_users)):        
         message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
     channel = client.get_channel(768865472552108115)
-    # await channel.send(message)
+    await channel.send(message)
 
 def create_lists():
     with open('csv/male_names.txt', 'r', encoding='utf-8') as file:
