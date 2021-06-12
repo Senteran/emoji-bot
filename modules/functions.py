@@ -514,16 +514,19 @@ def create_lists():
         global nazwiska_t
         global nazwiska_r
         global nazwiska_b
+        global nazwiska_w
         for row in file.read().split('\n'):
             if row.startswith('K'):
                 nazwiska_k.append(row)
-            if row.startswith('P'):
+            elif row.startswith('P'):
                 nazwiska_p.append(row)
-            if row.startswith('Z'):
+            elif row.startswith('Z'):
                 nazwiska_z.append(row)
-            if row.startswith('T'):
+            elif row.startswith('T'):
                 nazwiska_t.append(row)
-            if row.startswith('R'):
+            elif row.startswith('R'):
                 nazwiska_r.append(row)
-            if row.startswith('B'):
+            elif row.startswith('B'):
                 nazwiska_b.append(row)
+            elif row.startswith('W'):
+                nazwiska_w.append(row)

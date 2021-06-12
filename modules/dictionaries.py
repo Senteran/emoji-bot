@@ -204,6 +204,7 @@ nazwiska_t = []
 nazwiska_b = []
 nazwiska_z = []
 nazwiska_r = []
+nazwiska_w = []
 
 nick_to_name_beginning_dictionary = {
     'Senteran': names_j,
@@ -229,7 +230,10 @@ nick_to_surname_dictionary = {
     'Kato' : nazwiska_k,
     'ertymaster' : nazwiska_b,
     'exeos' : nazwiska_z,
-    'KFrankVegeta' : nazwiska_r
+    'KFrankVegeta' : nazwiska_r,
+    'Hot Dog Nibba' : nazwiska_w,
+    'Aleksandra Pawlik' : nazwiska_p,
+    'Frido' : nazwiska_k
 }
 
 nazwiska = [
