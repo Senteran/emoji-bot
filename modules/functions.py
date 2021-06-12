@@ -470,7 +470,7 @@ async def new_day(client):
     for j in range(len(krupier_users)):        
         message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
     channel = client.get_channel(768865472552108115)
-    await channel.send(message)
+    # await channel.send(message)
 
 def create_lists():
     with open('csv/male_names.txt', 'r', encoding='utf-8') as file:
@@ -499,11 +499,14 @@ def create_lists():
                 names_a.append(row)
     with open('csv/female_names.txt', 'r', encoding='utf-8') as file:
         global names_kz
+        global names_az
         for row in file.read().split('\n'):
             if '-' in row:
                 pass
             elif row.startswith('K'):
                 names_kz.append(row)
+            elif row.startswith('A'):
+                names_az.append(row)
     with open('csv/surnames.txt', 'r', encoding='utf-8') as file:
         global nazwiska_k
         global nazwiska_p

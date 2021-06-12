@@ -139,7 +139,10 @@ krupier_users = {
     'KFrankVegeta' : 692034532966137886,
     'Lakey' : 249196779965251584,
     'Sebek' : 479613178272153600,
-    'Kuchta' : 255768379200241665
+    'Kuchta' : 255768379200241665,
+    'Hot Dog Nibba' : 511480754958630913,
+    'Aleksandra Pawlik' : 692014502073466900,
+    'Frido' : 253985014557966338
 }
 
 krupier_users_list = [
@@ -151,7 +154,10 @@ krupier_users_list = [
     'KFrankVegeta',
     'Lakey',
     'Sebek',
-    'Kuchta'
+    'Kuchta',
+    'Hot Dog Nibba',
+    'Aleksandra Pawlik',
+    'Frido'
 ]
 
 names_j = [
@@ -189,6 +195,9 @@ names_kz = [
     'karolina',
     'kaja'
 ]
+names_az = [
+    'aleksandra'
+]
 nazwiska_k = []
 nazwiska_p = []
 nazwiska_t = []
@@ -205,7 +214,10 @@ nick_to_name_beginning_dictionary = {
     'Kato' : names_k,
     'ertymaster' : names_a,
     'exeos' : names_p,
-    'KFrankVegeta' : names_kz
+    'KFrankVegeta' : names_kz,
+    'Hot Dog Nibba' : names_a,
+    'Aleksandra Pawlik' : names_az,
+    'Frido' : names_p
 }
 
 nick_to_surname_dictionary = {
