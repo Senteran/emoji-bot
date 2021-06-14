@@ -20,7 +20,7 @@ import asyncio
 import youtube_dl
 import shutil
 import io
-import csv
+from datetime import datetime
 
 
 def to_en_str(pl_str):
@@ -530,3 +530,12 @@ def create_lists():
                 nazwiska_b.append(row)
             elif row.startswith('W'):
                 nazwiska_w.append(row)
+
+async def check_for_new_day(client):
+    file = open('data/date.txt', 'w+')
+    date = file.read()
+    cur_date = datetime.today().strftime('%Y-%m-%d')
+    if not date == cur_date:
+        await new_day(client)
+        file.write(cur_date)
+    file.close()

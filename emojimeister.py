@@ -34,6 +34,7 @@ create_lists()
 @client.event
 async def on_ready():
     print("Logged in as {0.user}".format(client))
+    await check_for_new_day(client)
 
 
 @client.event
