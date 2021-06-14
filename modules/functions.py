@@ -532,10 +532,13 @@ def create_lists():
                 nazwiska_w.append(row)
 
 async def check_for_new_day(client):
-    file = open('data/date.txt', 'w+')
+    file = open('data/date.txt', 'r')
     date = file.read()
     cur_date = datetime.today().strftime('%Y-%m-%d')
+    file.close()
+    
     if not date == cur_date:
         await new_day(client)
+        file = open('data/date.txt', 'w')
         file.write(cur_date)
-    file.close()
+        file.close()
