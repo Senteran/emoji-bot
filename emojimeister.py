@@ -2,6 +2,7 @@ import sys
 
 from discord import channel
 from discord.activity import Game
+from discord.flags import Intents
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
@@ -18,17 +19,18 @@ from google_images_search import GoogleImagesSearch
 # WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
 # dzięki, pomocny komentarz!
 
-client = discord.Client()
+intnets = discord.Intents.all()
+client = discord.Client(intents = intnets)
 gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
 
 
 beast_mode = False
+change_nicks = True
 banned_ids = []
 beast_banned_ids = []
 prefix = ''
 suffix = ''
 Initilise_Variables()
-create_lists()
 
 
 @client.event

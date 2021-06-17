@@ -145,6 +145,36 @@ krupier_users = {
     'Frido' : 253985014557966338
 }
 
+inverse_krupier_users = {
+    351780319306973194 : 'Senteran',
+    443836613609390080 : 'Krupier',
+    181373861575524352 : 'Kato',
+    521779771600797716 : 'ertymaster',
+    329675010291662848 : 'exeos',
+    692034532966137886 : 'KFrankVegeta',
+    249196779965251584 : 'Lakey',
+    479613178272153600 : 'Sebek',
+    255768379200241665 : 'Kuchta',
+    511480754958630913 : 'Hot Dog Nibba',
+    692014502073466900 : 'Aleksandra Pawlik',
+    253985014557966338 : 'Frido'
+}
+
+krupier_ids = [ 
+    351780319306973194,
+    443836613609390080,
+    181373861575524352,
+    521779771600797716,
+    329675010291662848,
+    692034532966137886,
+    249196779965251584,
+    479613178272153600,
+    255768379200241665,
+    511480754958630913,
+    692014502073466900,
+    253985014557966338
+]
+
 krupier_users_list = [
     'Senteran',
     'Krupier',
@@ -234,6 +264,20 @@ nick_to_surname_dictionary = {
     'Hot Dog Nibba' : nazwiska_w,
     'Aleksandra Pawlik' : nazwiska_p,
     'Frido' : nazwiska_k
+}
+names_today = {
+    'Senteran': '',
+    'Krupier' : '',
+    'Kuchta' : '',
+    'Lakey' : '',
+    'Sebek' : '',
+    'Kato' : '',
+    'ertymaster' : '',
+    'exeos' : '',
+    'KFrankVegeta' : '',
+    'Hot Dog Nibba' : '',
+    'Aleksandra Pawlik' : '',
+    'Frido' : ''
 }
 
 nazwiska = [

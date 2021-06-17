@@ -458,7 +458,9 @@ async def new_day(client):
     for element in krupier_users:
         names.append(random.choice(nick_to_name_beginning_dictionary[element]))
         surnames.append(random.choice(nick_to_surname_dictionary[element]))
-        user = client.get_user(krupier_users[element])
+        names_today[element] = names[i] + ' ' + surnames[i]
+        user = await client.fetch_user(krupier_users[element])
+        # user = client.get_user(krupier_users[element])
         message = "Cześć " + element + "! Twoje dzisiejsze imię to: " + names[i]
         try:
             pass
@@ -470,7 +472,13 @@ async def new_day(client):
     for j in range(len(krupier_users)):        
         message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
     channel = client.get_channel(768865472552108115)
-    await channel.send(message)
+    # await channel.send(message)
+
+    file = open('data/today_names.txt', 'w', encoding='utf-8')
+    for i in range(len(names)):
+        file.write(names[i] + ' ' + surnames[i])
+        if not i == len(names) - 1:
+            file.write('\n')
 
 def create_lists():
     with open('csv/male_names.txt', 'r', encoding='utf-8') as file:
@@ -538,7 +546,26 @@ async def check_for_new_day(client):
     file.close()
     
     if not date == cur_date:
+        create_lists()
         await new_day(client)
+        # await change_nicknames(client)
         file = open('data/date.txt', 'w')
         file.write(cur_date)
         file.close()
+    else:
+        file = open('data/today_names.txt', 'r', encoding='utf-8')
+        names = file.read().split('\n')
+        i = 0
+        for element in names_today:
+            names_today[element] = names[i]
+            i = i + 1
+
+async def change_nicknames(client):
+    guild = await client.fetch_guild(768865472552108112)
+    members = await guild.fetch_members(limit=100).flatten()
+
+    for member in members:
+        print('First check: ' + str(member.id))
+        if member.id in krupier_ids and not member.id == 443836613609390080:
+            print('Edit attempt: ' + str(member.id))
+            await member.edit(nick=names_today[inverse_krupier_users[member.id]])
