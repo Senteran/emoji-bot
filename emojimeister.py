@@ -152,6 +152,11 @@ async def on_message(message):
     if 'tomek' in content:
         await custom_reaction(message, client, 'witczak')
         await custom_reaction(message, client, 'tomek')
+    
+    if 'hokej' in content:
+        emoji = get(client.emojis, name='sebek')
+        await message.add_reaction(emoji)
+        await message.add_reaction('🏒')
 
     # Beast mode on
     if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:
