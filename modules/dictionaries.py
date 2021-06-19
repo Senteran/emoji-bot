@@ -280,6 +280,21 @@ names_today = {
     'Frido' : ''
 }
 
+names_to_nick = {
+    'Senteran': 'Senteran',
+    'Krupier' : 'Krupier',
+    'Kuchta' : 'Kuchta',
+    'Lakey' : 'Lakey',
+    'Sebek' : 'Sebek',
+    'Kato' : 'Cum Lord',
+    'ertymaster' : 'ertymaster',
+    'exeos' : 'exeos',
+    'KFrankVegeta' : 'KFrankVegeta',
+    'Hot Dog Nibba' : 'Hot Dog Nibba',
+    'Aleksandra Pawlik' : 'Aleksandra Pawlik',
+    'Frido' : 'Frido'
+}
+
 nazwiska = [
     'Bigas'
 ]
@@ -327,6 +342,6 @@ image_search_params = {
 }
 
 admin_ids = [
-    443836613609390080,
+    # 443836613609390080,
     351780319306973194
 ]

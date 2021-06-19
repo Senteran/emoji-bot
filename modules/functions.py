@@ -2,9 +2,10 @@ from gc import set_debug
 import sys
 
 from discord import channel
+from discord import errors
 from discord.activity import Game
 from discord.enums import UserFlags
-from discord.errors import HTTPException
+from discord.errors import Forbidden, HTTPException
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
@@ -313,18 +314,18 @@ async def search_for_image(message, client, gis):
     image_search_params['q'] = query
     gis.search(search_params=image_search_params, custom_image_name='img')
     for image in gis.results():
-        image.download('pictures/')
+        image.download('src/')
     try:
-        file = open('pictures/img.jpg', 'rb')
-        path = 'pictures/img.jpg'
+        file = open('src/img.jpg', 'rb')
+        path = 'src/img.jpg'
     except FileNotFoundError:
         try:
-            file = open('pictures/img.png', 'rb')
-            path = 'pictures/img.png'
+            file = open('src/img.png', 'rb')
+            path = 'src/img.png'
         except FileNotFoundError:
             try:
-                file = open('pictures/img.gif', 'rb')
-                path = 'pictures/img.gif'
+                file = open('src/img.gif', 'rb')
+                path = 'src/img.gif'
             except FileNotFoundError:
                 await message.channel.send('Image not found')
                 return
@@ -340,7 +341,7 @@ async def change_to_attached_image(message, client):
         fp = io.BytesIO()
         await file.save(fp)
         pfp = discord.File(fp, filename=file.filename)
-        # f = open('/pictures/' + file.filename, 'w+')
+        # f = open('/src/' + file.filename, 'w+')
         # f.write(pfp)
         # f.close()
         await client.user.edit(avatar=pfp)
@@ -376,7 +377,7 @@ async def manual_response(message):
     await message.reply(response)
 
 async def i_am_the_cum_beast(message, client):
-    file = open('pictures/cum_beast.jpg', 'rb')
+    file = open('src/cum_beast.jpg', 'rb')
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
@@ -384,7 +385,7 @@ async def i_am_the_cum_beast(message, client):
     await message.channel.send('I am the cum beast')
 
 async def emojimeister_return(message, client):
-    file = open('pictures/emoji_fp.png', 'rb')
+    file = open('src/emoji_fp.png', 'rb')
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
@@ -472,7 +473,7 @@ async def new_day(client):
     for j in range(len(krupier_users)):        
         message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
     channel = client.get_channel(768865472552108115)
-    # await channel.send(message)
+    await channel.send(message)
 
     file = open('data/today_names.txt', 'w', encoding='utf-8')
     for i in range(len(names)):
@@ -481,7 +482,7 @@ async def new_day(client):
             file.write('\n')
 
 def create_lists():
-    with open('csv/male_names.txt', 'r', encoding='utf-8') as file:
+    with open('data/male_names.txt', 'r', encoding='utf-8') as file:
         global names_j
         global names_a
         global names_s
@@ -505,7 +506,7 @@ def create_lists():
                 names_s.append(row)
             elif row.startswith('A'):
                 names_a.append(row)
-    with open('csv/female_names.txt', 'r', encoding='utf-8') as file:
+    with open('data/female_names.txt', 'r', encoding='utf-8') as file:
         global names_kz
         global names_az
         for row in file.read().split('\n'):
@@ -515,7 +516,7 @@ def create_lists():
                 names_kz.append(row)
             elif row.startswith('A'):
                 names_az.append(row)
-    with open('csv/surnames.txt', 'r', encoding='utf-8') as file:
+    with open('data/surnames.txt', 'r', encoding='utf-8') as file:
         global nazwiska_k
         global nazwiska_p
         global nazwiska_z
@@ -548,7 +549,8 @@ async def check_for_new_day(client):
     if not date == cur_date:
         create_lists()
         await new_day(client)
-        # await change_nicknames(client)
+        if change_nicknames:
+            await change_nicknames(client)
         file = open('data/date.txt', 'w')
         file.write(cur_date)
         file.close()
@@ -565,7 +567,19 @@ async def change_nicknames(client):
     members = await guild.fetch_members(limit=100).flatten()
 
     for member in members:
-        print('First check: ' + str(member.id))
-        if member.id in krupier_ids and not member.id == 443836613609390080:
-            print('Edit attempt: ' + str(member.id))
-            await member.edit(nick=names_today[inverse_krupier_users[member.id]])
+        if member.id in krupier_ids:
+            try:
+                await member.edit(nick=names_today[inverse_krupier_users[member.id]])
+            except discord.errors.Forbidden:
+                print('Failed to change nick of id: ' + str(member.id) + '. This is user: ' + inverse_krupier_users[member.id])
+
+async def return_nicknames(client):
+    guild = await client.fetch_guild(768865472552108112)
+    members = await guild.fetch_members(limit=100).flatten()
+
+    for member in members:
+        if member.id in krupier_ids:
+            try:
+                await member.edit(nick=names_to_nick[inverse_krupier_users[member.id]])
+            except discord.errors.Forbidden:
+                print('Failed to change nick of id: ' + str(member.id) + '. This is user: ' + inverse_krupier_users[member.id])

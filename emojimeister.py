@@ -186,10 +186,10 @@ async def on_message(message):
     if content == 'emoji emoji_krupier':
         await help_custom_emoji(message, client)
 
-    if message.content == 'fgjaurihg78y3w4ouireldnsfv':
-        await new_day(client)
+    if message.content == 'fqeauiho4378worefihusd':
+        await return_nicknames(client)
     
-    if message.content == 'hguwrsvlghiosulnfdjku5489r':
-        create_lists()
+    if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
+        await change_nicknames(client)
 
-client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.KDDH0Nlre0nunCwPdu-TlinpPPw')
+client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
