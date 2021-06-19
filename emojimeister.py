@@ -132,7 +132,7 @@ async def on_message(message):
         await resume_music(message)
     
     # Ręczna odpowiedź
-    if 'czesc' in content and ' ' + prefix in message.content and 'meister' in content:
+    if 'czesc' in content and 'meister' in content:
         await manual_response(message)
     
     # I am the cum beast
