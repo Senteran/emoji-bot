@@ -583,3 +583,16 @@ async def return_nicknames(client):
                 await member.edit(nick=names_to_nick[inverse_krupier_users[member.id]])
             except discord.errors.Forbidden:
                 print('Failed to change nick of id: ' + str(member.id) + '. This is user: ' + inverse_krupier_users[member.id])
+
+async def write_to_channel(message, client):
+    trunc = message.content.removeprefix('emoji napisz do ')
+
+    for i in range(len(trunc)):
+        if trunc[i] == 'e':
+            end_of_numbers = i
+            break
+
+    nums = trunc[0:end_of_numbers]
+    cont = trunc[end_of_numbers+2:len(trunc)]
+    channel = await client.fetch_channel(int(nums))
+    await channel.send(cont)   

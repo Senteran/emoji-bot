@@ -172,6 +172,12 @@ async def on_message(message):
 
     if content == 'emoji help':
         await help(message)
+    
+    if message.content.startswith('emoji napisz do '):
+        try:
+            await write_to_channel(message, client)
+        except:
+            await message.reply('The message failed to send')
 
     if content == 'emoji commands':
         await help_commands(message)
