@@ -108,6 +108,7 @@ custom_emoji_library = {
     'fur': 'lis',
     'kp': 'kp',
     'an': 'an',
+    'auto2' : 'auto2',
     'presentetaio': 'presentetaio'
 }
 
