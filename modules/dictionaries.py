@@ -193,42 +193,38 @@ krupier_users_list = [
 ]
 
 names_j = [
-    'janek',
-    'jacek',
-    'jakub',
-    'jaroslaw',
-    'jakub',
-    'jakub',
-    'jakub',
-    'jakub'
+    'Janek',
+    'Jacek',
+    'Jakub',
+    'Jaroslaw',
+    'Jakub'
 ]
 names_m = [
-    'mariusz',
-    'mikolaj'
+    'Mariusz',
+    'Mikołaj'
 ]
 names_p = [
-    'piotr',
-    'pawel',
-    'polak'
+    'Piotr',
+    'paweł'
 ]
 names_s = [
-    'sebastian',
-    'sam'
+    'Sebastian',
+    'Sam'
 ]
 names_k = [
-    'kamil',
-    'krzysztof'
+    'Kamil',
+    'Krzysztof'
 ]
 names_a = [
-    'adam',
-    'alfons'
+    'Adam',
+    'Alfons'
 ]
 names_kz = [
-    'karolina',
-    'kaja'
+    'Karolina',
+    'Kaja'
 ]
 names_az = [
-    'aleksandra'
+    'Aleksandra'
 ]
 nazwiska_k = []
 nazwiska_p = []
