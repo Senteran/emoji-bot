@@ -24,6 +24,8 @@ import io
 from datetime import datetime
 
 
+use_new_name_files = True
+
 def to_en_str(pl_str):
     # Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
     polish_symbols = {
@@ -482,69 +484,69 @@ async def new_day(client):
             file.write('\n')
 
 def create_lists():
-    with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file:
-        global names_j
-        global names_a
-        global names_s
-        global names_m
-        global names_p
-        global names_k
-        content = file.read()
-        content_list = content.split('\n')
-        for row in content_list:
-            if row.endswith('a'):
-                if row.startswith('K'):
+    if use_new_name_files:
+        with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file:
+            global names_j
+            global names_a
+            global names_s
+            global names_m
+            global names_p
+            global names_k
+            content = file.read()
+            content_list = content.split('\n')
+            for row in content_list:
+                if row.endswith('a'):
+                    if row.startswith('K'):
+                        names_kz.append(row)
+                    elif row.startswith('A'):
+                        names_az.append(row)
+                elif row.startswith('J'):
+                    names_j.append(row)
+                elif row.startswith('M'):
+                    names_m.append(row)
+                elif row.startswith('P'):
+                    names_p.append(row)
+                elif row.startswith('K'):
+                    names_k.append(row)
+                elif row.startswith('S'):
+                    names_s.append(row)
+                elif row.startswith('A'):
+                    names_a.append(row)
+    else:
+        with open('data/male_names.txt', 'r', encoding='utf-8') as file:
+            global names_j
+            global names_a
+            global names_s
+            global names_m
+            global names_p
+            global names_k
+            content = file.read()
+            content_list = content.split('\n')
+            for row in content_list:
+                if '-' in row:
+                    pass
+                elif row.startswith('J'):
+                    names_j.append(row)
+                elif row.startswith('M'):
+                    names_m.append(row)
+                elif row.startswith('P'):
+                    names_p.append(row)
+                elif row.startswith('K'):
+                    names_k.append(row)
+                elif row.startswith('S'):
+                    names_s.append(row)
+                elif row.startswith('A'):
+                    names_a.append(row)
+        with open('data/female_names.txt', 'r', encoding='utf-8') as file:
+            global names_kz
+            global names_az
+            for row in file.read().split('\n'):
+                if '-' in row:
+                    pass
+                elif row.startswith('K'):
                     names_kz.append(row)
                 elif row.startswith('A'):
                     names_az.append(row)
-            elif row.startswith('J'):
-                names_j.append(row)
-            elif row.startswith('M'):
-                names_m.append(row)
-            elif row.startswith('P'):
-                names_p.append(row)
-            elif row.startswith('K'):
-                names_k.append(row)
-            elif row.startswith('S'):
-                names_s.append(row)
-            elif row.startswith('A'):
-                names_a.append(row)
-
-
-    # with open('data/male_names.txt', 'r', encoding='utf-8') as file:
-    #     global names_j
-    #     global names_a
-    #     global names_s
-    #     global names_m
-    #     global names_p
-    #     global names_k
-    #     content = file.read()
-    #     content_list = content.split('\n')
-    #     for row in content_list:
-    #         if '-' in row:
-    #             pass
-    #         elif row.startswith('J'):
-    #             names_j.append(row)
-    #         elif row.startswith('M'):
-    #             names_m.append(row)
-    #         elif row.startswith('P'):
-    #             names_p.append(row)
-    #         elif row.startswith('K'):
-    #             names_k.append(row)
-    #         elif row.startswith('S'):
-    #             names_s.append(row)
-    #         elif row.startswith('A'):
-    #             names_a.append(row)
-    # with open('data/female_names.txt', 'r', encoding='utf-8') as file:
-    #     global names_kz
-    #     global names_az
-    #     for row in file.read().split('\n'):
-    #         if '-' in row:
-    #             pass
-    #         elif row.startswith('K'):
-    #             names_kz.append(row)
-    #         elif row.startswith('A'):
-    #             names_az.append(row)
     with open('data/surnames.txt', 'r', encoding='utf-8') as file:
         global nazwiska_k
         global nazwiska_p
