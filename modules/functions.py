@@ -484,14 +484,16 @@ async def new_day(client):
             file.write('\n')
 
 def create_lists():
+    global names_j
+    global names_a
+    global names_s
+    global names_m
+    global names_p
+    global names_k
+    global names_kz
+    global names_az
     if use_new_name_files:
-        with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file:
-            global names_j
-            global names_a
-            global names_s
-            global names_m
-            global names_p
-            global names_k
+        with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file: 
             content = file.read()
             content_list = content.split('\n')
             for row in content_list:
@@ -514,12 +516,6 @@ def create_lists():
                     names_a.append(row)
     else:
         with open('data/male_names.txt', 'r', encoding='utf-8') as file:
-            global names_j
-            global names_a
-            global names_s
-            global names_m
-            global names_p
-            global names_k
             content = file.read()
             content_list = content.split('\n')
             for row in content_list:
@@ -538,8 +534,6 @@ def create_lists():
                 elif row.startswith('A'):
                     names_a.append(row)
         with open('data/female_names.txt', 'r', encoding='utf-8') as file:
-            global names_kz
-            global names_az
             for row in file.read().split('\n'):
                 if '-' in row:
                     pass
