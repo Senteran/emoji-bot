@@ -278,17 +278,17 @@ async def display_suffix(message):
 
 async def play_music(message):
     server = message.guild
-    voice_client = server.voice_client
+    
 
     text = message.content
     url = text.removeprefix('emoji zagraj')
     filename = await yt_download(url, 'songs/')
+    channel = message.author.voice.channel
     try:
-        voice_client.stop()
-    except AttributeError:
-        channel = message.author.voice.channel
         await channel.connect()
-        voice_client.stop()
+    except discord.errors.ClientException:
+        pass
+    voice_client = server.voice_client
     voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
     await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
         
