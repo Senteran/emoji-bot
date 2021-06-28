@@ -36,7 +36,11 @@ Initilise_Variables()
 @client.event
 async def on_ready():
     print("Logged in as {0.user}".format(client))
-    await check_for_new_day(client)
+    # await check_for_new_day(client)
+
+    print('List of available servers:')
+    for server in client.guilds:
+        print(server)
 
 
 @client.event
@@ -157,6 +161,11 @@ async def on_message(message):
         emoji = get(client.emojis, name='sebek')
         await message.add_reaction(emoji)
         await message.add_reaction('🏒')
+
+    if 'furnik' in content:
+        emoji = get(client.emojis, name='krupier')
+        await message.add_reaction(emoji)
+        await message.add_reaction('👺')
 
     # Beast mode on
     if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:

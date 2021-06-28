@@ -54,7 +54,6 @@ custom_emoji_library = {
     'jan': 'krupier',
     'pytel': 'krupier',
     'krup': 'krupier',
-    'furnik': 'krupier',
     'sebek': 'sebek',
     'seba': 'sebek',
     'timm': 'sebek',
@@ -67,6 +66,8 @@ custom_emoji_library = {
     'kamil': 'kato',
     'kuchta': 'kuchta',
     'mariusz': 'kuchta',
+    'lakey': 'lakey',
+    'piotr': 'lakey',
     'praczyns': 'praczyns',
     'raczynski': 'praczyns',
     'alan': 'hot_dog_nibba',
@@ -205,7 +206,7 @@ names_m = [
 ]
 names_p = [
     'Piotr',
-    'paweł'
+    'Paweł'
 ]
 names_s = [
     'Sebastian',
@@ -286,7 +287,7 @@ names_to_nick = {
     'Sebek' : 'Sebek',
     'Kato' : 'Cum Lord',
     'ertymaster' : 'ertymaster',
-    'exeos' : 'exeos',
+    'exeos' : 'Exeos',
     'KFrankVegeta' : 'KFrankVegeta',
     'Hot Dog Nibba' : 'Hot Dog Nibba',
     'Aleksandra Pawlik' : 'Aleksandra Pawlik',
