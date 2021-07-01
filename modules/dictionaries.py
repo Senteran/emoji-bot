@@ -7,6 +7,7 @@ emoji_library = {
     ' tak ': '✅',
     'krupiergames.000webhostapp.com/ia': '🛑',
     ' nie ': '❎',
+    'ee' : '🐚',
     'stundink': '🧑‍🎤',
     'studnik': '🧑‍🎤',
     'singer': '🧑‍🎤',
