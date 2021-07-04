@@ -289,7 +289,7 @@ names_to_nick = {
     'Sebek' : 'Sebek',
     'Kato' : 'Cum Lord',
     'ertymaster' : 'ertymaster',
-    'exeos' : 'Exeos',
+    'exeos' : 'Paweł Zając',
     'KFrankVegeta' : 'KFrankVegeta',
     'Hot Dog Nibba' : 'Hot Dog Nibba',
     'Aleksandra Pawlik' : 'Aleksandra Pawlik',
