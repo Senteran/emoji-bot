@@ -621,3 +621,16 @@ async def write_to_channel(message, client):
     cont = trunc[end_of_numbers+2:len(trunc)]
     channel = await client.fetch_channel(int(nums))
     await channel.send(cont)   
+
+async def dm_user(message, client):
+    trunc = message.content.removeprefix('emoji dm ')
+
+    for i in range(len(trunc)):
+        if trunc[i] == 'e':
+            end_of_numbers = i
+            break
+    
+    nums = trunc[0:end_of_numbers]
+    cont = trunc[end_of_numbers+2:len(trunc)]
+    user = await client.fetch_user(int(nums))
+    await user.send(cont)

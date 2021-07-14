@@ -187,6 +187,12 @@ async def on_message(message):
             await write_to_channel(message, client)
         except:
             await message.reply('The message failed to send')
+    
+    if message.content.startswith('emoji dm '):
+        try:
+            await dm_user(message, client)
+        except:
+            await message.reply('The DM failed to send')
 
     if content == 'emoji commands':
         await help_commands(message)
