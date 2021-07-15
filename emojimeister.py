@@ -217,7 +217,11 @@ async def on_message(message):
     
     if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
         await change_nicknames(client)
+        
     if 'krupier' in content:
+        """
+        👺
+        """
         await reply_to_message(message, "Krupier to krupier")
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
@@ -232,5 +236,16 @@ client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
 # Cześć Senteran,lubię liveshare, ale nie nawidze jak pracuje razem z kims
 # nad duzym projektem i jak on otwiera jakis nowy plik to on mi sie pokazuje jako karta u góry :japanese_goblin 
 # Na przykład teraz otwarles dictionaries i mnie tam nawet przenioslo :japanese_goblin:
-
-# 
+# Kurde wstawianie emoji w komentarzach jest takie dziwne. Gdybyś coś takiego zobaczył w jakimś poważnym projekcie
+# Tak na przykład  wal matkę na pizdę ale nie wiem jak się niestety tytuł nazywa
+# Znasz taką piosenkę kukiego "Wal matkę na :)" 😳 😂😁
+# Kojarzysz która to jest? :pray_answer:
+# ok, no to ja do wczoraj myślałem że to jest "barmankę na pizdę", dopóki nie zobaczyłem tytułu piosenki :ap:
+# hahahahaah to zabawne
+# :senteran: : git push heroku master
+# Teraz będzie piekło. Czemu my tu rozmawiamy? hahahahahahahahahahah. Widzisz terminal? Dobry pomysł hahahaha
+# Krupier 👻
+# Nie wiem czemu tu rozmawiamy ale git push heroku master zajmuje jakąś godzinę kurde
+# Widzę
+# Piszmy może nowe wiadomośći pod sobą
+# Będzie widać co ktoś pisze a nie tylko **Senteran is typing**
