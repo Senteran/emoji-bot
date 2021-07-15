@@ -217,5 +217,20 @@ async def on_message(message):
     
     if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
         await change_nicknames(client)
+    if 'krupier' in content:
+        await reply_to_message(message, "Krupier to krupier")
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
+
+# Cześć Kruiper
+# Lubisz Livesha
+#re
+#?
+# :?:
+# To fajnie, jak kiedyś próbowałem to zrobić z Kamilem to kurde nie działało i były problemy
+# hahahahahahhahah
+# Cześć Senteran,lubię liveshare, ale nie nawidze jak pracuje razem z kims
+# nad duzym projektem i jak on otwiera jakis nowy plik to on mi sie pokazuje jako karta u góry :japanese_goblin 
+# Na przykład teraz otwarles dictionaries i mnie tam nawet przenioslo :japanese_goblin:
+
+# 
