@@ -218,11 +218,11 @@ async def on_message(message):
     if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
         await change_nicknames(client)
         
-    if 'krupier' in content:
+    if 'krupier to furnik' in content:
         """
         👺
         """
-        await reply_to_message(message, "Krupier to krupier")
+        await reply_to_message(message, "Krupier to *furnik* ma wymóg")
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
 
@@ -248,4 +248,11 @@ client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
 # Nie wiem czemu tu rozmawiamy ale git push heroku master zajmuje jakąś godzinę kurde
 # Widzę
 # Piszmy może nowe wiadomośći pod sobą
-# Będzie widać co ktoś pisze a nie tylko **Senteran is typing**
+# Będzie widać co ktoś pisze a nie tylko Senteran is typing
+# <i> Senteran </i>
+# hahaha, widzisz co sie stało. Chyba przyda się kolejny git push heroku master
+# Edytowanie wiadomosci tez widac na zywo
+# A czy mogło by być zamiast "Krupier to krupier", "Krupier to ma wymóg" albo "Krupier to furnik"
+# Niestety ale chyba taka mała zmiana spowoduje ze trzeba będzie git push heroku master o nie nie nie nie nie nie
+# hahah to tak długo kurde trwa ja tego nie rozumiem. Wcześniej w ogóle nazwałem "Procfile" "procfile" i to zauważyło i powiedziało żeby zrobić kolejnego pusha z dobrze nazwanym procfilem. Kurde skoro zauważyli że jest ale po prostu źle nazwany to czemu go nie użyli
+# Z tym uczę się :js:. Chodziło o to że uczę się Joanna Studnik, czyli fizyki @Krupier250 jesteś tu?
