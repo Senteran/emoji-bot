@@ -256,3 +256,8 @@ client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
 # Niestety ale chyba taka mała zmiana spowoduje ze trzeba będzie git push heroku master o nie nie nie nie nie nie
 # hahah to tak długo kurde trwa ja tego nie rozumiem. Wcześniej w ogóle nazwałem "Procfile" "procfile" i to zauważyło i powiedziało żeby zrobić kolejnego pusha z dobrze nazwanym procfilem. Kurde skoro zauważyli że jest ale po prostu źle nazwany to czemu go nie użyli
 # Z tym uczę się :js:. Chodziło o to że uczę się Joanna Studnik, czyli fizyki @Krupier250 jesteś tu?
+# jestem, zagapiłem się na okno
+# A tutaj niestety nie mamy powiadomien o wiadomosciach
+# # Z tym uczę się :js:. Chodziło o to że uczę się Joanna Studnik, czyli fizyki\
+# ok, i tak to oznacza ze jestes chadem, a czego konkretnie waves hl sie uczyles, tego dzialu hl tak, na ktorym cie nie bylo no musze nieestety on jest chyba trochę trudny?
+# ok będę tutal pisał                                # ale nie pisz w mojej wiadomosci :japanese_goblin:

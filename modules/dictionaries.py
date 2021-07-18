@@ -112,6 +112,15 @@ custom_emoji_library = {
     'kp': 'kp',
     'an': 'an',
     'auto2' : 'auto2',
+    'broda' : 'senteran_brodaty',
+    'oburz' : 'kfrankvegeta_disgusted',
+    'hustawka' : 'senteran_fajrancik',
+    'krzeslo' : 'senteran_monocle',
+    'sus' : 'suserty',
+    'sex' : 'sexeos',
+    'pierdalaj' : 'kubica',
+    'bogdan' : 'bogdan',
+    'fotel' : 'fotelteran',
     'presentetaio': 'presentetaio'
 }
 
