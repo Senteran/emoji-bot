@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from gc import set_debug
 import sys
 
@@ -572,6 +573,7 @@ async def check_for_new_day(client):
     file.close()
     
     if not date == cur_date:
+        reset_sents()
         create_lists()
         await new_day(client)
         if change_nicknames:
@@ -634,3 +636,52 @@ async def dm_user(message, client):
     cont = trunc[end_of_numbers+2:len(trunc)]
     user = await client.fetch_user(int(nums))
     await user.send(cont)
+
+async def good_blank(client):
+    hour = datetime.today().hour
+    path = NULL
+
+
+    if hour < 12:
+        if not check_if_good_sent(1):
+            path = 'data/good_morning.png'
+            path_sent = 'data/sent_good_morning.txt'
+    elif hour > 14 and hour < 18:
+        if not check_if_good_sent(2):
+            path = 'data/good_afternoon.png'
+            path_sent = 'data/sent_good_afternoon.txt'
+    elif hour > 20:
+        if not check_if_good_sent(3):
+            path = 'data/good_evening.png'
+            path_sent = 'data/sent_good_evening.txt'
+    if not path == NULL:
+        channel = client.get_channel(768865472552108115)
+        await channel.send(file=discord.File(path))
+        file = open(path_sent, 'w')
+        file.write('1')
+        file.close()
+
+def check_if_good_sent(which):
+    if which == 1:
+        path = 'sent_good_morning.txt'
+    elif which == 2:
+        path = 'sent_good_afternoon.txt'
+    elif which == 3:
+        path = 'sent_good_evening.txt'
+    file = open('data/' + path, 'r')
+    sent = int(file.read())
+    if sent == 1:
+        return True
+    else:
+        return False
+
+def reset_sents():
+    file = open('data/sent_good_morning.txt', 'w')
+    file.write('0')
+    file.close()
+    file = open('data/sent_good_afternoon.txt', 'w')
+    file.write('0')
+    file.close()
+    file = open('data/sent_good_evening.txt', 'w')
+    file.write('0')
+    file.close()

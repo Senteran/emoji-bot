@@ -52,6 +52,8 @@ async def on_message(message):
     if message.author == client.user:
         return
     
+    await good_blank(client)
+
     # Normal bans
     if str(message.author.id) in banned_ids and not isinstance(message.channel, discord.channel.DMChannel):
         await delete_message(message)
