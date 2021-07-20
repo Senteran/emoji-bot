@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from gc import set_debug
 import sys
 
