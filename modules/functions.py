@@ -639,7 +639,7 @@ async def dm_user(message, client):
 
 async def good_blank(client):
     hour = datetime.today().hour
-    path = NULL
+    path = 'a'
 
 
     if hour < 12:
@@ -654,7 +654,7 @@ async def good_blank(client):
         if not check_if_good_sent(3):
             path = 'data/good_evening.png'
             path_sent = 'data/sent_good_evening.txt'
-    if not path == NULL:
+    if not path == 'a':
         channel = client.get_channel(768865472552108115)
         await channel.send(file=discord.File(path))
         file = open(path_sent, 'w')
