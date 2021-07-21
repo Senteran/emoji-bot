@@ -647,6 +647,7 @@ async def dm_user(message, client):
 
 async def good_blank(client):
     hour = datetime.today().hour
+    print('The current hour is ' + str(hour))
     path = 'a'
 
 
