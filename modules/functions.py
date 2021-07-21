@@ -575,6 +575,9 @@ async def check_for_new_day(client):
     global assigned_nicknames
     global should_emoji_bot_change_nicknames
 
+    print('Date from file is ' + cur_date)
+    print('Date from current time is' + date)
+
     if not date == cur_date:
         print('It is a new day! Welcome to ' + date)
         reset_sents()

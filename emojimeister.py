@@ -36,7 +36,7 @@ Initilise_Variables()
 @client.event
 async def on_ready():
     print("Logged in as {0.user}".format(client))
-    # await check_for_new_day(client)
+    await check_for_new_day(client)
 
     print('List of available servers:')
     for server in client.guilds:
@@ -52,6 +52,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
+    await check_for_new_day(client)
     await good_blank(client)
 
     # Normal bans
