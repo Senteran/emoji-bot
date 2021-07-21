@@ -25,6 +25,8 @@ from datetime import datetime
 
 
 use_new_name_files = True
+assigned_nicknames = False
+should_emoji_bot_change_nicknames = False
 
 def to_en_str(pl_str):
     # Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
@@ -570,17 +572,20 @@ async def check_for_new_day(client):
     date = file.read()
     cur_date = datetime.today().strftime('%Y-%m-%d')
     file.close()
-    
+    global assigned_nicknames
+    global should_emoji_bot_change_nicknames
+
     if not date == cur_date:
+        print('It is a new day! Welcome to ' + date)
         reset_sents()
         create_lists()
         await new_day(client)
-        if change_nicknames:
+        if should_emoji_bot_change_nicknames:
             await change_nicknames(client)
         file = open('data/date.txt', 'w')
         file.write(cur_date)
         file.close()
-    else:
+    elif assigned_nicknames:
         file = open('data/today_names.txt', 'r', encoding='utf-8')
         names = file.read().split('\n')
         i = 0
@@ -675,6 +680,7 @@ def check_if_good_sent(which):
         return False
 
 def reset_sents():
+    print('Resetting sent good messages...')
     file = open('data/sent_good_morning.txt', 'w')
     file.write('0')
     file.close()

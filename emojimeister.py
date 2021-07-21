@@ -25,7 +25,7 @@ gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a754
 
 
 beast_mode = False
-change_nicks = True
+change_nicks = False
 banned_ids = []
 beast_banned_ids = []
 prefix = ''
