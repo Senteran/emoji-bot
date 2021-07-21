@@ -651,15 +651,15 @@ async def good_blank(client):
     path = 'a'
 
 
-    if hour < 12:
+    if sending_hours[0][0] <= hour <= sending_hours[0][1]:
         if not check_if_good_sent(1):
             path = 'data/good_morning.png'
             path_sent = 'data/sent_good_morning.txt'
-    elif hour > 14 and hour < 18:
+    elif sending_hours[1][0] <= hour <= sending_hours[1][1]:
         if not check_if_good_sent(2):
             path = 'data/good_afternoon.png'
             path_sent = 'data/sent_good_afternoon.txt'
-    elif hour > 20:
+    elif sending_hours[2][0] <= hour <= sending_hours[2][1]:
         if not check_if_good_sent(3):
             path = 'data/good_evening.png'
             path_sent = 'data/sent_good_evening.txt'

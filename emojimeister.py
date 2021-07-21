@@ -1,19 +1,20 @@
+"""
+    This is the main module of the application.
+    It handles the running of the bot and initiates functions
+"""
 import sys
-
-from discord import channel
-from discord.activity import Game
-from discord.flags import Intents
-# prevent __pycache__ folder from being created
-sys.dont_write_bytecode = True
-
-import time
-import discord
 import random
+
+import discord
+
 from discord.utils import get
-from os import remove
+
 from modules.dictionaries import *
 from modules.functions import *
 from google_images_search import GoogleImagesSearch
+# prevent __pycache__ folder from being created
+sys.dont_write_bytecode = True
+
 
 #
 # WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
@@ -228,39 +229,3 @@ async def on_message(message):
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
-
-# Cześć Kruiper
-# Lubisz Livesha
-#re
-#?
-# :?:
-# To fajnie, jak kiedyś próbowałem to zrobić z Kamilem to kurde nie działało i były problemy
-# hahahahahahhahah
-# Cześć Senteran,lubię liveshare, ale nie nawidze jak pracuje razem z kims
-# nad duzym projektem i jak on otwiera jakis nowy plik to on mi sie pokazuje jako karta u góry :japanese_goblin 
-# Na przykład teraz otwarles dictionaries i mnie tam nawet przenioslo :japanese_goblin:
-# Kurde wstawianie emoji w komentarzach jest takie dziwne. Gdybyś coś takiego zobaczył w jakimś poważnym projekcie
-# Tak na przykład  wal matkę na pizdę ale nie wiem jak się niestety tytuł nazywa
-# Znasz taką piosenkę kukiego "Wal matkę na :)" 😳 😂😁
-# Kojarzysz która to jest? :pray_answer:
-# ok, no to ja do wczoraj myślałem że to jest "barmankę na pizdę", dopóki nie zobaczyłem tytułu piosenki :ap:
-# hahahahaah to zabawne
-# :senteran: : git push heroku master
-# Teraz będzie piekło. Czemu my tu rozmawiamy? hahahahahahahahahahah. Widzisz terminal? Dobry pomysł hahahaha
-# Krupier 👻
-# Nie wiem czemu tu rozmawiamy ale git push heroku master zajmuje jakąś godzinę kurde
-# Widzę
-# Piszmy może nowe wiadomośći pod sobą
-# Będzie widać co ktoś pisze a nie tylko Senteran is typing
-# <i> Senteran </i>
-# hahaha, widzisz co sie stało. Chyba przyda się kolejny git push heroku master
-# Edytowanie wiadomosci tez widac na zywo
-# A czy mogło by być zamiast "Krupier to krupier", "Krupier to ma wymóg" albo "Krupier to furnik"
-# Niestety ale chyba taka mała zmiana spowoduje ze trzeba będzie git push heroku master o nie nie nie nie nie nie
-# hahah to tak długo kurde trwa ja tego nie rozumiem. Wcześniej w ogóle nazwałem "Procfile" "procfile" i to zauważyło i powiedziało żeby zrobić kolejnego pusha z dobrze nazwanym procfilem. Kurde skoro zauważyli że jest ale po prostu źle nazwany to czemu go nie użyli
-# Z tym uczę się :js:. Chodziło o to że uczę się Joanna Studnik, czyli fizyki @Krupier250 jesteś tu?
-# jestem, zagapiłem się na okno
-# A tutaj niestety nie mamy powiadomien o wiadomosciach
-# # Z tym uczę się :js:. Chodziło o to że uczę się Joanna Studnik, czyli fizyki\
-# ok, i tak to oznacza ze jestes chadem, a czego konkretnie waves hl sie uczyles, tego dzialu hl tak, na ktorym cie nie bylo no musze nieestety on jest chyba trochę trudny?
-# ok będę tutal pisał                                # ale nie pisz w mojej wiadomosci :japanese_goblin:
