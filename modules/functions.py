@@ -646,7 +646,7 @@ async def dm_user(message, client):
     await user.send(cont)
 
 async def good_blank(client):
-    hour = datetime.today().hour
+    hour = datetime.now().hour
     print('The current hour is ' + str(hour))
     path = 'a'
 
