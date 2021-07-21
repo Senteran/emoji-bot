@@ -576,19 +576,20 @@ async def check_for_new_day(client):
     global should_emoji_bot_change_nicknames
 
     print('Date from file is ' + cur_date)
-    print('Date from current time is' + date)
+    print('Date from current time is ' + date)
 
     if not date == cur_date:
         print('It is a new day! Welcome to ' + date)
         reset_sents()
         create_lists()
-        await new_day(client)
         if should_emoji_bot_change_nicknames:
+            await new_day(client)
             await change_nicknames(client)
         file = open('data/date.txt', 'w')
         file.write(cur_date)
         file.close()
-    elif assigned_nicknames:
+    elif not assigned_nicknames:
+        assigned_nicknames = True
         file = open('data/today_names.txt', 'r', encoding='utf-8')
         names = file.read().split('\n')
         i = 0
