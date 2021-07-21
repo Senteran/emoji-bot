@@ -7,8 +7,6 @@ import random
 
 import discord
 
-from discord.utils import get
-
 from modules.dictionaries import *
 from modules.functions import *
 from google_images_search import GoogleImagesSearch
@@ -25,17 +23,19 @@ client = discord.Client(intents = intnets)
 gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
 
 
-beast_mode = False
-change_nicks = False
+BEAST_MODE = False
+CHANGE_NICKS = False
 banned_ids = []
 beast_banned_ids = []
-prefix = ''
-suffix = ''
+PREFIX = ''
+SUFFIX = ''
+
 Initilise_Variables()
 
 
 @client.event
 async def on_ready():
+    """This runs upon the bot logging in to Discord servers"""
     print("Logged in as {0.user}".format(client))
     await check_for_new_day(client)
 
@@ -46,24 +46,27 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    global beast_mode
-    global prefix
-    global suffix
+    """This runs upon a message being sent where the bot can see it,
+    so it can be a DM or a message in a channel"""
+    global BEAST_MODE
+    global PREFIX
+    global SUFFIX
 
     if message.author == client.user:
         return
-    
     await check_for_new_day(client)
     await good_blank(client)
 
     # Normal bans
-    if str(message.author.id) in banned_ids and not isinstance(message.channel, discord.channel.DMChannel):
+    if (str(message.author.id) in banned_ids
+     and not isinstance(message.channel, discord.channel.DMChannel)):
         await delete_message(message)
         await send_message(message, random.choice(deletion_responses))
         return
-    
+
     # Beast mode bans
-    if beast_mode == True and str(message.author.id) in beast_banned_ids and not isinstance(message.channel, discord.channel.DMChannel):
+    if (BEAST_MODE is True and str(message.author.id) in beast_banned_ids
+    and not isinstance(message.channel, discord.channel.DMChannel)):
         await delete_message(message)
         await send_message(message, random.choice(deletion_responses))
         return
@@ -88,7 +91,7 @@ async def on_message(message):
     # Wyświetlenie prefiksu
     if 'jaki prefix' in content or 'jaki prefiks' in content:
         await display_prefix(message)
-    
+
     # Zmienienie sufiksu
     if message.content.startswith('emoji sufiks ') or message.content.startswith('emoji suffix'):
         await change_suffix(message)
@@ -96,11 +99,11 @@ async def on_message(message):
     # Wyświetlenie sufiksu
     if 'jaki sufix' in content or 'jaki suffix' in content:
         await display_suffix(message)
-    
+
     # Granie muzyki los santos
     if prefix + ' zagraj ' in message.content:
         await play_music(message)
-        
+
 
     # send messages
     await send_messages(content, message)
@@ -118,49 +121,52 @@ async def on_message(message):
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
         await display_reactions(message)
-    
+
     # Wchodzenie na kanał
     if message.content.startswith(prefix) and ' wejdz' in content:
         await join_voice_channel(message)
 
     # Wychodzenie z kanału
-    if (message.content.startswith(prefix) and ' wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
+    if ((message.content.startswith(prefix) and ' wyjdz' in content) or
+     'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393'
+      in message.content):
         await leave_voice_channel(message)
-    
+
     # Stop muzyki
     if message.content.startswith(prefix) and ' stop' in content:
         await pause_music(message)
-    
+
     # Pauza muzyki
     if message.content.startswith(prefix) and ' pauza' in content:
         await pause_music(message)
-    
+
     # Wstrzymanie muzyki
     if message.content.startswith(prefix) and ' wznow' in content:
         await resume_music(message)
-    
+
     # Ręczna odpowiedź
     if 'czesc' in content and 'meister' in content:
         await manual_response(message)
-    
+
     # I am the cum beast
-    if 'co wy macie z tym kamem?' == content:
+    if content == 'co wy macie z tym kamem?':
         await i_am_the_cum_beast(message, client)
-    
+
     # The return of emojimeister
-    if 'emojimeister wroc' == content:
+    if content == 'emojimeister wroc':
         await emojimeister_return(message, client)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
-    if 'witczak' in content or ('spotkanie' in content and ('zakonczyl' in content or 'zamknal' in content)):
+    if ('witczak' in content or 
+    ('spotkanie' in content and ('zakonczyl' in content or 'zamknal' in content))):
         await custom_reaction(message, client, 'witczak')
 
     # Two reactions for 'tomek'
     if 'tomek' in content:
         await custom_reaction(message, client, 'witczak')
         await custom_reaction(message, client, 'tomek')
-    
+
     if 'hokej' in content:
         emoji = get(client.emojis, name='sebek')
         await message.add_reaction(emoji)
@@ -178,24 +184,24 @@ async def on_message(message):
     # Beast mode off
     if message.content == 'cum_beast_mode off' and message.author.id in admin_ids:
         await beast_mode_off(client)
-    
+
     # Erty jest zajęty
     if message.content == 'erty?':
         await reply_to_message(message, 'erty jest zajety')
 
     if content == 'emoji help':
         await help(message)
-    
+
     if message.content.startswith('emoji napisz do '):
         try:
             await write_to_channel(message, client)
-        except:
+        except discord.errors.HTTPException:
             await message.reply('The message failed to send')
-    
+
     if message.content.startswith('emoji dm '):
         try:
             await dm_user(message, client)
-        except:
+        except discord.errors.HTTPException:
             await message.reply('The DM failed to send')
 
     if content == 'emoji commands':

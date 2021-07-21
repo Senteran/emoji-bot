@@ -1,8 +1,11 @@
-sending_hours = {
+"""This module has all the dictionaries and lists
+necessary fo the operation of the bot"""
+
+sending_hours = [
     [7, 14],
     [12, 16],
     [17, 22]
-}
+]
 
 emoji_library = {
     'haha': '😆',
