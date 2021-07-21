@@ -101,7 +101,7 @@ async def on_message(message):
         await display_suffix(message)
 
     # Granie muzyki los santos
-    if prefix + ' zagraj ' in message.content:
+    if PREFIX + ' zagraj ' in message.content:
         await play_music(message)
 
 
@@ -123,21 +123,21 @@ async def on_message(message):
         await display_reactions(message)
 
     # Wchodzenie na kanał
-    if message.content.startswith(prefix) and ' wejdz' in content:
+    if message.content.startswith(PREFIX) and ' wejdz' in content:
         await join_voice_channel(message)
 
     # Wychodzenie z kanału
-    if ((message.content.startswith(prefix) and ' wyjdz' in content) or
+    if ((message.content.startswith(PREFIX) and ' wyjdz' in content) or
      'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393'
       in message.content):
         await leave_voice_channel(message)
 
     # Stop muzyki
-    if message.content.startswith(prefix) and ' stop' in content:
+    if message.content.startswith(PREFIX) and ' stop' in content:
         await pause_music(message)
 
     # Pauza muzyki
-    if message.content.startswith(prefix) and ' pauza' in content:
+    if message.content.startswith(PREFIX) and ' pauza' in content:
         await pause_music(message)
 
     # Wstrzymanie muzyki
