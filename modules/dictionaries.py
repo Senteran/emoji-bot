@@ -135,13 +135,17 @@ custom_emoji_library = {
 
 send_library = {
     'adres ip serwera': 'Adres ip serwera minecraft: 25.30.92.167',
-    'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe także +6, + 7), hasło: senteran12',
+    'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
+        także +6, + 7), hasło: senteran12',
     'ile masz lat': 'urodziłęm się 15 kwietnia 2021, możesz chyba samodzielnie obliczyć!',
     'co potrafisz?': 'reagować na wiadomości!',
     'kiedy sie spotykamy': 'Ja mogę z wami zawsze być ♥',
-    'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
-    'w co gramy': 'Wykres dostępnych gier jest dostępny tu: https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
-    'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows): https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing',
+    'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: \
+        https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
+    'w co gramy': 'Wykres dostępnych gier jest dostępny tu: \
+        https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
+    'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows):\
+         https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing',
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid'
 }
@@ -183,7 +187,7 @@ inverse_krupier_users = {
     253985014557966338 : 'Frido'
 }
 
-krupier_ids = [ 
+krupier_ids = [
     351780319306973194,
     443836613609390080,
     181373861575524352,
@@ -213,76 +217,76 @@ krupier_users_list = [
     'Frido'
 ]
 
-names_j = [
+NAMES_J = [
     'Janek',
     'Jacek',
     'Jakub',
     'Jaroslaw',
     'Jakub'
 ]
-names_m = [
+NAMES_M = [
     'Mariusz',
     'Mikołaj'
 ]
-names_p = [
+NAMES_P = [
     'Piotr',
     'Paweł'
 ]
-names_s = [
+NAMES_S = [
     'Sebastian',
     'Sam'
 ]
-names_k = [
+NAMES_K = [
     'Kamil',
     'Krzysztof'
 ]
-names_a = [
+NAMES_A = [
     'Adam',
     'Alfons'
 ]
-names_kz = [
+NAMES_KZ = [
     'Karolina',
     'Kaja'
 ]
-names_az = [
+NAMES_AZ = [
     'Aleksandra'
 ]
-nazwiska_k = []
-nazwiska_p = []
-nazwiska_t = []
-nazwiska_b = []
-nazwiska_z = []
-nazwiska_r = []
-nazwiska_w = []
+NAZWISKA_K = []
+NAZWISKA_P = []
+NAZWISKA_T = []
+NAZWISKA_B = []
+NAZWISKA_Z = []
+NAZWISKA_R = []
+NAZWISKA_W = []
 
 nick_to_name_beginning_dictionary = {
-    'Senteran': names_j,
-    'Krupier' : names_j,
-    'Kuchta' : names_m,
-    'Lakey' : names_p,
-    'Sebek' : names_s,
-    'Kato' : names_k,
-    'ertymaster' : names_a,
-    'exeos' : names_p,
-    'KFrankVegeta' : names_kz,
-    'Hot Dog Nibba' : names_a,
-    'Aleksandra Pawlik' : names_az,
-    'Frido' : names_p
+    'Senteran': NAMES_J,
+    'Krupier' : NAMES_J,
+    'Kuchta' : NAMES_M,
+    'Lakey' : NAMES_P,
+    'Sebek' : NAMES_S,
+    'Kato' : NAMES_K,
+    'ertymaster' : NAMES_A,
+    'exeos' : NAMES_P,
+    'KFrankVegeta' : NAMES_KZ,
+    'Hot Dog Nibba' : NAMES_A,
+    'Aleksandra Pawlik' : NAMES_AZ,
+    'Frido' : NAMES_P
 }
 
 nick_to_surname_dictionary = {
-    'Senteran': names_k,
-    'Krupier' : nazwiska_p,
-    'Kuchta' : nazwiska_k,
-    'Lakey' : nazwiska_p,
-    'Sebek' : nazwiska_t,
-    'Kato' : nazwiska_k,
-    'ertymaster' : nazwiska_b,
-    'exeos' : nazwiska_z,
-    'KFrankVegeta' : nazwiska_r,
-    'Hot Dog Nibba' : nazwiska_w,
-    'Aleksandra Pawlik' : nazwiska_p,
-    'Frido' : nazwiska_k
+    'Senteran': NAZWISKA_K,
+    'Krupier' : NAZWISKA_P,
+    'Kuchta' : NAZWISKA_K,
+    'Lakey' : NAZWISKA_P,
+    'Sebek' : NAZWISKA_T,
+    'Kato' : NAZWISKA_K,
+    'ertymaster' : NAZWISKA_B,
+    'exeos' : NAZWISKA_Z,
+    'KFrankVegeta' : NAZWISKA_R,
+    'Hot Dog Nibba' : NAZWISKA_W,
+    'Aleksandra Pawlik' : NAZWISKA_P,
+    'Frido' : NAZWISKA_K
 }
 names_today = {
     'Senteran': '',
@@ -313,10 +317,6 @@ names_to_nick = {
     'Aleksandra Pawlik' : 'Aleksandra Pawlik',
     'Frido' : 'Frido'
 }
-
-nazwiska = [
-    'Bigas'
-]
 
 deletion_responses = [
     'It was a mistake to cum here',
@@ -361,6 +361,6 @@ image_search_params = {
 }
 
 admin_ids = [
-    # 443836613609390080,
+    443836613609390080,
     351780319306973194
 ]

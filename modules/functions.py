@@ -1,35 +1,47 @@
-from gc import set_debug
+"""This module houses most of the functions of the bot"""
 import sys
+import time
+import random
+from os import remove
+import shutil
+from datetime import datetime
+import asyncio
 
-from discord import channel
-from discord import errors
-from discord.activity import Game
-from discord.enums import UserFlags
-from discord.errors import Forbidden, HTTPException
+import discord
+from discord.utils import get
+import youtube_dl as YOUTUBE_DL
+
+from dictionaries import sending_hours, emoji_library, custom_emoji_library, send_library,\
+    music_library, krupier_users, inverse_krupier_users, krupier_ids, krupier_users_list,\
+    NAMES_J, NAMES_M, NAMES_P, NAMES_S, NAMES_K, NAMES_A, NAMES_KZ, NAMES_AZ, NAZWISKA_B,\
+    NAZWISKA_K, NAZWISKA_P, NAZWISKA_R, NAZWISKA_T, NAZWISKA_W, NAZWISKA_Z,\
+    nick_to_name_beginning_dictionary, nick_to_surname_dictionary, names_today,\
+    names_to_nick, deletion_responses, image_search_params
+
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
-import time
-import discord
-import random
-from discord.utils import get
-from os import remove
-from modules.dictionaries import *
-from modules.functions import *
-from google_images_search import GoogleImagesSearch
-import asyncio
-import youtube_dl
-import shutil
-import io
-from datetime import datetime
+USE_NEW_NAME_FILES = True
+ASSIGNED_NICKNAMES = False
+SHOULD_EMOJI_BOT_CHANGE_NICKNAMES = False
+SEND_NICKNAMES_TO_USER = False
 
-
-use_new_name_files = True
-assigned_nicknames = False
-should_emoji_bot_change_nicknames = False
+PREFIX = ''
+SUFFIX = ''
+BANNED_IDS = []
+BEAST_BANNED_IDS = []
+BEAST_MODE = False
 
 def to_en_str(pl_str):
-    # Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić (Nie jestem pewny co do 'ó' może by to zmienić na 'o' zamiast?)
+    """Usuwa polskie znaki z tekstu
+
+    Args:
+        pl_str (string): tekst z polskimi znakami
+
+    Returns:
+        string: tekst z zamienionymi polskimi znakami
+    """
+    # Przechowuje polskie znaki oraz ich odpowiedniki aby móc je zamienić
     polish_symbols = {
         'ą': 'a',
         'ć': 'c',
@@ -41,36 +53,32 @@ def to_en_str(pl_str):
         'ś': 's',
         'ń': 'n'
     }
-    
-    # Stworzenie pustego en_str który bęzdie przechowywał string bez polskich znaków
+
     en_str = ""
-    # Przechowuje czy znak został dodany jako przemieniony
     char_added = False
 
-    # Celem tego całego bloku jest przejście przez każdy znak w message.content i zamienienie polskich znaków takich jak 'ą' i 'ć' na ich odpowiedniki, czyli w tym przypadku 'a' i 'c'
-    # Jest to przydatne inaczej trzeba sprawdzać dwie opcje wiadomości na przykład 'zły' i 'zly', po zamianie natomiast trzeba sprawdzać tylko 'zly'
-    # Iteruje przez każdy znak z pl_str
     for char in pl_str:
-        # Iteruje przez każdy znak w dzienniku polskie_znaki
         for symbol in polish_symbols:
-            # Jeżeli aktualny znak z dzienniku jest równy char z contentu wiadomości to go zamieniamy
             if symbol == char:
                 en_str = en_str + polish_symbols[symbol]
-                # Skoro został dodany znak to znak_dodany = True, aby na przykład nie zmienić 'ą' na 'a' i potem też dodać 'ą'
                 char_added = True
-        # Jeżeli char z contentu nie został znaleziony w dzienniku to normalny znak zostaje dodany do content
         if not char_added:
             en_str = en_str + char
-        # Na końcu trzeba powrócić znak_dodany do False aby w następnej iteracji głównego for wszystko działało poprawnie
         char_added = False
-    
+
     return en_str
 
 
 async def yt_download(url, destination):
-    global youtube_dl
-    youtube_dl.utils.bug_reports_message = lambda: ''
-    
+    """Pobiera film z YouTube
+
+    Args:
+        url (string): adres filmiku na YouTube
+        destination (string): folder do którego filmik zostanie pobrany
+    """
+    global YOUTUBE_DL
+    YOUTUBE_DL.utils.bug_reports_message = lambda: ''
+
     ytdl_format_options = {
         'format': 'bestaudio/best',
         'restrictfilenames': True,
@@ -81,15 +89,13 @@ async def yt_download(url, destination):
         'quiet': True,
         'no_warnings': True,
         'default_search': 'auto',
-        'source_address': '0.0.0.0' 
-    }
-    ffmpeg_options = {
-        'options': '-vn'
+        'source_address': '0.0.0.0'
     }
 
-    ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+    ytdl = YOUTUBE_DL.YoutubeDL(ytdl_format_options)
 
     class YTDLSource(discord.PCMVolumeTransformer):
+        """Wewnętrzna klasa dla obiektu do pobierania z YouTube"""
         def __init__(self, source, *, data, volume=0.5):
             super().__init__(source, volume)
             self.data = data
@@ -98,8 +104,17 @@ async def yt_download(url, destination):
 
         @classmethod
         async def from_url(cls, url, *, loop=None, stream=False):
+            """Pobiera z url. DO WEWNĘTRZNEGO UŻYTKU
+
+            Args:
+                url (string): adres
+                loop (bool, optional): Ustala czy będzie pętla. Defaults to None.
+                stream (bool, optional): Ustawia czy będzie pobierany czy streamowany film.\
+                     Defaults to False.
+            """
             loop = asyncio.get_event_loop()
-            data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
+            data = await loop.run_in_executor\
+                (None, lambda: ytdl.extract_info(url, download=not stream))
             if 'entries' in data:
                 data = data['entries'][0]
             filename = data['title'] if stream else ytdl.prepare_filename(data)
@@ -110,11 +125,19 @@ async def yt_download(url, destination):
                 shutil.move(filename, 'songs')
             filename = destination + filename
             return filename
-    
+
     ret = await YTDLSource.from_url(url, loop=True)
     return ret
 
 def word_triangle(message):
+    """Zamienia długi string na pomniejsze stringi do trójkątu
+
+    Args:
+        message (message): Otrzymana wiadomość
+
+    Returns:
+        array[string]: zawiera części trójkątu
+    """
     string = ""
     prev = ""
 
@@ -129,12 +152,20 @@ def word_triangle(message):
     return seperate_into_2000_words(string)
 
 def seperate_into_2000_words(message):
+    """Zamienia długi string na pojedyncze o długości 2000 liter
+
+    Args:
+        message (message): Discord.message
+
+    Returns:
+        array[string]: zawiera pojedyncze człony wiadomości
+    """
     count = 0
     ret = []
     last_enter = 0
     last_append = 0
     string = ""
-    for i in range(0, len(message)):
+    for i, value in enumerate(message):
         if count == 1999:
             string = string.removesuffix(message[i:last_enter-2:-1])
             ret.append(string)
@@ -143,42 +174,70 @@ def seperate_into_2000_words(message):
             i = last_enter
             count = 0
         else:
-            if message[i] == '\n':
+            if value == '\n':
                 last_enter = i+1
-            string += message[i]
+            string += value
             count += 1
+
     ret.append(message[last_append:len(message)])
     return ret
 
-def Initilise_Variables():
-    global banned_ids
-    global beast_banned_ids
-    global prefix
-    global suffix
+def initilise_variables():
+    """Inicjalizuje globalne variable. Czyta z plików i wgrywa poprawny:
+    prefix, suffix, banned_ids i beast_banned_ids"""
+    global BANNED_IDS
+    global BEAST_BANNED_IDS
+    global PREFIX
+    global SUFFIX
 
     file = open('data/prefix.txt', 'r')
-    prefix = file.read()
+    PREFIX = file.read()
     file.close()
     file = open('data/suffix.txt', 'r')
-    suffix = file.read()
+    SUFFIX = file.read()
     file.close()
     file = open('data/banned_ids.txt', 'r')
-    with open('data/banned_ids.txt') as f:
-        banned_ids = [line.rstrip() for line in f]
-    with open('data/beast_banned_ids.txt') as f:
-        beast_banned_ids = [line.rstrip() for line in f]
+    with open('data/banned_ids.txt') as file:
+        BANNED_IDS = [line.rstrip() for line in file]
+    with open('data/beast_banned_ids.txt') as file:
+        BEAST_BANNED_IDS = [line.rstrip() for line in file]
 
 async def delete_message(message):
+    """Usuwa wiadomość
+
+    Args:
+        message (message): Wiadomość
+    """
     await message.delete()
 
 async def send_message(message, content):
+    """Wysyła wiadomość po otrzymaniu jakiejś
+
+    Args:
+        message (message): Wiadomość otrzymana
+        content (string): Treść wiadomości do wysłania
+    """
     await message.channel.send(content)
 
 def process_content(content):
+    """Processes a string for use
+
+    Args:
+        content (string): A string with uppercase and polish characters
+
+    Returns:
+        string: text in lower case without polish characters
+    """
     string = content.lower()
     return to_en_str(string)
 
 async def default_reactions(message, content):
+    """Adds reactions with normal emojis
+
+    Args:
+        message (message): The message to react to
+        content (string): The message's content
+    """
     for element in emoji_library:
         if element in content:
             try:
@@ -188,6 +247,13 @@ async def default_reactions(message, content):
                 pass
 
 async def custom_reactions(message, client, content):
+    """Adds reactions with custom emojis
+
+    Args:
+        message (message): The message to react to
+        client (discord.client): The bot's login session
+        content (string): The message's content
+    """
     for element in custom_emoji_library:
         if element in content:
             try:
@@ -198,6 +264,8 @@ async def custom_reactions(message, client, content):
                 pass
 
 def reaction():
+    """Adds 1 to the reaction counter in data/reactions.txt
+    """
     file = open('data/reactions.txt', 'r')
     reactions = int(file.read())
     reactions = reactions + 1
@@ -207,11 +275,17 @@ def reaction():
     file.close()
 
 async def play_default_music(message, content):
+    """Plays music from the built-in library
+
+    Args:
+        message (message): The received message
+        content (string): The message's content
+    """
     for element in music_library:
         if element in content:
-            channel = message.author.voice.channel
+            chan = message.author.voice.channel
             try:
-                channel.connect()
+                chan.connect()
             except AttributeError:
                 message.channel.send("Musisz być połączony do kanału!")
             filename = 'src/' + music_library[element]
@@ -221,15 +295,20 @@ async def play_default_music(message, content):
             await message.channel.send('Currently playing: ' + music_library[element])
 
 async def change_prefix(message):
+    """Changes the bot's prefix
+
+    Args:
+        message (message): The received message
+    """
     if message.content.startswith('emoji prefix '):
-            new_prefix = message.content.removeprefix('emoji prefix')
+        new_prefix = message.content.removeprefix('emoji prefix')
     else:
         new_prefix = message.content.removeprefix('emoji prefiks ')
     encoded_prefix = new_prefix.encode('utf-8')
     file = open('data/prefix.txt', 'wb')
     file.write(encoded_prefix)
     file.close()
-    global prefix
+    global PREFIX
     file = open('data/suffix.txt', 'r')
     suf = file.read()
     file.close()
@@ -238,73 +317,106 @@ async def change_prefix(message):
         await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
     else:
         await message.guild.me.edit(nick=prefix+suf)
-    
-async def display_prefix(message):
-    await message.channel.send('Aktualny prefiks to: ' + prefix)
 
-# Dodaje ścieżkę danej piosenki do pliko data/song.txt
+async def display_prefix(message):
+    """Writes a message with the bot's prefix
+
+    Args:
+        message (message): The received message
+    """
+    await message.channel.send('Aktualny prefiks to: ' + PREFIX)
+
 def write_song_filename(filename):
+    """Pisze ścieżke aktualnie granej piosenki do data/song.txt
+
+    Args:
+        filename (string): Ścieżka do piosenki
+    """
     file = open('data/song.txt', 'w')
     file.write(filename)
     file.close()
 
-# Usuwa piosenke aktualnie zapisaną w pliku data/song.txt
 def remove_song():
+    """Usuwa ostatnio pobraną piosenkę. Bierze ścieżke z data/song.txt
+    """
     file = open('data/song.txt', 'r')
     filename = file.read()
     file.close()
-    if not (filename == ''):
+    if not filename == '':
         remove(filename)
         file = open('data/song.txt', 'w')
         file.write('')
         file.close()
 
 async def change_suffix(message):
-        if message.content.startswith('emoji sufiks '):
-            new_suffix = message.content.removeprefix('emoji sufiks ')
-        else:
-            new_suffix = message.content.removeprefix('emoji suffix ')
-        encoded_suffix = new_suffix.encode('utf-8')
-        file = open('data/suffix.txt', 'wb')
-        file.write(encoded_suffix)
-        file.close()
-        global suffix
-        suffix = new_suffix
-        if len(prefix + suffix) >= 30:
-            await message.guild.me.edit(nick=prefix + suffix[0 : 29 - len(prefix)])
-        else:
-            await message.guild.me.edit(nick=prefix+suffix)
+    """Zmienia sufiks bota
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
+    if message.content.startswith('emoji sufiks '):
+        new_suffix = message.content.removeprefix('emoji sufiks ')
+    else:
+        new_suffix = message.content.removeprefix('emoji suffix ')
+    encoded_suffix = new_suffix.encode('utf-8')
+    file = open('data/suffix.txt', 'wb')
+    file.write(encoded_suffix)
+    file.close()
+    global SUFFIX
+    SUFFIX = new_suffix
+    if len(PREFIX + SUFFIX) >= 30:
+        await message.guild.me.edit(nick=PREFIX + SUFFIX[0 : 29 - len(PREFIX)])
+    else:
+        await message.guild.me.edit(nick=PREFIX+SUFFIX)
 
 async def display_suffix(message):
-    message.channel.send('Aktualny sufiks to: ' + suffix)
+    """Pisze sufiks bota do kanału
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
+    message.channel.send('Aktualny sufiks to: ' + SUFFIX)
 
 async def play_music(message):
+    """Gra muzykę pobierając ją z YouTube
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     server = message.guild
-    
 
     text = message.content
     url = text.removeprefix('emoji zagraj')
     filename = await yt_download(url, 'songs/')
-    channel = message.author.voice.channel
+    chan = message.author.voice.channel
     try:
-        await channel.connect()
+        await chan.connect()
     except discord.errors.ClientException:
         pass
     voice_client = server.voice_client
     voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
     await message.channel.send('**Now playing:** {}'.format(filename.removeprefix('songs/')))
-        
-    # remove_song jest dopiero tu, ponieważ musi się stać po voice_client.stop() aby nie próbować usunąć pliku w użyciu oraz ponieważ jak było tuż po nim to czasami nie działało
-    # sensowną opcją jest więc danie go tu ponieważ jest po await send czyli minie chwila i plik powinien mieć wystarczająco czasu aby przestać być zablokowanym
+
     remove_song()
     write_song_filename(filename)
 
 async def send_messages(content, message):
+    """Wysyła odpowiedzi na wiadomości z wbudowanej biblioteki
+
+    Args:
+        content (string): Treść wiadomości
+        message (message): Otrzymana wiadomość
+    """
     for element in send_library:
         if element in content:
             await message.channel.send(send_library[element])
 
-async def send_word_triangle(message, content):
+async def send_word_triangle(message):
+    """Wysyła trójkąt autorowi wiadomości
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     string = word_triangle(message.content.removeprefix("trójkąt "))
     try:
         for element in string:
@@ -313,6 +425,13 @@ async def send_word_triangle(message, content):
         await message.channel.send("Ta wiadomość byłaby za długa :(")
 
 async def search_for_image(message, client, gis):
+    """Wyszukuje zdjęcie na Google Images i ustawia je jako zdjęcie profilowe bota
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+        gis (???): Nie wiem co to jest
+    """
     print('zdjęcie...')
     query = message.content.removeprefix('emoji zdjęcie ')
     image_search_params['q'] = query
@@ -339,48 +458,77 @@ async def search_for_image(message, client, gis):
     time.sleep(1)
     remove(path)
 
-async def change_to_attached_image(message, client):
-    return
-    for file in message.attachments:
-        fp = io.BytesIO()
-        await file.save(fp)
-        pfp = discord.File(fp, filename=file.filename)
-        # f = open('/src/' + file.filename, 'w+')
-        # f.write(pfp)
-        # f.close()
-        await client.user.edit(avatar=pfp)
-
-
 async def display_reactions(message):
+    """Pisze ile reakcji zostało już wykonanych
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     file = open('data/reactions.txt', 'r')
     reactions = file.read()
     await message.reply('Już zareagowałem: ' + reactions + ' razy!')
 
 async def join_voice_channel(message):
-    channel = message.author.voice.channel
-    await channel.connect()
+    """Dołącza do kanału głosowego, w którym jest autor wiadomości
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
+    chan = message.author.voice.channel
+    await chan.connect()
 
 async def leave_voice_channel(message):
+    """Opuszcza kanał głosowy
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     await message.add_reaction('👋')
     await message.guild.voice_client.disconnect()
 
 async def pause_music(message):
+    """Pauzuje muzyke
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     await message.add_reaction('⏸')
     message.guild.voice_client.pause()
 
 async def stop_music(message):
+    """Zatrzymuje muzyke
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     await message.add_reaction('🛑')
     message.guild.voice_client.stop()
 
 async def resume_music(message):
+    """Wstrzymuje muzykę
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     await message.add_reaction('⏯')
     message.guild.voice_client.resume()
 
 async def manual_response(message):
+    """Manualna odpowiedź na pytanie
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     response = input('Input the response to ' + message.content + ': ')
     await message.reply(response)
 
 async def i_am_the_cum_beast(message, client):
+    """Zmienia zdjęcie i nick bota na bestię
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+    """
     file = open('src/cum_beast.jpg', 'rb')
     pfp = file.read()
     file.close()
@@ -389,62 +537,139 @@ async def i_am_the_cum_beast(message, client):
     await message.channel.send('I am the cum beast')
 
 async def emojimeister_return(message, client):
+    """Przywraca domyślne zdjęcie i nick bota
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+    """
     file = open('src/emoji_fp.png', 'rb')
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
-    await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 29)] + suffix[0 : 29 - len(prefix)])
+    await message.guild.me.edit(nick=PREFIX[0 : min(len(PREFIX), 29)] +
+     SUFFIX[0 : 29 - len(PREFIX)])
 
 async def custom_reaction(message, client, emoji_name):
+    """Reaguje reakcją krupierową
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+        emoji_name (string): Nazwa emoji do zareagowania
+    """
     emoji = get(client.emojis, name=emoji_name)
     await message.add_reaction(emoji)
 
 async def beast_mode_on(client):
-    global beast_mode
-    beast_mode = True
+    """Włącza beast mode
+
+    Args:
+        client (client): Sesja discorda bota
+    """
+    global BEAST_MODE
+    BEAST_MODE = True
     await client.change_presence(activity=discord.Game('Cum Beast Mode'))
 
 async def beast_mode_off(client):
-    global beast_mode
-    beast_mode = False
+    """Wyłącza beast mode
+
+    Args:
+        client (client): Sesja discorda bota
+    """
+    global BEAST_MODE
+    BEAST_MODE = False
     client.change_presence(status=None)
 
 async def reply_to_message(message, content):
-    await message.reply(content)
-    return
+    """Odpowiada na wiadomość
 
-async def help(message):
-    await send_message(message, '- emoji commands - wyświetla komendy\n- emoji replies - wyświetla zapytania i odpowiedzi\n- emoji songs - wyświetle wbudowane piosenki do zagrania\n- emoji deletion - wyświetla wiadomości wysyłane po usunięciu\n- emoji emoji - wyświetla zestaw domyślnych emoji\n- emoji emoji_krupier - wyświetla customowe reakcje emoji')
+    Args:
+        message (message): Otrzymana wiadomość
+        content (string): Treść odpowiedzi
+    """
+    await message.reply(content)
+
+async def help_other_helps(message):
+    """Wysyła listę innych komend pomocy
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
+    await send_message(message, '''
+    - emoji commands - wyświetla komendy\n
+    - emoji replies - wyświetla zapytania i odpowiedzi\n
+    - emoji songs - wyświetle wbudowane piosenki do zagrania\n
+    - emoji deletion - wyświetla wiadomości wysyłane po usunięciu\n
+    - emoji emoji - wyświetla zestaw domyślnych emoji\n
+    - emoji emoji_krupier - wyświetla customowe reakcje emoji''')
 
 async def help_commands(message):
-    await send_message(message, 'prefix wejdz - wchodzi do kanału\nprefix wyjdz - wychodzi z kanału\nprefix zagraj {nazwa piosenki} - gra piosenkę z YouTube\nemoji zdjęcie {nazwa zdjęcia} - szuka zdjęcia na Google Image i ustawia je jako profilowe\nemoji prefix {prefix} - zmienia prefix bota\nemoji suffix {suffix} - zmienia suffix bota\nile reakcji? - wyświetla ilość reakcji wykonanych')
+    """Wysyła listę komend bota
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
+    await send_message(message, '''
+    - prefix wejdz - wchodzi do kanału\n
+    - prefix wyjdz - wychodzi z kanału\n
+    - prefix zagraj {nazwa piosenki} - gra piosenkę z YouTube\n
+    - emoji zdjęcie {nazwa zdjęcia} - szuka zdjęcia na Google Image i ustawia je jako profilowe\n
+    - emoji prefix {prefix} - zmienia prefix bota\n
+    - emoji suffix {suffix} - zmienia suffix bota\n
+    - ile reakcji? - wyświetla ilość reakcji wykonanych''')
 
 async def help_replies(message):
+    """Wysyła listę wbudowanych odpowiedzi
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     cont = ""
     for element in send_library:
         cont = cont + element + ' - ' + send_library[element] + '\n'
     await send_message(message, cont)
 
 async def help_songs(message):
+    """Wysyła listę wbudowanych piosenek
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     cont = ""
     for element in music_library:
         cont = cont + element + ' - ' + music_library[element] + '\n'
     await send_message(message, cont)
 
 async def help_deletion(message):
+    """Wysyła wiadomośc z wszystkimi odpowiedziami na usuwanie wiadomośći
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     cont = ""
-    for i in range(len(deletion_responses)):
-        cont = cont + deletion_responses[i] + '\n'
-    await send_message(message, cont)    
+    for element in deletion_responses:
+        cont = cont + element + '\n'
+    await send_message(message, cont)
 
 async def help_emoji(message):
+    """Wysyła wiadomość z listą domyślnych reakcji
+
+    Args:
+        message (message): Otrzymana wiadomość
+    """
     cont = ""
     for element in emoji_library:
         cont = cont + element + ' - ' + emoji_library[element] + '\n'
     await send_message(message, cont)
 
 async def help_custom_emoji(message, client):
-    cont = ""
+    """Wysyła wiadomość z piekła rodem  (!!!UWAGA NIE UŻYWAĆ BO KRUPIER SIĘ ZDENERWUJE)
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+    """
     for element in custom_emoji_library:
         emoji = get(client.emojis, name=custom_emoji_library[element])
         try:
@@ -452,11 +677,17 @@ async def help_custom_emoji(message, client):
             await send_message(message, emoji)
         except discord.errors.HTTPException:
             try:
-                print('Empty message caught in help_custom_emoji. Element: ' + element + ' . Emoji: ' + emoji)
-            except:
-                pass
+                print('Empty message caught in help_custom_emoji. Element: ' + element +
+                 ' . Emoji: ' + emoji)
+            except AttributeError:
+                print('The emoji could not be appended')
 
 async def new_day(client):
+    """Ustawia listę nicków, wysyła indywidualne i kanałowe wiadomości o nickach
+
+    Args:
+        client (client): Sesja discorda bota
+    """
     i = 0
     names = []
     surnames = []
@@ -464,58 +695,61 @@ async def new_day(client):
         names.append(random.choice(nick_to_name_beginning_dictionary[element]))
         surnames.append(random.choice(nick_to_surname_dictionary[element]))
         names_today[element] = names[i] + ' ' + surnames[i]
-        user = await client.fetch_user(krupier_users[element])
-        # user = client.get_user(krupier_users[element])
-        message = "Cześć " + element + "! Twoje dzisiejsze imię to: " + names[i]
-        try:
-            pass
-            # await user.send(message)
-        except discord.errors.HTTPException:
-            print("User " + element + " failed to receive message")
+        if SEND_NICKNAMES_TO_USER:
+            user = await client.fetch_user(krupier_users[element])
+            message = "Cześć " + element + "! Twoje dzisiejsze imię to: " + names[i]
+            try:
+                await user.send(message)
+            except discord.errors.HTTPException:
+                print("User " + element + " failed to receive message")
         i = i + 1
     message = "Dziejsza lista imion:"
-    for j in range(len(krupier_users)):        
+    for j in range(len(krupier_users)):
         message = message + '\n' + krupier_users_list[j] + " - " + names[j] + ' ' + surnames[j]
-    channel = client.get_channel(768865472552108115)
-    await channel.send(message)
+    chan = client.get_channel(768865472552108115)
+    await chan.send(message)
 
     file = open('data/today_names.txt', 'w', encoding='utf-8')
-    for i in range(len(names)):
-        file.write(names[i] + ' ' + surnames[i])
+    for i, value in enumerate(names):
+        file.write(value + ' ' + surnames[i])
         if not i == len(names) - 1:
             file.write('\n')
+    file.close()
 
 def create_lists():
-    global names_j
-    global names_a
-    global names_s
-    global names_m
-    global names_p
-    global names_k
-    global names_kz
-    global names_az
-    if use_new_name_files:
-        with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file: 
+    """Tworzy listy imion i nazwisk zaczynających się na jakieś litery
+    z plików data/imiona_polskie.txt i data/surnames.txt
+    """
+    global NAMES_J
+    global NAMES_A
+    global NAMES_S
+    global NAMES_M
+    global NAMES_P
+    global NAMES_K
+    global NAMES_KZ
+    global NAMES_AZ
+    if USE_NEW_NAME_FILES:
+        with open('data/imiona_polskie.txt', 'r', encoding='utf-8') as file:
             content = file.read()
             content_list = content.split('\n')
             for row in content_list:
                 if row.endswith('a'):
                     if row.startswith('K'):
-                        names_kz.append(row)
+                        NAMES_KZ.append(row)
                     elif row.startswith('A'):
-                        names_az.append(row)
+                        NAMES_AZ.append(row)
                 elif row.startswith('J'):
-                    names_j.append(row)
+                    NAMES_J.append(row)
                 elif row.startswith('M'):
-                    names_m.append(row)
+                    NAMES_M.append(row)
                 elif row.startswith('P'):
-                    names_p.append(row)
+                    NAMES_P.append(row)
                 elif row.startswith('K'):
-                    names_k.append(row)
+                    NAMES_K.append(row)
                 elif row.startswith('S'):
-                    names_s.append(row)
+                    NAMES_S.append(row)
                 elif row.startswith('A'):
-                    names_a.append(row)
+                    NAMES_A.append(row)
     else:
         with open('data/male_names.txt', 'r', encoding='utf-8') as file:
             content = file.read()
@@ -524,56 +758,61 @@ def create_lists():
                 if '-' in row:
                     pass
                 elif row.startswith('J'):
-                    names_j.append(row)
+                    NAMES_J.append(row)
                 elif row.startswith('M'):
-                    names_m.append(row)
+                    NAMES_M.append(row)
                 elif row.startswith('P'):
-                    names_p.append(row)
+                    NAMES_P.append(row)
                 elif row.startswith('K'):
-                    names_k.append(row)
+                    NAMES_K.append(row)
                 elif row.startswith('S'):
-                    names_s.append(row)
+                    NAMES_S.append(row)
                 elif row.startswith('A'):
-                    names_a.append(row)
+                    NAMES_A.append(row)
         with open('data/female_names.txt', 'r', encoding='utf-8') as file:
             for row in file.read().split('\n'):
                 if '-' in row:
                     pass
                 elif row.startswith('K'):
-                    names_kz.append(row)
+                    NAMES_KZ.append(row)
                 elif row.startswith('A'):
-                    names_az.append(row)
+                    NAMES_AZ.append(row)
     with open('data/surnames.txt', 'r', encoding='utf-8') as file:
-        global nazwiska_k
-        global nazwiska_p
-        global nazwiska_z
-        global nazwiska_t
-        global nazwiska_r
-        global nazwiska_b
-        global nazwiska_w
+        global NAZWISKA_K
+        global NAZWISKA_P
+        global NAZWISKA_Z
+        global NAZWISKA_T
+        global NAZWISKA_R
+        global NAZWISKA_B
+        global NAZWISKA_W
         for row in file.read().split('\n'):
             if row.startswith('K'):
-                nazwiska_k.append(row)
+                NAZWISKA_K.append(row)
             elif row.startswith('P'):
-                nazwiska_p.append(row)
+                NAZWISKA_P.append(row)
             elif row.startswith('Z'):
-                nazwiska_z.append(row)
+                NAZWISKA_Z.append(row)
             elif row.startswith('T'):
-                nazwiska_t.append(row)
+                NAZWISKA_T.append(row)
             elif row.startswith('R'):
-                nazwiska_r.append(row)
+                NAZWISKA_R.append(row)
             elif row.startswith('B'):
-                nazwiska_b.append(row)
+                NAZWISKA_B.append(row)
             elif row.startswith('W'):
-                nazwiska_w.append(row)
+                NAZWISKA_W.append(row)
 
 async def check_for_new_day(client):
+    """Sprawdza czy jest nowy dzień i wykonuje wymagane operacje jeżeli jest
+
+    Args:
+        client (client): Sesja discorda bota
+    """
     file = open('data/date.txt', 'r')
     date = file.read()
     cur_date = datetime.today().strftime('%Y-%m-%d')
     file.close()
-    global assigned_nicknames
-    global should_emoji_bot_change_nicknames
+    global ASSIGNED_NICKNAMES
+    global SHOULD_EMOJI_BOT_CHANGE_NICKNAMES
 
     print('Date from file is ' + cur_date)
     print('Date from current time is ' + date)
@@ -582,14 +821,14 @@ async def check_for_new_day(client):
         print('It is a new day! Welcome to ' + date)
         reset_sents()
         create_lists()
-        if should_emoji_bot_change_nicknames:
+        if SHOULD_EMOJI_BOT_CHANGE_NICKNAMES:
             await new_day(client)
             await change_nicknames(client)
         file = open('data/date.txt', 'w')
         file.write(cur_date)
         file.close()
-    elif not assigned_nicknames:
-        assigned_nicknames = True
+    elif not ASSIGNED_NICKNAMES:
+        ASSIGNED_NICKNAMES = True
         file = open('data/today_names.txt', 'r', encoding='utf-8')
         names = file.read().split('\n')
         i = 0
@@ -598,6 +837,11 @@ async def check_for_new_day(client):
             i = i + 1
 
 async def change_nicknames(client):
+    """Zmienia nicki osób z Krupiera na dzisiejsze
+
+    Args:
+        client (client): Sesja discorda bota
+    """
     guild = await client.fetch_guild(768865472552108112)
     members = await guild.fetch_members(limit=100).flatten()
 
@@ -606,9 +850,15 @@ async def change_nicknames(client):
             try:
                 await member.edit(nick=names_today[inverse_krupier_users[member.id]])
             except discord.errors.Forbidden:
-                print('Failed to change nick of id: ' + str(member.id) + '. This is user: ' + inverse_krupier_users[member.id])
+                print('Failed to change nick of id: ' + str(member.id) +
+                 '. This is user: ' + inverse_krupier_users[member.id])
 
 async def return_nicknames(client):
+    """Przywraca nicki wszystkich osób z Krupiera do domyślnych
+
+    Args:
+        client (client): Sesja discorda bota
+    """
     guild = await client.fetch_guild(768865472552108112)
     members = await guild.fetch_members(limit=100).flatten()
 
@@ -617,35 +867,53 @@ async def return_nicknames(client):
             try:
                 await member.edit(nick=names_to_nick[inverse_krupier_users[member.id]])
             except discord.errors.Forbidden:
-                print('Failed to change nick of id: ' + str(member.id) + '. This is user: ' + inverse_krupier_users[member.id])
+                print('Failed to change nick of id: ' + str(member.id) +
+                 '. This is user: ' + inverse_krupier_users[member.id])
 
 async def write_to_channel(message, client):
+    """Pisze do określonego kanału
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja zalogowania bota
+    """
     trunc = message.content.removeprefix('emoji napisz do ')
 
-    for i in range(len(trunc)):
-        if trunc[i] == 'e':
+    for i, value in enumerate(trunc):
+        if value == 'e':
             end_of_numbers = i
             break
 
     nums = trunc[0:end_of_numbers]
     cont = trunc[end_of_numbers+2:len(trunc)]
-    channel = await client.fetch_channel(int(nums))
-    await channel.send(cont)   
+    chan = await client.fetch_channel(int(nums))
+    await chan.send(cont)
 
 async def dm_user(message, client):
+    """Pisze prywatną wiadomość do osoby
+
+    Args:
+        message (message): Otrzymana wiadomość
+        client (client): Sesja discorda bota
+    """
     trunc = message.content.removeprefix('emoji dm ')
 
-    for i in range(len(trunc)):
-        if trunc[i] == 'e':
+    for i, value in enumerate(trunc):
+        if value == 'e':
             end_of_numbers = i
             break
-    
+
     nums = trunc[0:end_of_numbers]
     cont = trunc[end_of_numbers+2:len(trunc)]
     user = await client.fetch_user(int(nums))
     await user.send(cont)
 
 async def good_blank(client):
+    """Wysyła dobrą wiadomość
+
+    Args:
+        client (client): Sesja discorda bota
+    """
     hour = datetime.now().hour
     print('The current hour is ' + str(hour))
     path = 'a'
@@ -664,13 +932,21 @@ async def good_blank(client):
             path = 'data/good_evening.png'
             path_sent = 'data/sent_good_evening.txt'
     if not path == 'a':
-        channel = client.get_channel(768865472552108115)
-        await channel.send(file=discord.File(path))
+        chan = client.get_channel(768865472552108115)
+        await chan.send(file=discord.File(path))
         file = open(path_sent, 'w')
         file.write('1')
         file.close()
 
 def check_if_good_sent(which):
+    """Sprawdza czy dana dobra wiadomość była już wysłana
+
+    Args:
+        which (int): Która wiadomość (1, 2, 3)
+
+    Returns:
+        bool: Czy dobra wiadomość była już wysłana
+    """
     if which == 1:
         path = 'sent_good_morning.txt'
     elif which == 2:
@@ -685,6 +961,8 @@ def check_if_good_sent(which):
         return False
 
 def reset_sents():
+    """Resetuje pliki z wysłanymi dobrymi wiadomościami
+    """
     print('Resetting sent good messages...')
     file = open('data/sent_good_morning.txt', 'w')
     file.write('0')

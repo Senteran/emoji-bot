@@ -1,3 +1,3 @@
-web: python emojimeister.py
+web: python modules/emojimeister.py
 
-worker: python emojimeister.py 
+worker: python modules/emojimeister.py 

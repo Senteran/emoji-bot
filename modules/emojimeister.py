@@ -6,15 +6,26 @@ import sys
 import random
 
 import discord
-
-from modules.dictionaries import *
-from modules.functions import *
+from discord.utils import get
 from google_images_search import GoogleImagesSearch
+
+from dictionaries import admin_ids, deletion_responses
+
+from functions import\
+    initilise_variables, delete_message, send_message, process_content, default_reactions,\
+    custom_reactions,play_default_music, change_prefix, display_prefix, change_suffix,\
+    display_suffix, play_music, send_messages, send_word_triangle, search_for_image,\
+    display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
+    resume_music, manual_response, i_am_the_cum_beast, emojimeister_return,\
+    custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
+    help_commands, help_replies, help_songs, help_deletion, help_emoji, help_custom_emoji,\
+    check_for_new_day, change_nicknames, return_nicknames, write_to_channel, dm_user, good_blank,\
+    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE
+
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
 
-#
 # WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
 # dzięki, pomocny komentarz!
 
@@ -22,15 +33,10 @@ intnets = discord.Intents.all()
 client = discord.Client(intents = intnets)
 gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
 
-
-BEAST_MODE = False
 CHANGE_NICKS = False
-banned_ids = []
-beast_banned_ids = []
-PREFIX = ''
-SUFFIX = ''
+MANUAL_RESPONSE = False
 
-Initilise_Variables()
+initilise_variables()
 
 
 @client.event
@@ -50,7 +56,6 @@ async def on_message(message):
     so it can be a DM or a message in a channel"""
     global BEAST_MODE
     global PREFIX
-    global SUFFIX
 
     if message.author == client.user:
         return
@@ -58,14 +63,14 @@ async def on_message(message):
     await good_blank(client)
 
     # Normal bans
-    if (str(message.author.id) in banned_ids
+    if (str(message.author.id) in BANNED_IDS
      and not isinstance(message.channel, discord.channel.DMChannel)):
         await delete_message(message)
         await send_message(message, random.choice(deletion_responses))
         return
 
     # Beast mode bans
-    if (BEAST_MODE is True and str(message.author.id) in beast_banned_ids
+    if (BEAST_MODE is True and str(message.author.id) in BEAST_BANNED_IDS
     and not isinstance(message.channel, discord.channel.DMChannel)):
         await delete_message(message)
         await send_message(message, random.choice(deletion_responses))
@@ -104,19 +109,15 @@ async def on_message(message):
     if PREFIX + ' zagraj ' in message.content:
         await play_music(message)
 
-
     # send messages
     await send_messages(content, message)
 
     if message.content.startswith("trójkąt "):
-        await send_word_triangle(message, content)
+        await send_word_triangle(message)
 
     # Zdjęcie profilowe z Google Image Search
     if message.content.startswith('emoji zdjęcie '):
         await search_for_image(message, client, gis)
-
-    if message.content == 'emoji zdjęcie':
-        await change_to_attached_image(message, client)
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
@@ -141,11 +142,11 @@ async def on_message(message):
         await pause_music(message)
 
     # Wstrzymanie muzyki
-    if message.content.startswith(prefix) and ' wznow' in content:
+    if message.content.startswith(PREFIX) and ' wznow' in content:
         await resume_music(message)
 
     # Ręczna odpowiedź
-    if 'czesc' in content and 'meister' in content:
+    if 'czesc' in content and 'meister' in content and MANUAL_RESPONSE is True:
         await manual_response(message)
 
     # I am the cum beast
@@ -158,7 +159,7 @@ async def on_message(message):
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
-    if ('witczak' in content or 
+    if ('witczak' in content or
     ('spotkanie' in content and ('zakonczyl' in content or 'zamknal' in content))):
         await custom_reaction(message, client, 'witczak')
 
@@ -190,7 +191,7 @@ async def on_message(message):
         await reply_to_message(message, 'erty jest zajety')
 
     if content == 'emoji help':
-        await help(message)
+        await help_other_helps(message)
 
     if message.content.startswith('emoji napisz do '):
         try:
@@ -224,14 +225,11 @@ async def on_message(message):
 
     if message.content == 'fqeauiho4378worefihusd':
         await return_nicknames(client)
-    
+
     if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
         await change_nicknames(client)
-        
+
     if 'krupier to furnik' in content:
-        """
-        👺
-        """
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
 
 client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
