@@ -679,7 +679,7 @@ async def help_custom_emoji(message, client):
             try:
                 print('Empty message caught in help_custom_emoji. Element: ' + element +
                  ' . Emoji: ' + emoji)
-            except AttributeError:
+            except TypeError:
                 print('The emoji could not be appended')
 
 async def new_day(client):
