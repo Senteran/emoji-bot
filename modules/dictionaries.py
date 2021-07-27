@@ -2,7 +2,7 @@
 necessary fo the operation of the bot"""
 
 sending_hours = [
-    [7, 14],
+    [7, 11],
     [12, 16],
     [17, 22]
 ]
@@ -94,7 +94,7 @@ custom_emoji_library = {
     'ertymi': 'ertymi',
     'ertymeister': 'ertymeister',
     'clyde': 'clyde',
-    'cas': 'cas',
+    'cas': 'cas_francuski',
     'bw': 'bw',
     'js': 'js',
     'javascript': 'js',
