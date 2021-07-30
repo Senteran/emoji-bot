@@ -310,7 +310,7 @@ names_to_nick = {
     'Kuchta' : 'Kuchta',
     'Lakey' : 'Lakey',
     'Sebek' : 'Sebek',
-    'Kato' : 'Cum Lord',
+    'Kato' : 'Kamil',
     'ertymaster' : 'ertymaster',
     'exeos' : 'Paweł Zając',
     'KFrankVegeta' : 'KFrankVegeta',

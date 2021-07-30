@@ -43,7 +43,6 @@ initilise_variables()
 async def on_ready():
     """This runs upon the bot logging in to Discord servers"""
     print("Logged in as {0.user}".format(client))
-    await check_for_new_day(client)
 
     print('List of available servers:')
     for server in client.guilds:
@@ -57,8 +56,13 @@ async def on_message(message):
     global BEAST_MODE
     global PREFIX
 
+    content = process_content(message.content)
+
     if message.author == client.user:
+        await default_reactions(message, content)
+        await custom_reactions(message, client, content)
         return
+
     await check_for_new_day(client)
     await good_blank(client)
 
@@ -75,9 +79,6 @@ async def on_message(message):
         await delete_message(message)
         await send_message(message, random.choice(deletion_responses))
         return
-
-    # Stworzenie temp_content które zmienia content wiadomości na same małe znaki
-    content = process_content(message.content)
 
     # emoji reactions
     # default emoji
