@@ -990,3 +990,23 @@ def reset_sents():
     file = open('data/sent_good_evening.txt', 'w')
     file.write('0')
     file.close()
+
+async def delete_message_by_id(message, client):
+    """Usuwa wiadomość o podanym id
+
+    Args:
+        message ([message]): Objekt wiadomości o stylu 'emoji usun 21743890'
+        client (client): sesja discorda bota
+    """
+    trunc = message.content.removeprefix('emoji usun ')
+
+    for i, value in enumerate(trunc):
+        if value == 'e':
+            end_of_channel_id = i
+            break
+
+    channel_id = int(trunc[0:end_of_channel_id])
+    message_id = int(trunc[end_of_channel_id+2:len(trunc)])
+    channel = await client.fetch_channel(channel_id)
+    mess = await channel.fetch_message(message_id)
+    await mess.delete()

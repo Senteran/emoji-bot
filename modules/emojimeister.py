@@ -20,7 +20,8 @@ from functions import\
     custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_deletion, help_emoji, help_custom_emoji,\
     check_for_new_day, change_nicknames, return_nicknames, write_to_channel, dm_user, good_blank,\
-    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE, change_nicknames_to_custom
+    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE, change_nicknames_to_custom,\
+    delete_message_by_id
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -205,6 +206,12 @@ async def on_message(message):
             await dm_user(message, client)
         except discord.errors.HTTPException:
             await message.reply('The DM failed to send')
+
+    if message.content.startswith('emoji usun '):
+        try:
+            await delete_message_by_id(message, client)
+        except discord.errors.HTTPException:
+            await message.reply('An error occurred')
 
     if content == 'emoji commands':
         await help_commands(message)
