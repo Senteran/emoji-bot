@@ -20,7 +20,7 @@ from functions import\
     custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_deletion, help_emoji, help_custom_emoji,\
     check_for_new_day, change_nicknames, return_nicknames, write_to_channel, dm_user, good_blank,\
-    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE
+    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE, change_nicknames_to_custom
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -229,6 +229,9 @@ async def on_message(message):
 
     if message.content == 'f47q3hewaouilgf4wtgerswyhgs':
         await change_nicknames(client)
+
+    if message.content == '37485euytwrohijldk4t89euir':
+        await change_nicknames_to_custom(client)
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")

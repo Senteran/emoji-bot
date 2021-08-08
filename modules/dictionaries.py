@@ -319,6 +319,21 @@ names_to_nick = {
     'Frido' : 'Frido'
 }
 
+names_to_custom_nick = {
+    'Senteran': 'ジャック',
+    'Krupier' : 'ジョン',
+    'Kuchta' : 'マリウス',
+    'Lakey' : 'ピーター',
+    'Sebek' : 'セバスチャン',
+    'Kato' : 'カミル',
+    'ertymaster' : 'アダム',
+    'exeos' : 'ポール 野ウサギ',
+    'KFrankVegeta' : 'カロリナ',
+    'Hot Dog Nibba' : 'アラン',
+    'Aleksandra Pawlik' : 'アレクサンダー 収納スペース',
+    'Frido' : 'ポール クリン'
+}
+
 deletion_responses = [
     'It was a mistake to cum here',
     'Your cum sucks dick',

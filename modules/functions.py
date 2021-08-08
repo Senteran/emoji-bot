@@ -16,7 +16,7 @@ from dictionaries import sending_hours, emoji_library, custom_emoji_library, sen
     NAMES_J, NAMES_M, NAMES_P, NAMES_S, NAMES_K, NAMES_A, NAMES_KZ, NAMES_AZ, NAZWISKA_B,\
     NAZWISKA_K, NAZWISKA_P, NAZWISKA_R, NAZWISKA_T, NAZWISKA_W, NAZWISKA_Z,\
     nick_to_name_beginning_dictionary, nick_to_surname_dictionary, names_today,\
-    names_to_nick, deletion_responses, image_search_params
+    names_to_nick, deletion_responses, image_search_params, names_to_custom_nick
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -866,6 +866,23 @@ async def return_nicknames(client):
         if member.id in krupier_ids:
             try:
                 await member.edit(nick=names_to_nick[inverse_krupier_users[member.id]])
+            except discord.errors.Forbidden:
+                print('Failed to change nick of id: ' + str(member.id) +
+                 '. This is user: ' + inverse_krupier_users[member.id])
+
+async def change_nicknames_to_custom(client):
+    """Zmienia nicki wszystkich na customowe
+
+    Args:
+        client (client): Sesja discorda bota
+    """
+    guild = await client.fetch_guild(768865472552108112)
+    members = await guild.fetch_members(limit=100).flatten()
+
+    for member in members:
+        if member.id in krupier_ids:
+            try:
+                await member.edit(nick=names_to_custom_nick[inverse_krupier_users[member.id]])
             except discord.errors.Forbidden:
                 print('Failed to change nick of id: ' + str(member.id) +
                  '. This is user: ' + inverse_krupier_users[member.id])
