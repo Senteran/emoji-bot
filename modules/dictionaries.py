@@ -153,9 +153,10 @@ send_library = {
 
 music_library = {
     'dajesz tensa':'rage.mp3',
-    'dajesz powrot': 'powrót_krupiera.mp3',
+    'dajesz powrot 1': 'powrót_krupiera.mp3',
     'dajesz special': 'senteran_special_20k_subów.mp4',
-    'dajesz powrot 2': 'powrot_krupiera2.mp3'
+    'dajesz powrot 2': 'powrot_krupiera2.mp3',
+    'dajesz powrot 3': 'powrot_krupiera3.mp3'
 }
 
 krupier_users = {

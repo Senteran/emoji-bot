@@ -283,11 +283,6 @@ async def play_default_music(message, content):
     """
     for element in music_library:
         if element in content:
-            chan = message.author.voice.channel
-            try:
-                chan.connect()
-            except AttributeError:
-                message.channel.send("Musisz być połączony do kanału!")
             filename = 'src/' + music_library[element]
             server = message.guild
             voice_client = server.voice_client
