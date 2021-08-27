@@ -49,6 +49,9 @@ async def on_ready():
     for server in client.guilds:
         print(server)
 
+    chan = await client.fetch_channel(788023076402495518)
+    await chan.connect()
+
 
 @client.event
 async def on_message(message):

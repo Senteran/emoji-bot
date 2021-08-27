@@ -338,7 +338,10 @@ def remove_song():
     filename = file.read()
     file.close()
     if not filename == '':
-        remove(filename)
+        try:
+            remove(filename)
+        except FileNotFoundError:
+            print("THe file was not found")
         file = open('data/song.txt', 'w')
         file.write('')
         file.close()
