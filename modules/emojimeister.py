@@ -36,6 +36,8 @@ gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a754
 
 CHANGE_NICKS = False
 MANUAL_RESPONSE = False
+SEND_GOOD_MESSAGES = False
+GO_TO_SVB = True
 
 initilise_variables()
 
@@ -49,7 +51,8 @@ async def on_ready():
     for server in client.guilds:
         print(server)
 
-    chan = await client.fetch_channel(788023076402495518)
+    id = 640859405247709185 if GO_TO_SVB else 788023076402495518
+    chan = await client.fetch_channel(id)
     await chan.connect()
 
 
@@ -68,7 +71,8 @@ async def on_message(message):
         return
 
     await check_for_new_day(client)
-    await good_blank(client)
+    if SEND_GOOD_MESSAGES:
+        await good_blank(client)
 
     # Normal bans
     if (str(message.author.id) in BANNED_IDS
@@ -155,11 +159,11 @@ async def on_message(message):
         await manual_response(message)
 
     # I am the cum beast
-    if content == 'co wy macie z tym kamem?':
+    if content == 'co wy macie z tym kamem?' and message.author.id != 443836613609390080:
         await i_am_the_cum_beast(message, client)
 
     # The return of emojimeister
-    if content == 'emojimeister wroc':
+    if content == 'emojimeister wroc' and message.author.id != 443836613609390080:
         await emojimeister_return(message, client)
 
     # los santos customs (ultra customowe rzeczy)
