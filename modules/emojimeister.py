@@ -52,8 +52,12 @@ async def on_ready():
     for server in client.guilds:
         print(server)
 
-    if GO_TO_KRUPIER: await client.fetch_channel(788023076402495518).connect()
-    if GO_TO_SVB: await client.fetch_channel(640859405247709185).connect()
+    if GO_TO_KRUPIER: 
+        channel = await client.fetch_channel(788023076402495518)
+        await channel.connect()
+    if GO_TO_SVB: 
+        channel = await client.fetch_channel(640859405247709185)
+        channel.connect()
 
 
 @client.event
