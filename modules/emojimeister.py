@@ -38,6 +38,7 @@ CHANGE_NICKS = False
 MANUAL_RESPONSE = False
 SEND_GOOD_MESSAGES = False
 GO_TO_SVB = True
+GO_TO_KRUPIER = True
 
 initilise_variables()
 
@@ -51,9 +52,8 @@ async def on_ready():
     for server in client.guilds:
         print(server)
 
-    id = 640859405247709185 if GO_TO_SVB else 788023076402495518
-    chan = await client.fetch_channel(id)
-    await chan.connect()
+    if GO_TO_KRUPIER: await client.fetch_channel(788023076402495518).connect()
+    if GO_TO_SVB: await client.fetch_channel(640859405247709185).connect()
 
 
 @client.event
