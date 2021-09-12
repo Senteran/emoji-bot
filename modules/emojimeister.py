@@ -37,7 +37,7 @@ gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a754
 CHANGE_NICKS = False
 MANUAL_RESPONSE = False
 SEND_GOOD_MESSAGES = False
-GO_TO_SVB = True
+GO_TO_SVB = False
 GO_TO_KRUPIER = True
 
 initilise_variables()
