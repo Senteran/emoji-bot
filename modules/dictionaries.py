@@ -135,7 +135,7 @@ custom_emoji_library = {
 }
 
 send_library = {
-    'adres ip serwera': 'Adres ip serwera minecraft: 25.30.92.167',
+    'adres ip serwera': 'Adres ip serwera minecraft: 25.19.225.194',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
     'ile masz lat': 'urodziłęm się 15 kwietnia 2021, możesz chyba samodzielnie obliczyć!',
@@ -311,7 +311,7 @@ names_to_nick = {
     'Kuchta' : 'Kuchta',
     'Lakey' : 'Lakey',
     'Sebek' : 'Sebek',
-    'Kato' : 'Kamil',
+    'Kato' : 'Cumeel',
     'ertymaster' : 'ertymaster',
     'exeos' : 'Paweł Zając',
     'KFrankVegeta' : 'KFrankVegeta',
