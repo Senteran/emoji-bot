@@ -74,15 +74,17 @@ async def on_message(message):
         await custom_reactions(message, client, content)
         return
 
-    await check_for_new_day(client)
-    if SEND_GOOD_MESSAGES:
-        await good_blank(client)
+#DISABLED BECAUSE SENDING GOOD MESSAGES IS OFF AND THIS IS A HUGE RESOURCE HOG
+#  await check_for_new_day(client)
+#  if SEND_GOOD_MESSAGES:
+#    await good_blank(client)
 
     # Normal bans
     if (str(message.author.id) in BANNED_IDS
      and not isinstance(message.channel, discord.channel.DMChannel)):
         await delete_message(message)
-        await send_message(message, random.choice(deletion_responses))
+        # DISABLED BECAUSE THIS IS RUDE
+        #await send_message(message, random.choice(deletion_responses))
         return
 
     # Beast mode bans
@@ -163,11 +165,11 @@ async def on_message(message):
         await manual_response(message)
 
     # I am the cum beast
-    if content == 'co wy macie z tym kamem?' and message.author.id != 443836613609390080:
+    if content == 'co wy macie z tym kamem?':
         await i_am_the_cum_beast(message, client)
 
     # The return of emojimeister
-    if content == 'emojimeister wroc' and message.author.id != 443836613609390080:
+    if content == 'emojimeister wroc':
         await emojimeister_return(message, client)
 
     # los santos customs (ultra customowe rzeczy)
