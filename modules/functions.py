@@ -473,7 +473,14 @@ async def join_voice_channel(message):
         message (message): Otrzymana wiadomość
     """
     chan = message.author.voice.channel
-    await chan.connect()
+    try:
+        await chan.connect()
+    except discord.errors.HTTPException:
+        await message.guild.voice_client.disconnect()
+        try:
+            await chan.connect()
+        except:
+            await message.reply("Niestety nie udało mi się dołączyć 😢")
 
 async def leave_voice_channel(message):
     """Opuszcza kanał głosowy

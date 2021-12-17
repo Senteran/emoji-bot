@@ -52,7 +52,10 @@ emoji_library = {
     'wsciekly': '👺',
     'wkurwi': '👺',
     'denerwuj': '👺',
-    'zly': '👺'
+    'zly': '👺',
+    'prosze': '🥺',
+    'dziekuje': '❤',
+    'fur': '😻'
 }
 
 custom_emoji_library = {
@@ -82,14 +85,11 @@ custom_emoji_library = {
     'praczyns': 'praczyns',
     'raczynski': 'praczyns',
     'alan': 'hot_dog_nibba',
-    'teams': 'teams_monocle',
     'frido': 'frido',
-    'fat pusher': 'fat_pusher',
     'wf': 'tomek',
     'chad': 'chad',
     'fajran': 'fajrancik',
     'fajrancik': 'senteran_fajrancik',
-    'eleganc': 'koneser',
     'wtf': 'wtf',
     'ertymi': 'ertymi',
     'ertymeister': 'ertymeister',
@@ -105,12 +105,12 @@ custom_emoji_library = {
     'karolina': 'kfrankvegeta',
     'kfrankvegeta': 'kfrankvegeta',
     'rys': 'kfrankvegeta',
+    'wstret': 'kfrankvegeta_disgusted',
+    'niemsa': 'kfrankvegeta_disgusted',
     'ola': 'ap',
     'aleksandra': 'ap',
     'pawlik': 'ap',
-    'To powinien byc blad' : 'agrjmiksde',
     'benet': 'benet_rekord',
-    'business merger': 'business_merger',
     'sie rozgrzac': 'witczak',
     'oczadly': 'tomek',
     'witczak': 'witczak',
@@ -121,38 +121,46 @@ custom_emoji_library = {
     'fur': 'lis',
     'kp': 'kp',
     'an': 'an',
-    'auto2' : 'auto2',
-    'broda' : 'senteran_brodaty',
     'oburz' : 'kfrankvegeta_disgusted',
     'hustawka' : 'senteran_fajrancik',
     'krzeslo' : 'senteran_monocle',
     'sus' : 'suserty',
     'sex' : 'sexeos',
-    'pierdalaj' : 'kubica',
-    'bogdan' : 'bogdan',
-    'fotel' : 'fotelteran',
-    'presentetaio': 'presentetaio'
+    'fotel' : 'senteran_fotelteran',
+    'emoji': 'emojimeister',
+    'rafa': 'ertafa',
+    'wolnik': 'erturnik',
+    'erturnik': 'erturnik',
+    'wonly': 'erturnik',
+    'garbage': 'garbage_medal',
+    'kn': 'kp',
+    'pog': 'pogerty',
+    'odpowiedz': 'pray_answer',
+    'terror': 'senteran_terrorysta',
+    'placz': 'smiling_pytel_with_tear',
+    'ogien': 'strazertycy',
+    'pali': 'strazertycy',
+    'strazertycy': 'strazertycy',
+    'tense': 'tense'
 }
 
 send_library = {
     'adres ip serwera': 'Adres ip serwera minecraft: 25.19.225.194',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
-    'ile masz lat': 'urodziłęm się 15 kwietnia 2021, możesz chyba samodzielnie obliczyć!',
+    'ile masz lat': 'urodziłęm się 15 kwietnia 2021, więc mam powyżej 6 miesięcy!',
     'co potrafisz?': 'reagować na wiadomości!',
     'kiedy sie spotykamy': 'Ja mogę z wami zawsze być ♥',
     'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: \
         https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: \
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
-    'tata simulator': 'Link do pobrania tata simulator (działa tylko na windows):\
-         https://drive.google.com/drive/folders/1tQjZv3pjK8dkdnYODdlfq6dPs4nKYdkW?usp=sharing',
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid'
 }
 
 music_library = {
-    'dajesz tensa':'rage.mp3',
+    'dajesz tensa': 'rage.mp3',
     'dajesz powrot 1': 'powrót_krupiera.mp3',
     'dajesz special': 'senteran_special_20k_subów.mp4',
     'dajesz powrot 2': 'powrot_krupiera2.mp3',
