@@ -475,7 +475,7 @@ async def join_voice_channel(message):
     chan = message.author.voice.channel
     try:
         await chan.connect()
-    except discord.errors.HTTPException:
+    except discord.errors.ClientException:
         await message.guild.voice_client.disconnect()
         try:
             await chan.connect()
