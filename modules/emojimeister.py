@@ -226,7 +226,7 @@ async def on_message(message):
         except discord.errors.HTTPException:
             await message.reply('An error occurred')
 
-    if ' ekonomi' in content:
+    if ' ekonomi ' in content or content[len(content)-7:len(content)] == 'ekonomi':
         try:
             await message.reply('ekonomii')
         except discord.errors.HTTPException:
