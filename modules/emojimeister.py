@@ -225,8 +225,8 @@ async def on_message(message):
             await delete_message_by_id(message, client)
         except discord.errors.HTTPException:
             await message.reply('An error occurred')
-    
-    if ' ekonomi' in message:
+
+    if ' ekonomi' in content:
         try:
             await message.reply('ekonomii')
         except discord.errors.HTTPException:
