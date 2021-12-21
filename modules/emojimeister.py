@@ -225,6 +225,12 @@ async def on_message(message):
             await delete_message_by_id(message, client)
         except discord.errors.HTTPException:
             await message.reply('An error occurred')
+    
+    if ' ekonomi' in message:
+        try:
+            await message.reply('ekonomii')
+        except discord.errors.HTTPException:
+            pass
 
     if content == 'emoji commands':
         await help_commands(message)
