@@ -4,12 +4,14 @@
 """
 import sys
 import random
+import asyncio
 
 import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, deletion_responses
+from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker
 
 from functions import\
     initilise_variables, delete_message, send_message, process_content, default_reactions,\
@@ -32,6 +34,7 @@ sys.dont_write_bytecode = True
 
 intnets = discord.Intents.all()
 client = discord.Client(intents = intnets)
+client2 = discord.Client()
 gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
 
 CHANGE_NICKS = False
@@ -42,6 +45,15 @@ GO_TO_KRUPIER = True
 
 initilise_variables()
 
+async def shotbow(client_t):
+    while True:
+        await shotbow_checker(client_t)
+        file = open('data/check_result.txt', 'r', encoding='utf-8')
+        s = file.read()
+        if s == '1':
+            await asyncio.sleep(SEND_DELAY)
+        else:
+            await asyncio.sleep(CHECK_DELAY)
 
 @client.event
 async def on_ready():
@@ -58,6 +70,7 @@ async def on_ready():
     if GO_TO_SVB: 
         channel = await client.fetch_channel(640859405247709185)
         channel.connect()
+    await shotbow(client2)
 
 
 @client.event
@@ -262,4 +275,7 @@ async def on_message(message):
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
 
-client.run('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c')
+loop = asyncio.get_event_loop()
+loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c'))
+loop.create_task(client2.start('OTIzMjUzNDY5NTk3NTQwNDAy.YcNUzA.LHtI3t3CQxuPTKQjYdYhQ1rlAk0'))
+loop.run_forever()
