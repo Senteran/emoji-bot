@@ -8,6 +8,7 @@ from datetime import datetime
 import asyncio
 
 import discord
+from discord import file
 from discord.utils import get
 import youtube_dl as YOUTUBE_DL
 
@@ -17,6 +18,7 @@ from dictionaries import sending_hours, emoji_library, custom_emoji_library, sen
     NAZWISKA_K, NAZWISKA_P, NAZWISKA_R, NAZWISKA_T, NAZWISKA_W, NAZWISKA_Z,\
     nick_to_name_beginning_dictionary, nick_to_surname_dictionary, names_today,\
     names_to_nick, deletion_responses, image_search_params, names_to_custom_nick
+from file_handler import get_value, store_value
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -190,13 +192,9 @@ def initilise_variables():
     global PREFIX
     global SUFFIX
 
-    file = open('data/prefix.txt', 'r')
-    PREFIX = file.read()
-    file.close()
-    file = open('data/suffix.txt', 'r')
-    SUFFIX = file.read()
-    file.close()
-    file = open('data/banned_ids.txt', 'r')
+    PREFIX = get_value('prefix')
+    SUFFIX = get_value('suffix')
+
     with open('data/banned_ids.txt') as file:
         BANNED_IDS = [line.rstrip() for line in file]
     with open('data/beast_banned_ids.txt') as file:
@@ -266,13 +264,9 @@ async def custom_reactions(message, client, content):
 def reaction():
     """Adds 1 to the reaction counter in data/reactions.txt
     """
-    file = open('data/reactions.txt', 'r')
-    reactions = int(file.read())
+    reactions = int(get_value('reactions'))
     reactions = reactions + 1
-    file.close()
-    file = open('data/reactions.txt', 'w')
-    file.write(str(reactions))
-    file.close()
+    store_value('reactions', str(reactions))
 
 async def play_default_music(message, content):
     """Plays music from the built-in library
@@ -300,13 +294,9 @@ async def change_prefix(message):
     else:
         new_prefix = message.content.removeprefix('emoji prefiks ')
     encoded_prefix = new_prefix.encode('utf-8')
-    file = open('data/prefix.txt', 'wb')
-    file.write(encoded_prefix)
-    file.close()
+    store_value('prefix', encoded_prefix)
     global PREFIX
-    file = open('data/suffix.txt', 'r')
-    suf = file.read()
-    file.close()
+    suf = get_value('suffix')
     prefix = new_prefix
     if len(prefix + suf) >= 30:
         await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
@@ -327,24 +317,18 @@ def write_song_filename(filename):
     Args:
         filename (string): Ścieżka do piosenki
     """
-    file = open('data/song.txt', 'w')
-    file.write(filename)
-    file.close()
+    store_value('song', filename)
 
 def remove_song():
     """Usuwa ostatnio pobraną piosenkę. Bierze ścieżke z data/song.txt
     """
-    file = open('data/song.txt', 'r')
-    filename = file.read()
-    file.close()
+    filename = get_value('song')
     if not filename == '':
         try:
             remove(filename)
         except FileNotFoundError:
-            print("THe file was not found")
-        file = open('data/song.txt', 'w')
-        file.write('')
-        file.close()
+            print("The file was not found")
+        store_value('song', '')
 
 async def change_suffix(message):
     """Zmienia sufiks bota
@@ -357,9 +341,7 @@ async def change_suffix(message):
     else:
         new_suffix = message.content.removeprefix('emoji suffix ')
     encoded_suffix = new_suffix.encode('utf-8')
-    file = open('data/suffix.txt', 'wb')
-    file.write(encoded_suffix)
-    file.close()
+    store_value('suffix', encoded_suffix)
     global SUFFIX
     SUFFIX = new_suffix
     if len(PREFIX + SUFFIX) >= 30:
@@ -462,9 +444,7 @@ async def display_reactions(message):
     Args:
         message (message): Otrzymana wiadomość
     """
-    file = open('data/reactions.txt', 'r')
-    reactions = file.read()
-    await message.reply('Już zareagowałem: ' + reactions + ' razy!')
+    await message.reply('Już zareagowałem: ' + get_value('reactions') + ' razy!')
 
 async def join_voice_channel(message):
     """Dołącza do kanału głosowego, w którym jest autor wiadomości
@@ -812,10 +792,8 @@ async def check_for_new_day(client):
     Args:
         client (client): Sesja discorda bota
     """
-    file = open('data/date.txt', 'r')
-    date = file.read()
+    date = get_value('date')
     cur_date = datetime.today().strftime('%Y-%m-%d')
-    file.close()
     global ASSIGNED_NICKNAMES
     global SHOULD_EMOJI_BOT_CHANGE_NICKNAMES
 
@@ -829,9 +807,7 @@ async def check_for_new_day(client):
         if SHOULD_EMOJI_BOT_CHANGE_NICKNAMES:
             await new_day(client)
             await change_nicknames(client)
-        file = open('data/date.txt', 'w')
-        file.write(cur_date)
-        file.close()
+        store_value('date', cur_date)
     elif not ASSIGNED_NICKNAMES:
         ASSIGNED_NICKNAMES = True
         file = open('data/today_names.txt', 'r', encoding='utf-8')
@@ -944,21 +920,19 @@ async def good_blank(client):
     if sending_hours[0][0] <= hour <= sending_hours[0][1]:
         if not check_if_good_sent(1):
             path = 'data/good_morning.png'
-            path_sent = 'data/sent_good_morning.txt'
+            key = '/sent_good_morning'
     elif sending_hours[1][0] <= hour <= sending_hours[1][1]:
         if not check_if_good_sent(2):
             path = 'data/good_afternoon.png'
-            path_sent = 'data/sent_good_afternoon.txt'
+            key = 'sent_good_afternoon'
     elif sending_hours[2][0] <= hour <= sending_hours[2][1]:
         if not check_if_good_sent(3):
             path = 'data/good_evening.png'
-            path_sent = 'data/sent_good_evening.txt'
+            key = 'sent_good_evening'
     if not path == 'a':
         chan = client.get_channel(768865472552108115)
         await chan.send(file=discord.File(path))
-        file = open(path_sent, 'w')
-        file.write('1')
-        file.close()
+        store_value(key, 1)
 
 def check_if_good_sent(which):
     """Sprawdza czy dana dobra wiadomość była już wysłana
@@ -986,15 +960,9 @@ def reset_sents():
     """Resetuje pliki z wysłanymi dobrymi wiadomościami
     """
     print('Resetting sent good messages...')
-    file = open('data/sent_good_morning.txt', 'w')
-    file.write('0')
-    file.close()
-    file = open('data/sent_good_afternoon.txt', 'w')
-    file.write('0')
-    file.close()
-    file = open('data/sent_good_evening.txt', 'w')
-    file.write('0')
-    file.close()
+    store_value('sent_good_morning', '0')
+    store_value('sent_good_afternoon', '0')
+    store_value('sent_good_evening', '0')
 
 async def delete_message_by_id(message, client):
     """Usuwa wiadomość o podanym id

@@ -11,6 +11,7 @@ from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, deletion_responses
+from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker
 
 from functions import\
@@ -48,8 +49,7 @@ initilise_variables()
 async def shotbow(client_t):
     while True:
         await shotbow_checker(client_t)
-        file = open('data/check_result.txt', 'r', encoding='utf-8')
-        s = file.read()
+        s = get_value('check_result')
         if s == '1':
             await asyncio.sleep(SEND_DELAY)
         else:
