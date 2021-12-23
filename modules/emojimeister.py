@@ -12,7 +12,7 @@ from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, deletion_responses
 from file_handler import get_value
-from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker
+from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 
 from functions import\
     initilise_variables, delete_message, send_message, process_content, default_reactions,\
@@ -274,6 +274,14 @@ async def on_message(message):
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
+
+@client2.event
+async def on_message(message):
+    content = process_content(message.content)
+
+    if content == 'ile gra' or content == 'ile gra?':
+        await shotbow_request(message)
+
 
 loop = asyncio.get_event_loop()
 loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c'))

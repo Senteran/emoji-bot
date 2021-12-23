@@ -1,6 +1,8 @@
+from os import stat
 from mcstatus import MinecraftServer
 
 from file_handler import store_value
+import discord
 
 # CONSTANTS
 CHANNEL = 923257476747526227
@@ -22,3 +24,8 @@ async def shotbow_checker(client):
     if DM_SENTERAN:
         user = await client.fetch_user(351780319306973194)
         await user.send('obudziłem się!')
+
+async def shotbow_request(message):
+    server = MinecraftServer.lookup("play.shotbow.net")
+    status = server.status()
+    await message.reply('Aktualnie na shotbole gra {0} graczy'.format(status.players.online))
