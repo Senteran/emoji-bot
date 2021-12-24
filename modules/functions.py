@@ -8,7 +8,6 @@ from datetime import datetime
 import asyncio
 
 import discord
-from discord import file
 from discord.utils import get
 import youtube_dl as YOUTUBE_DL
 
@@ -17,7 +16,7 @@ from dictionaries import sending_hours, emoji_library, custom_emoji_library, sen
     NAMES_J, NAMES_M, NAMES_P, NAMES_S, NAMES_K, NAMES_A, NAMES_KZ, NAMES_AZ, NAZWISKA_B,\
     NAZWISKA_K, NAZWISKA_P, NAZWISKA_R, NAZWISKA_T, NAZWISKA_W, NAZWISKA_Z,\
     nick_to_name_beginning_dictionary, nick_to_surname_dictionary, names_today,\
-    names_to_nick, deletion_responses, image_search_params, names_to_custom_nick
+    names_to_nick, image_search_params, names_to_custom_nick
 from file_handler import get_value, store_value
 
 # prevent __pycache__ folder from being created
@@ -30,8 +29,6 @@ SEND_NICKNAMES_TO_USER = False
 
 PREFIX = ''
 SUFFIX = ''
-BANNED_IDS = []
-BEAST_BANNED_IDS = []
 BEAST_MODE = False
 
 def to_en_str(pl_str):
@@ -187,18 +184,11 @@ def seperate_into_2000_words(message):
 def initilise_variables():
     """Inicjalizuje globalne variable. Czyta z plików i wgrywa poprawny:
     prefix, suffix, banned_ids i beast_banned_ids"""
-    global BANNED_IDS
-    global BEAST_BANNED_IDS
     global PREFIX
     global SUFFIX
 
     PREFIX = get_value('prefix')
     SUFFIX = get_value('suffix')
-
-    with open('data/banned_ids.txt') as file:
-        BANNED_IDS = [line.rstrip() for line in file]
-    with open('data/beast_banned_ids.txt') as file:
-        BEAST_BANNED_IDS = [line.rstrip() for line in file]
 
 async def delete_message(message):
     """Usuwa wiadomość
@@ -507,14 +497,14 @@ async def manual_response(message):
     response = input('Input the response to ' + message.content + ': ')
     await message.reply(response)
 
-async def i_am_the_cum_beast(message, client):
+async def i_am_the_beast(message, client):
     """Zmienia zdjęcie i nick bota na bestię
 
     Args:
         message (message): Otrzymana wiadomość
         client (client): Sesja discorda bota
     """
-    file = open('src/cum_beast.jpg', 'rb')
+    file = open('src/beast.jpg', 'rb')
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
