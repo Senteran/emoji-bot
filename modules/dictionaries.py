@@ -343,42 +343,6 @@ names_to_custom_nick = {
     'Frido' : 'ぽーる くりん'
 }
 
-deletion_responses = [
-    'It was a mistake to cum here',
-    'Your cum sucks dick',
-    'A splash of cum to seal the deal',
-    'Counsel of cum',
-    'All-consuming Lord of Cum',
-    'Dick. Heir of the Cum Throne',
-    'Swallow your rod',
-    'Cum-suck God',
-    'Cum-Messiah',
-    'Welcome to the cum zone',
-    'Only cum inside anime girls',
-    'Quivering clit, double jointed pussy',
-    'Fresh balls, elegant ejaculation',
-    'First the kiss, then the cum',
-    'My dick is in love with pain',
-    'Co-op cock torture',
-    'Stuff my dick into a furnace',
-    'Stitch my cock shut',
-    'Pressure cook my greasy balls',
-    'Cumblast me and make it snappy',
-    "What's all the cummotion?",
-    'Cum spunk in my trunk',
-    "Cum drippin' cunt",
-    'Cummy Rae Jepsen',
-    'Cum me maybe',
-    'Cummy bottom boy',
-    'Night of the living cum',
-    'Nefarious cum mastermind',
-    'Cum makes me fearless',
-    'Margaret Thatcher - The Cum Snatcher',
-    'Fuck my cum puddle',
-    'Accidentally fucked my own ass',
-    'Give me the Cum Scar'
-]
-
 image_search_params = {
     'q': '...',
     'num': 1,

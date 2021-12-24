@@ -3,27 +3,26 @@
     It handles the running of the bot and initiates functions
 """
 import sys
-import random
 import asyncio
 
 import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
-from dictionaries import admin_ids, deletion_responses
+from dictionaries import admin_ids
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 
 from functions import\
-    initilise_variables, delete_message, send_message, process_content, default_reactions,\
+    initilise_variables, process_content, default_reactions,\
     custom_reactions,play_default_music, change_prefix, display_prefix, change_suffix,\
     display_suffix, play_music, send_messages, send_word_triangle, search_for_image,\
     display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
-    resume_music, manual_response, i_am_the_cum_beast, emojimeister_return,\
+    resume_music, manual_response, i_am_the_beast, emojimeister_return,\
     custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_deletion, help_emoji, help_custom_emoji,\
-    check_for_new_day, change_nicknames, return_nicknames, write_to_channel, dm_user, good_blank,\
-    PREFIX, BANNED_IDS, BEAST_BANNED_IDS, BEAST_MODE, change_nicknames_to_custom,\
+    change_nicknames, return_nicknames, write_to_channel, dm_user,\
+    PREFIX, BEAST_MODE, change_nicknames_to_custom,\
     delete_message_by_id
 
 # prevent __pycache__ folder from being created
@@ -91,21 +90,6 @@ async def on_message(message):
 #  await check_for_new_day(client)
 #  if SEND_GOOD_MESSAGES:
 #    await good_blank(client)
-
-    # Normal bans
-    if (str(message.author.id) in BANNED_IDS
-     and not isinstance(message.channel, discord.channel.DMChannel)):
-        await delete_message(message)
-        # DISABLED BECAUSE THIS IS RUDE
-        #await send_message(message, random.choice(deletion_responses))
-        return
-
-    # Beast mode bans
-    if (BEAST_MODE is True and str(message.author.id) in BEAST_BANNED_IDS
-    and not isinstance(message.channel, discord.channel.DMChannel)):
-        await delete_message(message)
-        await send_message(message, random.choice(deletion_responses))
-        return
 
     # emoji reactions
     # default emoji
@@ -177,9 +161,9 @@ async def on_message(message):
     if 'czesc' in content and 'meister' in content and MANUAL_RESPONSE is True:
         await manual_response(message)
 
-    # I am the cum beast
+    # I am the beast
     if content == 'co wy macie z tym kamem?':
-        await i_am_the_cum_beast(message, client)
+        await i_am_the_beast(message, client)
 
     # The return of emojimeister
     if content == 'emojimeister wroc':
