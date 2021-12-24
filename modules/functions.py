@@ -575,7 +575,6 @@ async def help_other_helps(message):
     - emoji commands - wyświetla komendy\n
     - emoji replies - wyświetla zapytania i odpowiedzi\n
     - emoji songs - wyświetle wbudowane piosenki do zagrania\n
-    - emoji deletion - wyświetla wiadomości wysyłane po usunięciu\n
     - emoji emoji - wyświetla zestaw domyślnych emoji\n
     - emoji emoji_krupier - wyświetla customowe reakcje emoji''')
 
@@ -614,17 +613,6 @@ async def help_songs(message):
     cont = ""
     for element in music_library:
         cont = cont + element + ' - ' + music_library[element] + '\n'
-    await send_message(message, cont)
-
-async def help_deletion(message):
-    """Wysyła wiadomośc z wszystkimi odpowiedziami na usuwanie wiadomośći
-
-    Args:
-        message (message): Otrzymana wiadomość
-    """
-    cont = ""
-    for element in deletion_responses:
-        cont = cont + element + '\n'
     await send_message(message, cont)
 
 async def help_emoji(message):

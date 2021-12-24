@@ -20,7 +20,7 @@ from functions import\
     display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
     resume_music, manual_response, i_am_the_beast, emojimeister_return,\
     custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
-    help_commands, help_replies, help_songs, help_deletion, help_emoji, help_custom_emoji,\
+    help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
     delete_message_by_id
@@ -237,9 +237,6 @@ async def on_message(message):
 
     if content == 'emoji songs':
         await help_songs(message)
-
-    if content == 'emoji deletion':
-        await help_deletion(message)
 
     if content == 'emoji emoji':
         await help_emoji(message)
