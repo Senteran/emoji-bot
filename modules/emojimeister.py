@@ -37,7 +37,7 @@ sys.dont_write_bytecode = True
 intnets = discord.Intents.all()
 client = discord.Client(intents = intnets)
 client2 = discord.Client()
-gis = GoogleImagesSearch('AIzaSyBgsrLkQ5F12eUmhM1V0x5jEkh65cdhp-c', '6a39c51a75423e301')
+gis = GoogleImagesSearch(os.getenv('GOOGLE_KEY'), '6a39c51a75423e301')
 
 CHANGE_NICKS = False
 MANUAL_RESPONSE = False
