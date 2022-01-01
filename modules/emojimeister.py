@@ -265,8 +265,6 @@ async def on_message(message):
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(message)
 
-print(os.getenv('EMOJI_BOT'))
-
 loop = asyncio.get_event_loop()
 loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
