@@ -3,11 +3,13 @@
     It handles the running of the bot and initiates functions
 """
 import sys
+import os
 import asyncio
 
 import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
+from boto.s3.connection import S3Connection
 
 from dictionaries import admin_ids
 from file_handler import get_value
@@ -263,8 +265,9 @@ async def on_message(message):
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(message)
 
+print(os.getenv('EMOJI_BOT'))
 
 loop = asyncio.get_event_loop()
-loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.XjUlqfw0iRgXxT3NUBwDKuqbr9c'))
-loop.create_task(client2.start('OTIzMjUzNDY5NTk3NTQwNDAy.YcNUzA.LHtI3t3CQxuPTKQjYdYhQ1rlAk0'))
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.run_forever()
