@@ -55,7 +55,8 @@ emoji_library = {
     'zly': '👺',
     'prosze': '🥺',
     'dziekuje': '❤',
-    'fur': '😻'
+    'fur': '😻',
+    'spider': '🕷'
 }
 
 custom_emoji_library = {

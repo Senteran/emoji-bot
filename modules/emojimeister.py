@@ -163,10 +163,6 @@ async def on_message(message):
     if 'czesc' in content and 'meister' in content and MANUAL_RESPONSE is True:
         await manual_response(message)
 
-    # I am the beast
-    if content == 'co wy macie z tym kamem?':
-        await i_am_the_beast(message, client)
-
     # The return of emojimeister
     if content == 'emojimeister wroc':
         await emojimeister_return(message, client)

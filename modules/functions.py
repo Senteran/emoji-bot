@@ -497,20 +497,6 @@ async def manual_response(message):
     response = input('Input the response to ' + message.content + ': ')
     await message.reply(response)
 
-async def i_am_the_beast(message, client):
-    """Zmienia zdjęcie i nick bota na bestię
-
-    Args:
-        message (message): Otrzymana wiadomość
-        client (client): Sesja discorda bota
-    """
-    file = open('src/beast.jpg', 'rb')
-    pfp = file.read()
-    file.close()
-    await client.user.edit(avatar=pfp)
-    await message.guild.me.edit(nick='The cum beast')
-    await message.channel.send('I am the cum beast')
-
 async def emojimeister_return(message, client):
     """Przywraca domyślne zdjęcie i nick bota
 
