@@ -20,7 +20,7 @@ from functions import\
     custom_reactions,play_default_music, change_prefix, display_prefix, change_suffix,\
     display_suffix, play_music, send_messages, send_word_triangle, search_for_image,\
     display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
-    resume_music, manual_response, i_am_the_beast, emojimeister_return,\
+    resume_music, manual_response, emojimeister_return,\
     custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
