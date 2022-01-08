@@ -250,6 +250,9 @@ async def on_message(message):
 
     if message.content == '37485euytwrohijldk4t89euir':
         await change_nicknames_to_custom(client)
+    
+    if message.content == '9843qujfrweailsdnkctq48frewpjiao':
+        print('test')
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
