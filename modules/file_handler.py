@@ -7,7 +7,7 @@ def get_value(key):
     try:
         return config['DEFAULT'][key]
     except:
-        print('Failed to get key {0}'.format(key))
+        print(f'Failed to get key {key}')
 
 def store_value(key, value):
     config.read('data/values.ini')

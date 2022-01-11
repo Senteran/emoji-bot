@@ -266,6 +266,7 @@ async def on_message(message):
 
 async def daily():
     while True:
+        await asyncio.sleep(10)
         print('test')
         # await asyncio.sleep(86400)
         await asyncio.sleep(10)
@@ -275,14 +276,3 @@ loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(daily())
 loop.run_forever()
-
-
-
-
-loop.call_later(5, lambda: task.cancel())
-task = loop.create_task(daily())
-
-try:
-    loop.run_until_complete(task)
-except:
-    print('err')
