@@ -264,16 +264,20 @@ async def on_message(message):
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(message)
 
-loop = asyncio.get_event_loop()
-loop.create_task(client.start(os.getenv('EMOJI_BOT')))
-loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
-loop.run_forever()
-
 async def daily():
     while True:
         print('test')
         # await asyncio.sleep(86400)
         await asyncio.sleep(10)
+
+loop = asyncio.get_event_loop()
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
+loop.create_task(daily())
+loop.run_forever()
+
+
+
 
 loop.call_later(5, lambda: task.cancel())
 task = loop.create_task(daily())
