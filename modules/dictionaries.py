@@ -107,7 +107,7 @@ custom_emoji_library = {
     'kfrankvegeta': 'kfrankvegeta',
     'rys': 'kfrankvegeta',
     'wstret': 'kfrankvegeta_disgusted',
-    'niemsa': 'kfrankvegeta_disgusted',
+    'niesma': 'kfrankvegeta_disgusted',
     'ola': 'ap',
     'aleksandra': 'ap',
     'pawlik': 'ap',
@@ -354,3 +354,18 @@ admin_ids = [
     443836613609390080,
     351780319306973194
 ]
+
+nick_to_name = {
+    'Senteran': 'Jacek',
+    'Krupier' : 'Janek',
+    'Kuchta' : 'Mariusz',
+    'Lakey' : 'Piotrek',
+    'Sebek' : 'Seba',
+    'Kato' : 'Kamil',
+    'ertymaster' : 'Adam',
+    'exeos' : 'Paweł Z',
+    'KFrankVegeta' : 'Karolina',
+    'Hot Dog Nibba' : 'Alan',
+    'Aleksandra Pawlik' : 'Ola',
+    'Frido' : 'Paweł K'
+}
