@@ -262,8 +262,8 @@ async def on_member_update(before, after):
     if before.id == krupier_users['Senteran']:
         print('senteran changed')
 
-        if before.mobile_status == discord.Status.offline and after.status == discord.Status.online:
-            user = client.fetch_user(krupier_users['Senteran'])
+        if before.mobile_status == discord.Status.offline and after.mobile_status == discord.Status.online:
+            user = await client.fetch_user(krupier_users['Senteran'])
             await user.send('a')
 
 @client2.event
@@ -275,10 +275,7 @@ async def on_message(message):
 
 async def daily():
     while True:
-        await asyncio.sleep(10)
-        print('test')
-        # await asyncio.sleep(86400)
-        await asyncio.sleep(10)
+        await asyncio.sleep(10000)
 
 loop = asyncio.get_event_loop()
 loop.create_task(client.start(os.getenv('EMOJI_BOT')))
