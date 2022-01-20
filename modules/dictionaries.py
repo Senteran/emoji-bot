@@ -1,6 +1,8 @@
 """This module has all the dictionaries and lists
 necessary fo the operation of the bot"""
 
+OGOLNY_CHANNEL = 768865472552108115
+
 sending_hours = [
     [7, 11],
     [12, 16],

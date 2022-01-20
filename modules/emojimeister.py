@@ -13,6 +13,7 @@ from boto.s3.connection import S3Connection
 
 from dictionaries import admin_ids, krupier_users
 from file_handler import get_value
+from modules.dictionaries import OGOLNY_CHANNEL
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 
 from functions import\
@@ -259,12 +260,13 @@ async def on_message(message):
 
 @client.event
 async def on_member_update(before, after):
-    if before.id == krupier_users['Senteran']:
-        print('senteran changed')
-
-        if before.mobile_status == discord.Status.offline and after.mobile_status == discord.Status.online:
-            user = await client.fetch_user(krupier_users['Senteran'])
-            await user.send('a')
+    if before.id == krupier_users['exeos'] or True:
+        if before.mobile_status == discord.Status.offline and after.mobile_status == discord.Status.online or True:
+            channel = await client.fetch_user(krupier_users['Senteran'])
+            #channel = await client.fetch_channel(OGOLNY_CHANNEL)
+            await channel.send(f"<@!{krupier_users['exeos']}>")
+            emoji = get(client.emojis, name='exeos_mobile')
+            await channel.send(emoji)
 
 @client2.event
 async def on_message(message):
