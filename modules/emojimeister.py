@@ -11,7 +11,7 @@ from discord.utils import get
 from google_images_search import GoogleImagesSearch
 from boto.s3.connection import S3Connection
 
-from dictionaries import admin_ids
+from dictionaries import admin_ids, krupier_users
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 
@@ -256,6 +256,15 @@ async def on_message(message):
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
+
+@client.event
+async def on_member_update(before, after):
+    if before.id == krupier_users['Senteran']:
+        print('senteran changed')
+
+        if before.mobile_status == discord.Status.offline and after.status == discord.Status.online:
+            user = client.fetch_user(krupier_users['Senteran'])
+            await user.send('a')
 
 @client2.event
 async def on_message(message):
