@@ -14,9 +14,8 @@ from google_images_search import GoogleImagesSearch
 from boto.s3.connection import S3Connection
 from numpy import trunc
 
-from dictionaries import admin_ids, krupier_users
+from dictionaries import admin_ids, krupier_users, OGOLNY_CHANNEL
 from file_handler import get_value
-from modules.dictionaries import OGOLNY_CHANNEL
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 from word import send_word_of_emojis
 
@@ -228,9 +227,11 @@ async def on_message(message):
             await message.reply('An error occurred')
     
     if content.startswith('emoji slowo '):
+        c = content.split(' ')
+        await send_word_of_emojis(message, c[2], c[3:])
         try:
             c = content.split(' ')
-            await send_word_of_emojis(message, c[2], c[3:])
+            # await send_word_of_emojis(message, c[2], c[3:])
         except Exception as e:
             print(f'Exception in emoji slowo: {e}')
             await message.reply('An error occurred')
@@ -297,7 +298,7 @@ async def daily():
         await asyncio.sleep(10000)
 
 loop = asyncio.get_event_loop()
-loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.BjvS2ate0NnxAAWrtNWp58L8xkM'))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(daily())
 loop.run_forever()

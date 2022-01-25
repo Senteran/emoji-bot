@@ -1,7 +1,5 @@
 import discord
 
-lines = ['', '', '', '', '']
-
 letter_to_emojis = {
     'a' : [['e', 'e', 'e'],
            ['e', 's', 'e'],
@@ -11,22 +9,23 @@ letter_to_emojis = {
 }
 
 async def send_word_of_emojis(message, emoji, words):
-    e = emoji
+    lines = ['', '', '', '', '']
 
     for word in words:
         for char in word:
             s = letter_to_emojis[char]
 
-            for i, val in s:
-                if val == 'e':
-                    lines[i] += e
-                else:
-                    lines[i] += '🕷'
+            for i, val in enumerate(s):
+                for sym in val:
+                    if sym == 'e':
+                        lines[i] += emoji
+                    else:
+                        lines[i] += ':spider:'
         for line in lines:
-            line += '🕷'
+            line += ':spider:'
     
     for line in lines:
-        line.removesuffix('🕷')
+        line.removesuffix(':spider:')
 
     m = ''
     for line in lines:
