@@ -298,7 +298,7 @@ async def daily():
         await asyncio.sleep(10000)
 
 loop = asyncio.get_event_loop()
-loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.BjvS2ate0NnxAAWrtNWp58L8xkM'))
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(daily())
 loop.run_forever()
