@@ -2,6 +2,7 @@
     This is the main module of the application.
     It handles the running of the bot and initiates functions
 """
+from logging import exception
 from pickle import TRUE
 import sys
 import os
@@ -17,6 +18,7 @@ from dictionaries import admin_ids, krupier_users
 from file_handler import get_value
 from modules.dictionaries import OGOLNY_CHANNEL
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
+from word import send_word_of_emojis
 
 from functions import\
     initilise_variables, process_content, default_reactions,\
@@ -223,6 +225,14 @@ async def on_message(message):
         try:
             await delete_message_by_id(message, client)
         except discord.errors.HTTPException:
+            await message.reply('An error occurred')
+    
+    if content.startswith('emoji slowo '):
+        try:
+            c = content.split(' ')
+            send_word_of_emojis(c[2], c[3:])
+        except Exception as e:
+            print(f'Exception in emoji slowo: {e}')
             await message.reply('An error occurred')
 
     if ' ekonomi ' in content or content[len(content)-7:len(content)] == 'ekonomi':
