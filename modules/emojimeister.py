@@ -230,7 +230,7 @@ async def on_message(message):
     if content.startswith('emoji slowo '):
         try:
             c = content.split(' ')
-            send_word_of_emojis(c[2], c[3:])
+            send_word_of_emojis(message, c[2], c[3:])
         except Exception as e:
             print(f'Exception in emoji slowo: {e}')
             await message.reply('An error occurred')
