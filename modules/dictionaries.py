@@ -3,6 +3,7 @@ necessary fo the operation of the bot"""
 
 OGOLNY_CHANNEL = 768865472552108115
 MUSIQQO_CHANNEL = 768865735841546261
+AGAR_AGAR_CHANNEL = 803636340369260544
 
 sending_hours = [
     [7, 11],

@@ -11,7 +11,7 @@ import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
-from dictionaries import admin_ids, krupier_users, MUSIQQO_CHANNEL
+from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 from word import send_word_of_emojis
@@ -176,7 +176,7 @@ async def on_message(message):
         except Exception as e:
             print(f'error in emoji slalom, {e}')
     
-    if content == 'emoji slalom inf':
+    if content == 'emoji slalom inf' and False:
         await emoji_slalom_infinite(client, message)
 
     # los santos customs (ultra customowe rzeczy)
@@ -285,7 +285,7 @@ async def on_member_update(before, after):
     if before.id == krupier_users['exeos']:
         if before.mobile_status == discord.Status.offline and after.mobile_status == discord.Status.online:
             if THIS_SHOULDNT_EXIST == False:
-                channel = await client.fetch_channel(MUSIQQO_CHANNEL)
+                channel = await client.fetch_channel(AGAR_AGAR_CHANNEL)
                 await channel.send(f"<@!{krupier_users['exeos']}>")
                 emoji = get(client.emojis, name='exeos_mobile')
                 await channel.send(emoji)
