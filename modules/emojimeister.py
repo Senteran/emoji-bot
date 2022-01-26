@@ -2,6 +2,7 @@
     This is the main module of the application.
     It handles the running of the bot and initiates functions
 """
+from logging import exception
 import sys
 import os
 import asyncio
@@ -169,15 +170,14 @@ async def on_message(message):
     if content == 'emojimeister wroc':
         await emojimeister_return(message, client)
     
-    if content.startswith('emoji slalom'):
-        c = content.split(' ')
-        if len(c) == 3:
-            if c[2] == 'inf':
-                await emoji_slalom_infinite(client, message)
-            else:
-                await emoji_slalom(client, message)
-        else:
+    if content == 'emoji slalom':
+        try:
             await emoji_slalom(client, message)
+        except Exception as e:
+            print(f'error in emoji slalom, {e}')
+    
+    if content == 'emoji slalom inf':
+        emoji_slalom_infinite(client, message)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
