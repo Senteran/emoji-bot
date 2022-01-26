@@ -177,7 +177,7 @@ async def on_message(message):
             print(f'error in emoji slalom, {e}')
     
     if content == 'emoji slalom inf':
-        emoji_slalom_infinite(client, message)
+        await emoji_slalom_infinite(client, message)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
