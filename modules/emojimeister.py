@@ -2,8 +2,6 @@
     This is the main module of the application.
     It handles the running of the bot and initiates functions
 """
-from logging import exception
-from pickle import TRUE
 import sys
 import os
 import asyncio
@@ -11,12 +9,12 @@ import asyncio
 import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
-from numpy import trunc
 
 from dictionaries import admin_ids, krupier_users, MUSIQQO_CHANNEL
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 from word import send_word_of_emojis
+from slalom import emoji_slalom, emoji_slalom_infinite
 
 from functions import\
     initilise_variables, process_content, default_reactions,\
@@ -170,6 +168,16 @@ async def on_message(message):
     # The return of emojimeister
     if content == 'emojimeister wroc':
         await emojimeister_return(message, client)
+    
+    if content.startswith('emoji slalom'):
+        c = content.split(' ')
+        if len(c) == 3:
+            if c[2] == 'inf':
+                await emoji_slalom_infinite(client, message)
+            else:
+                await emoji_slalom(client, message)
+        else:
+            await emoji_slalom(client, message)
 
     # los santos customs (ultra customowe rzeczy)
     # Witczak combinations for ending the call
@@ -281,7 +289,7 @@ async def on_member_update(before, after):
                 await channel.send(f"<@!{krupier_users['exeos']}>")
                 emoji = get(client.emojis, name='exeos_mobile')
                 await channel.send(emoji)
-                THIS_SHOULDNT_EXIST = TRUE
+                THIS_SHOULDNT_EXIST = True
             else:
                 THIS_SHOULDNT_EXIST =False
 
