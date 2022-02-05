@@ -8,7 +8,6 @@ import datetime
 # CONSTANTS
 CHANNEL = 923257476747526227
 MINIMUM_PERSONS = 160
-DM_SENTERAN = False
 SEND_DELAY = 30000
 CHECK_DELAY = 600
 BEFORE_HOUR = 7
@@ -31,11 +30,11 @@ async def shotbow_checker(client):
     else:
         store_value('check_result', '0')
     
-    if DM_SENTERAN:
-        user = await client.fetch_user(351780319306973194)
-        await user.send('obudziłem się!')
+    await client.change_presence(activity=discord.Game(f'with {status.players.online} players on Shotbow'))
 
-async def shotbow_request(message):
+
+async def shotbow_request(client, message):
     server = MinecraftServer.lookup("play.shotbow.net")
     status = server.status()
     await message.reply('Aktualnie na shotbole gra {0} graczy'.format(status.players.online))
+    await client.change_presence(activity=discord.Game(f'with {status.players.online} players on Shotbow'))
