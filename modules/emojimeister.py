@@ -298,7 +298,7 @@ async def on_message(message):
     content = process_content(message.content)
 
     if content == 'ile gra' or content == 'ile gra?':
-        await shotbow_request(message)
+        await shotbow_request(client2, message)
 
 async def daily():
     while True:
