@@ -25,8 +25,12 @@ async def shotbow_checker(client):
     status = server.status()
     if status.players.online > MINIMUM_PERSONS:
         chan = client.get_channel(CHANNEL)
-        await chan.send("Aktualnie na shotbole gra {0} graczy".format(status.players.online))
-        store_value('check_result', '1')
+
+        # commented out in order for the bot to not send messages and constantly check
+        # await chan.send("Aktualnie na shotbole gra {0} graczy".format(status.players.online))
+        # store_value('check_result', '1')
+
+        store_value('check_result', '0')
     else:
         store_value('check_result', '0')
     
