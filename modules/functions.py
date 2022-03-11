@@ -949,7 +949,7 @@ async def delete_message_by_id(message, client):
     await mess.delete()
 
 async def paper_janka(message):
-    await message.channel.send(file=discord.file('src/paper_janka_1.jpg'))
-    await message.channel.send(file=discord.file('src/paper_janka_2.jpg'))
-    await message.channel.send(file=discord.file('src/paper_janka_3.jpg'))
-    await message.channel.send(file=discord.file('src/paper_janka_4.jpg'))
+    await message.channel.send(file=discord.File('src/paper_janka_1.jpg'))
+    await message.channel.send(file=discord.File('src/paper_janka_2.jpg'))
+    await message.channel.send(file=discord.File('src/paper_janka_3.jpg'))
+    await message.channel.send(file=discord.File('src/paper_janka_4.jpg'))
