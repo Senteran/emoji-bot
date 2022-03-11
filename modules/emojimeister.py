@@ -27,7 +27,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id
+    delete_message_by_id, paper_janka
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -199,6 +199,9 @@ async def on_message(message):
         emoji = get(client.emojis, name='krupier')
         await message.add_reaction(emoji)
         await message.add_reaction('👺')
+    
+    if content == 'emoji paper janka':
+        await paper_janka(message)
 
     # Beast mode on
     if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:
