@@ -6,7 +6,7 @@ from logging import exception
 import sys
 import os
 import asyncio
-import time
+import datetime
 
 import discord
 from discord.utils import get
@@ -309,23 +309,23 @@ async def on_message(message):
 async def on_member_update(before, after):
     print('update')
     if before.id == krupier_users['Senteran']:
-        cur = time.time()
+        cur = datetime.datetime.now()
         if before.mobile_status != after.mobile_status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
             created = message[0].created_at
             
-            if cur - created < 5:
-                if not message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
-                    await channel.send(f'ertymaster mobile jest teraz {after.mobile_status} z {before.mobile_status}')
+            if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
+                return
+            await channel.send(f'ertymaster mobile jest teraz {after.mobile_status} z {before.mobile_status}')
         elif before.status != after.status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
             created = message[0].created_at
 
-            if cur - created < 5:
-                if not message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
-                    await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
+            if (cur - created).total_seconds < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
+                return
+            await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
 
 
 async def daily():
