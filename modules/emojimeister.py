@@ -6,6 +6,7 @@ from logging import exception
 import sys
 import os
 import asyncio
+import time
 
 import discord
 from discord.utils import get
@@ -13,6 +14,7 @@ from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
 from file_handler import get_value
+from modules.dictionaries import SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
@@ -302,6 +304,23 @@ async def on_message(message):
 
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(client2, message)
+
+@client2.event
+async def on_member_update(before, after):
+    if before.id == krupier_users['senteran']:
+        if before.mobile_status != after.mobile_status:
+            channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
+            message = await channel.history(limit=1).flatten()
+            if message[0].created_at - time.time < 5:
+                if not message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
+                    await channel.send(f'ertymaster mobile jest teraz {after.mobile_status} z {before.mobile_status}')
+        elif before.status != after.status:
+            channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
+            message = await channel.history(limit=1).flatten()
+            if message[0].created_at - time.time < 5:
+                if not message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
+                    await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
+
 
 async def daily():
     while True:
