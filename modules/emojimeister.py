@@ -323,7 +323,7 @@ async def on_member_update(before, after):
             message = await channel.history(limit=1).flatten()
             created = message[0].created_at
 
-            if (cur - created).total_seconds < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
+            if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
                 return
             await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
 
