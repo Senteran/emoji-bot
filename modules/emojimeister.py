@@ -317,7 +317,7 @@ async def on_member_update(before, after):
             
             if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
                 return
-            await channel.send(f'ertymaster mobile jest teraz {after.mobile_status} z {before.mobile_status}')
+            await channel.send(f'{cur.hour}.{cur.minute} mobile {after.mobile_status}')
         elif before.status != after.status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
@@ -325,7 +325,7 @@ async def on_member_update(before, after):
 
             if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
                 return
-            await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
+            await channel.send(f'{cur.hour}.{cur.minute} {after.status}')
 
 
 async def daily():
