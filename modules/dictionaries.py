@@ -148,7 +148,18 @@ custom_emoji_library = {
     'ogien': 'strazertycy',
     'pali': 'strazertycy',
     'strazertycy': 'strazertycy',
-    'tense': 'tense'
+    'tense': 'tense',
+    'eindhoven' : 'tue_rejection',
+    'delft' : 'tue_rejection',
+    'holandia' : 'tue_rejection',
+    'reject' : 'tue_rejection',
+    'odrzut' : 'tue_rejection',
+    'marius' : 'tue_rejection',
+    'kucht' : 'tue_rejection',
+    'sraker' : 'apetizer_sranie',
+    'sranie' : 'apetizer_sranie',
+    'natzi' : 'nahtzee',
+    'nahtzee' : 'nahtzee'
 }
 
 send_library = {
