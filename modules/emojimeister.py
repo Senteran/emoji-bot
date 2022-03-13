@@ -309,7 +309,6 @@ async def on_message(message):
 async def on_member_update(before, after):
     print('update')
     if before.id == krupier_users['Senteran']:
-        print('update 2')
         if before.mobile_status != after.mobile_status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
@@ -319,8 +318,7 @@ async def on_member_update(before, after):
         elif before.status != after.status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
-            print(message)
-            print(message[0])
+            print(message[0].created_at)
             if message[0].created_at - time.time < 5:
                 if not message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
                     await channel.send(f'ertymaster pc jest teraz {after.mobile_status} z {before.status}')
