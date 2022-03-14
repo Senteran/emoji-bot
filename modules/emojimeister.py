@@ -311,11 +311,10 @@ async def on_message(message):
 @client2.event
 async def on_member_update(before, after):
     if before.id == krupier_users['ertymaster']:
-        cur = datetime.datetime.now()
         if before.mobile_status != after.mobile_status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
-            
+
             await status_message(channel, message[0], after.mobile_status, True)
         elif before.status != after.status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
