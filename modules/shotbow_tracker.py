@@ -1,5 +1,6 @@
 from os import stat
 from mcstatus import MinecraftServer
+import datetime
 
 from file_handler import store_value
 import discord
@@ -42,3 +43,32 @@ async def shotbow_request(client, message):
     status = server.status()
     await message.reply('Aktualnie na shotbole gra {0} graczy'.format(status.players.online))
     await client.change_presence(activity=discord.Game(f'with {status.players.online} players on Shotbow'))
+
+
+async def status_message(channel, last, status, mobile):
+    cur = datetime.datetime.now()
+    created = last.created_at
+
+    cur_mod = cur
+    cur_mod.hour += 1
+    if cur_mod.hour >= 24:
+        cur_mod.hour = 0
+    
+
+    min = f"{cur_mod.minute}"
+    if cur_mod.minute < 10:
+        min = f"0{min}"
+    
+    mob = ""
+    if mobile:
+        mob = " mobile "
+    
+    message = f'{cur_mod.hour}.{min}{mob}{status}'
+
+    if (cur - created).total_seconds < 3:
+        c = last.content
+        if c == message:
+            return
+    
+    await channel.send(message)
+        

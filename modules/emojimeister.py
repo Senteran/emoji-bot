@@ -15,7 +15,7 @@ from google_images_search import GoogleImagesSearch
 from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
 from file_handler import get_value
 from modules.dictionaries import SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
-from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request
+from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
 
@@ -315,20 +315,13 @@ async def on_member_update(before, after):
         if before.mobile_status != after.mobile_status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
-            created = message[0].created_at
             
-            if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
-                return
-            await channel.send(f'{cur.hour}.{cur.minute} mobile {after.mobile_status}')
+            await status_message(channel, message[0], after.mobile_status, True)
         elif before.status != after.status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
-            created = message[0].created_at
 
-            if (cur - created).total_seconds() < 5 and message[0].author.id == SHOTBOW_TRACKER_DISCORD_ID:
-                return
-            await channel.send(f'{cur.hour}.{cur.minute} {after.status}')
-
+            await status_message(channel, message[0], after.status, False)
 
 async def daily():
     while True:
