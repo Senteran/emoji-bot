@@ -283,6 +283,9 @@ async def on_message(message):
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
+    
+    if 'mariusz' in content or 'kuchta' in content:
+        await message.channel.send(file=discord.File('src\rejection.png'))
 
 @client.event
 async def on_member_update(before, after):

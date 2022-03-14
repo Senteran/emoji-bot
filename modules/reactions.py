@@ -73,6 +73,7 @@ custom_emoji_library = {
     'sus' : 'suserty',
     'sex' : 'sexeos',
     'fotel' : 'senteran_fotelteran',
+    'shrek' : 'shrerty'
 }
 
 reactions_starts = {
