@@ -159,7 +159,8 @@ custom_emoji_library = {
     'sraker' : 'apetizer_sranie',
     'sranie' : 'apetizer_sranie',
     'natzi' : 'nahtzee',
-    'nahtzee' : 'nahtzee'
+    'nahtzee' : 'nahtzee',
+    'yahtzee' : 'nahtzee'
 }
 
 send_library = {
