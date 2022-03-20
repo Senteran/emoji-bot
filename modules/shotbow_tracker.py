@@ -57,7 +57,7 @@ async def status_message(channel, last, status, mobile):
     if cur_mod.minute < 10:
         min = f"0{min}"
     
-    mob = ""
+    mob = " "
     if mobile:
         mob = " mobile "
     
