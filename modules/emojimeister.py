@@ -308,7 +308,7 @@ async def on_message(message):
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(client2, message)
 
-@client2.event
+@client.event
 async def on_member_update(before, after):
     if before.id == krupier_users['ertymaster']:
         if before.mobile_status != after.mobile_status:
