@@ -63,10 +63,8 @@ async def status_message(channel, last, status, mobile):
     
     message = f'{cur_mod.hour}.{min}{mob}{status}'
 
-    if (cur - created).total_seconds() < 3:
-        c = last.content
-        if c == message:
-            return
+    if last.content == message:
+        return
     
     await channel.send(message)
         
