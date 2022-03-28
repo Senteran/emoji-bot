@@ -71,7 +71,7 @@ async def status_message(channel, last, status, mobile):
         store_value('last_statuserty_message_id', str(s.id))
     else:
         mess = await channel.fetch_message(int(get_value('last_statuserty_message_id')))
-        c = message.content
+        c = mess.content
         c += f'\n{message}'
         await mess.edit(content=c)
         
