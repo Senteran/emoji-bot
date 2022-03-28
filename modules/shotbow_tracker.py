@@ -70,8 +70,8 @@ async def status_message(channel, last, status, mobile):
         s = await channel.send(message)
         store_value('last_statuserty_message_id', str(s.id))
     else:
-        message = await channel.fetch_message(int(get_value('last_statuserty_message_id')))
+        mess = await channel.fetch_message(int(get_value('last_statuserty_message_id')))
         c = message.content
         c += f'\n{message}'
-        await message.edit(content=c)
+        await mess.edit(content=c)
         
