@@ -2,7 +2,7 @@ from os import stat
 from mcstatus import MinecraftServer
 import datetime
 
-from file_handler import store_value
+from file_handler import store_value, get_value
 import discord
 import datetime
 
@@ -66,5 +66,12 @@ async def status_message(channel, last, status, mobile):
     if last.content == message:
         return
     
-    await channel.send(message)
+    if status == 'online':
+        s = await channel.send(message)
+        store_value('last_statuserty_message_id', str(s.id))
+    else:
+        message = await channel.fetch_message(int(get_value('last_statuserty_message_id')))
+        c = message.content
+        c += f'\n{message}'
+        message.edit(content=c)
         
