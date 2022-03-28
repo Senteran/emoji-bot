@@ -73,5 +73,5 @@ async def status_message(channel, last, status, mobile):
         message = await channel.fetch_message(int(get_value('last_statuserty_message_id')))
         c = message.content
         c += f'\n{message}'
-        message.edit(content=c)
+        await message.edit(content=c)
         
