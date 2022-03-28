@@ -19,9 +19,7 @@ emoji_library = {
     'nie wiem': '🤷',
     'spi': '💤',
     'swiat': '🌍',
-    ' tak ': '✅',
     'krupiergames.000webhostapp.com/ia': '🛑',
-    ' nie ': '❎',
     'ee' : '🐚',
     'stundink': '🧑‍🎤',
     'studnik': '🧑‍🎤',
@@ -160,7 +158,9 @@ custom_emoji_library = {
     'sranie' : 'apetizer_sranie',
     'natzi' : 'nahtzee',
     'nahtzee' : 'nahtzee',
-    'yahtzee' : 'nahtzee'
+    'yahtzee' : 'nahtzee',
+    'chad_jan' : 'chad_jan',
+    'chad_mariusz' : 'chad_mariusz'
 }
 
 send_library = {
