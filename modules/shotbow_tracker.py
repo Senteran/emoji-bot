@@ -66,7 +66,7 @@ async def status_message(channel, last, status, mobile):
     if last.content == message:
         return
     
-    if status == 'online':
+    if status == discord.Status.online:
         s = await channel.send(message)
         store_value('last_statuserty_message_id', str(s.id))
     else:
