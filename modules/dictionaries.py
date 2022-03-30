@@ -48,7 +48,6 @@ emoji_library = {
     'siema': '👋',
     'hello': '👋',
     'halo': '👋',
-    '?': '🧐',
     'penis':'🍆',
     'sentymi':'🥏',
     'rage': '👺',
