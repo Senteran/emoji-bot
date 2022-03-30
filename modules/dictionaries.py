@@ -35,7 +35,6 @@ emoji_library = {
     'dobra': '👌',
     'intj': '♑',
     'entj': '♑',
-    'angielski': '🐚',
     'o co chodzi': '❓',
     'co sie dzieje': '❓',
     'co sie stalo': '❓',
@@ -60,7 +59,11 @@ emoji_library = {
     'prosze': '🥺',
     'dziekuje': '❤',
     'fur': '😻',
-    'spider': '🕷'
+    'spider': '🕷',
+    'tok' : '🛠',
+    'chemi' : '🏉',
+    'biol' : '🍫',
+    'geograf' : '🧱'
 }
 
 custom_emoji_library = {
@@ -99,8 +102,6 @@ custom_emoji_library = {
     'ertymi': 'ertymi',
     'ertymeister': 'ertymeister',
     'clyde': 'clyde',
-    'cas': 'cas_francuski',
-    'bw': 'bw',
     'js': 'js',
     'javascript': 'js',
     'auto': 'auto',
@@ -125,7 +126,7 @@ custom_emoji_library = {
     'lis': 'lis',
     'fur': 'lis',
     'kp': 'kp',
-    'an': 'an',
+    'ekon': 'an',
     'oburz' : 'kfrankvegeta_disgusted',
     'hustawka' : 'senteran_fajrancik',
     'krzeslo' : 'senteran_monocle',
@@ -160,7 +161,11 @@ custom_emoji_library = {
     'nahtzee' : 'nahtzee',
     'yahtzee' : 'nahtzee',
     'chad_jan' : 'chad_jan',
-    'chad_mariusz' : 'chad_mariusz'
+    'chad_mariusz' : 'chad_mariusz',
+    'matma' : 'witczak',
+    'matemat' : 'witczak',
+    'angielski' : 'kp',
+    'fizyk' : 'js'
 }
 
 send_library = {
