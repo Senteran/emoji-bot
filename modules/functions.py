@@ -953,3 +953,10 @@ async def paper_janka(message):
     await message.channel.send(file=discord.File('src/paper_janka_2.jpg'))
     await message.channel.send(file=discord.File('src/paper_janka_3.jpg'))
     await message.channel.send(file=discord.File('src/paper_janka_4.jpg'))
+
+async def policjant(client, message):
+    await message.guild.me.edit(nick='Policjant')
+    file = open('src/policjant.jpg', 'rb')
+    pfp = file.read()
+    file.close()
+    await client.user.edit(avatar=pfp)
