@@ -29,7 +29,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id, paper_janka, policjant
+    delete_message_by_id, paper_janka, policjant, deszcz
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -289,6 +289,9 @@ async def on_message(message):
     
     if 'emoji policjant' == content:
         await policjant(client, message)
+    
+    if 'emoji deszcze' == content:
+        await deszcz(message)
 
 @client.event
 async def on_member_update(before, after):

@@ -960,3 +960,13 @@ async def policjant(client, message):
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
+
+async def deszcz(message):
+    for i in range(5):
+        m = ""
+        for j in range(8):
+            if random.randint(0,2) == 1:
+                m += "💧"
+            else:
+                m += "    "
+        await message.channel.send(m)
