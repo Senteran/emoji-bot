@@ -962,8 +962,8 @@ async def policjant(client, message):
     await client.user.edit(avatar=pfp)
 
 async def deszcz(message):
-    for i in range(5):
-        m = ""
+    for i in range(6):
+        m = "🕷️"
         for j in range(18):
             if random.randint(0,4) == 1:
                 m += "💧"
