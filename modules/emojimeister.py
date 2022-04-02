@@ -290,7 +290,7 @@ async def on_message(message):
     if 'emoji policjant' == content:
         await policjant(client, message)
     
-    if 'emoji deszcze' == content:
+    if 'emoji deszcz' == content:
         await deszcz(message)
 
 @client.event

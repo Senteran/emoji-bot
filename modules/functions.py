@@ -964,8 +964,8 @@ async def policjant(client, message):
 async def deszcz(message):
     for i in range(5):
         m = ""
-        for j in range(8):
-            if random.randint(0,2) == 1:
+        for j in range(18):
+            if random.randint(0,4) == 1:
                 m += "💧"
             else:
                 m += "    "
