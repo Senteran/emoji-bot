@@ -962,11 +962,11 @@ async def policjant(client, message):
     await client.user.edit(avatar=pfp)
 
 async def deszcz(message):
-    for i in range(6):
+    for i in range(7):
         m = "🕷️"
-        for j in range(18):
-            if random.randint(0,4) == 1:
+        for j in range(25):
+            if random.randint(0,7) == 1:
                 m += "💧"
             else:
-                m += "    "
+                m += "     "
         await message.channel.send(m)
