@@ -8,6 +8,7 @@ import datetime
 
 # CONSTANTS
 CHANNEL = 923257476747526227
+KARERTY = 960470484116439040
 MINIMUM_PERSONS = 160
 SEND_DELAY = 30000
 CHECK_DELAY = 600
@@ -74,4 +75,8 @@ async def status_message(channel, last, status, mobile):
         c = mess.content
         c += f'\n{message}'
         await mess.edit(content=c)
-        
+
+async def karerty_message(message, client):
+    channel = client.get_channel(KARERTY)
+
+    await channel.send(message)

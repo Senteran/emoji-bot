@@ -15,6 +15,7 @@ from google_images_search import GoogleImagesSearch
 from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
 from file_handler import get_value
 from modules.dictionaries import SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
+from modules.shotbow_tracker import karerty_message
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
@@ -313,6 +314,10 @@ async def on_message(message):
 
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(client2, message)
+    
+    if content.startswith('karerty '):
+        m = message.content[9:]
+        await karerty_message(m, client2)
 
 @client.event
 async def on_member_update(before, after):
