@@ -315,8 +315,8 @@ async def on_message(message):
     if content == 'ile gra' or content == 'ile gra?':
         await shotbow_request(client2, message)
     
-    if content.startswith('karerty '):
-        m = message.content[9:]
+    if content.startswith('karerty ') and message.author.id != krupier_users['ertymaster']:
+        m = message.content[8:]
         await karerty_message(m, client2)
 
 @client.event
