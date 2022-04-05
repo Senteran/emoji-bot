@@ -225,7 +225,7 @@ async def on_message(message):
         except discord.errors.HTTPException:
             await message.reply('The DM failed to send')
 
-    if message.content.startswith('emoji usun '):
+    if message.content.startswith('emoji usun ') and message.author.id in admin_ids:
         try:
             await delete_message_by_id(message, client)
         except discord.errors.HTTPException:
