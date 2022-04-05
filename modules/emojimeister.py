@@ -26,7 +26,7 @@ from functions import\
     display_suffix, play_music, send_messages, send_word_triangle, search_for_image,\
     display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
     resume_music, manual_response, emojimeister_return,\
-    custom_reaction, beast_mode_on, beast_mode_off, reply_to_message, help_other_helps,\
+    custom_reaction, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
@@ -205,14 +205,6 @@ async def on_message(message):
     
     if content == 'emoji paper janka':
         await paper_janka(message)
-
-    # Beast mode on
-    if message.content == 'cum_beast_mode on' and message.author.id in admin_ids:
-        await beast_mode_on(client)
-
-    # Beast mode off
-    if message.content == 'cum_beast_mode off' and message.author.id in admin_ids:
-        await beast_mode_off(client)
 
     # Erty jest zajęty
     if message.content == 'erty?':

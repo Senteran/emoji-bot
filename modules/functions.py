@@ -522,26 +522,6 @@ async def custom_reaction(message, client, emoji_name):
     emoji = get(client.emojis, name=emoji_name)
     await message.add_reaction(emoji)
 
-async def beast_mode_on(client):
-    """Włącza beast mode
-
-    Args:
-        client (client): Sesja discorda bota
-    """
-    global BEAST_MODE
-    BEAST_MODE = True
-    await client.change_presence(activity=discord.Game('Cum Beast Mode'))
-
-async def beast_mode_off(client):
-    """Wyłącza beast mode
-
-    Args:
-        client (client): Sesja discorda bota
-    """
-    global BEAST_MODE
-    BEAST_MODE = False
-    client.change_presence(status=None)
-
 async def reply_to_message(message, content):
     """Odpowiada na wiadomość
 
