@@ -14,7 +14,7 @@ from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
 from file_handler import get_value
-from modules.dictionaries import SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
+from modules.dictionaries import MUSIQQO_CHANNEL, OGOLNY_CHANNEL, SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
 from modules.shotbow_tracker import karerty_message
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message
 from word import send_word_of_emojis
@@ -299,6 +299,13 @@ async def on_member_update(before, after):
                 THIS_SHOULDNT_EXIST = True
             else:
                 THIS_SHOULDNT_EXIST =False
+    
+    if before.nick == "Fallowpelt" and after.nick == "Senteran":
+        after.edit(nick="Fallowpelt")
+        channel = client.fetch_channel(MUSIQQO_CHANNEL)
+        message = await channel.history(limit=1).flatten()
+        emoji = get(client.emojis, name="nahtzee")
+        message.add_reaction(emoji)
 
 @client2.event
 async def on_message(message):
