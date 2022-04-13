@@ -300,7 +300,7 @@ async def on_member_update(before, after):
             else:
                 THIS_SHOULDNT_EXIST =False
     
-    if before.nick == "Fallowpelt" and after.nick == "Senteran":
+    if before.display_name == "Fallowpelt" and after.display_name == "Senteran":
         after.edit(nick="Fallowpelt")
         channel = client.fetch_channel(MUSIQQO_CHANNEL)
         message = await channel.history(limit=1).flatten()
