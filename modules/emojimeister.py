@@ -6,17 +6,15 @@ from logging import exception
 import sys
 import os
 import asyncio
-import datetime
 
 import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
-from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL
+from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL, MUSIQQO_CHANNEL, STATUSERTY_CHANNEL
 from file_handler import get_value
-from modules.dictionaries import MUSIQQO_CHANNEL, OGOLNY_CHANNEL, SHOTBOW_TRACKER_DISCORD_ID, STATUSERTY_CHANNEL
-from modules.shotbow_tracker import karerty_message
-from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message
+from modules.dictionaries import OGOLNY_CHANNEL
+from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message, karerty_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
 
@@ -286,29 +284,6 @@ async def on_message(message):
     if 'emoji deszcz' == content:
         await deszcz(message)
 
-@client.event
-async def on_member_update(before, after):
-    global THIS_SHOULDNT_EXIST
-    if before.id == krupier_users['exeos']:
-        if before.mobile_status == discord.Status.offline and after.mobile_status == discord.Status.online:
-            if THIS_SHOULDNT_EXIST == False:
-                channel = await client.fetch_channel(AGAR_AGAR_CHANNEL)
-                await channel.send(f"<@!{krupier_users['exeos']}>")
-                emoji = get(client.emojis, name='exeos_mobile')
-                await channel.send(emoji)
-                THIS_SHOULDNT_EXIST = True
-            else:
-                THIS_SHOULDNT_EXIST =False
-    
-    print(before.display_name)
-    print(after.display_name)
-    if before.display_name == "Fallowpelt" and after.display_name == "Senteran":
-        after.edit(nick="Fallowpelt")
-        channel = client.fetch_channel(MUSIQQO_CHANNEL)
-        message = await channel.history(limit=1).flatten()
-        emoji = get(client.emojis, name="nahtzee")
-        message.add_reaction(emoji)
-
 @client2.event
 async def on_message(message):
     content = process_content(message.content)
@@ -333,6 +308,13 @@ async def on_member_update(before, after):
             message = await channel.history(limit=1).flatten()
 
             await status_message(channel, message[0], after.status, False)
+    
+    if before.display_name == "Fallowpelt" and after.display_name == "Senteran":
+        await after.edit(nick="Fallowpelt")
+        channel = await client.fetch_channel(OGOLNY_CHANNEL)
+        message = await channel.history(limit=1).flatten()
+        emoji = get(client.emojis, name="nahtzee")
+        await message[0].add_reaction(emoji)
 
 async def daily():
     while True:
