@@ -990,5 +990,9 @@ def delft_string():
 
     return f'{hh}:{mm}:{ss}'
 
-async def delft_message(message):
-    id = get_value('delft_message')
+async def delft_message(client):
+    mess_id = get_value('delft_message_id')
+    chan_id = get_value('delft_message_channel_id')
+    channel = await client.fetch_channel(int(chan_id))
+    message = await channel.fetch_message(int(mess_id))
+    await message.edit(content=delft_string())
