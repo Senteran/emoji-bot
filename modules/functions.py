@@ -959,6 +959,7 @@ async def delft_results(message):
     m = s//60
     h = m//60
     s = s % 60
+    m = m % 60
 
     mm = str(m)
     ss = str(s)
@@ -983,6 +984,7 @@ def delft_string():
     m = s//60
     h = m//60
     s = s % 60
+    m = m % 60
 
     mm = str(m)
     ss = str(s)
