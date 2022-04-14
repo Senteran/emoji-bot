@@ -955,4 +955,4 @@ async def delft_results(message):
     now = datetime.datetime.now()
     res = datetime.datetime(2022, 4, 14, 22)
     sub = res - now
-    message.channel.send(sub.strftime('%H:%M:%S'))
+    message.channel.send(f'{sub.hours}:{sub.minutes}:{sub.seconds}')
