@@ -14,7 +14,7 @@ from google_images_search import GoogleImagesSearch
 from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL, MUSIQQO_CHANNEL, STATUSERTY_CHANNEL
 from file_handler import get_value
 from modules.dictionaries import OGOLNY_CHANNEL
-from modules.functions import delft_results
+from modules.functions import delft_message, delft_results
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message, karerty_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
@@ -324,6 +324,10 @@ async def daily():
     while True:
         await asyncio.sleep(10000)
 
+async def delft_results():
+    while True:
+        await asyncio.sleep(10)
+        await delft_message(client)
 
 loop = asyncio.get_event_loop()
 loop.create_task(client.start(os.getenv('EMOJI_BOT')))

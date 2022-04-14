@@ -960,6 +960,10 @@ async def delft_results(message):
     h = m//60
     s = s % 60
 
+    mm = str(m)
+    ss = str(s)
+    hh = str(h)
+
     if len(str(s)) == 1:
         ss = f'0{s}'
     if len(str(m)) == 1:
