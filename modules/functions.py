@@ -968,3 +968,27 @@ async def delft_results(message):
         hh = f'0{h}'
 
     await message.channel.send(f'{hh}:{mm}:{ss}')
+
+def delft_string():
+    now = datetime.datetime.now()
+    res = datetime.datetime(2022, 4, 14, 22)
+    sub = res - now
+    s = sub.seconds
+    m = s//60
+    h = m//60
+    s = s % 60
+
+    mm = str(m)
+    ss = str(s)
+    hh = str(h)
+    if len(str(s)) == 1:
+        ss = f'0{s}'
+    if len(str(m)) == 1:
+        mm = f'0{m}'
+    if len(str(h)) == 1:
+        hh = f'0{h}'
+
+    return f'{hh}:{mm}:{ss}'
+
+async def delft_message(message):
+    id = get_value('delft_message')
