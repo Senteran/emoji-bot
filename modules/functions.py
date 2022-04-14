@@ -957,7 +957,7 @@ async def delft_results(message):
     sub = res - now
     s = sub.seconds
     m = s//60
-    h = h//60
+    h = m//60
     s = s % 60
 
     if len(str(s)) == 1:
