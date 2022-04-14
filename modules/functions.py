@@ -971,7 +971,9 @@ async def delft_results(message):
     if len(str(h)) == 1:
         hh = f'0{h}'
 
-    await message.channel.send(f'{hh}:{mm}:{ss}')
+    m = await message.channel.send(f'{hh}:{mm}:{ss}')
+    store_value('delft_message_id', str(m.id))
+    store_value('delft_message_channel_id', str(m.channel.id))
 
 def delft_string():
     now = datetime.datetime.now()
