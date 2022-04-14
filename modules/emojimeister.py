@@ -328,8 +328,7 @@ async def delft_results_loop():
         await delft_message(client)
 
 loop = asyncio.get_event_loop()
-#loop.create_task(client.start(os.getenv('EMOJI_BOT')))
-loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.51FUH9_cuTBWZQTd9y9edCiWOVU'))
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(delft_results_loop())
 loop.run_forever()
