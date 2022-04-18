@@ -164,7 +164,8 @@ custom_emoji_library = {
     'matma' : 'witczak',
     'matemat' : 'witczak',
     'angielski' : 'kp',
-    'fizyk' : 'js'
+    'fizyk' : 'js',
+    'chad_sebek' : 'chad_sebek'
 }
 
 send_library = {

@@ -1003,4 +1003,4 @@ async def delft_message(client):
     chan_id = get_value('delft_message_channel_id')
     channel = await client.fetch_channel(int(chan_id))
     message = await channel.fetch_message(int(mess_id))
-    await message.edit(content=delft_string())
+    await message.edit(content=f'**{delft_string()}**')
