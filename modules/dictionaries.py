@@ -172,7 +172,7 @@ send_library = {
     'adres ip serwera': 'Adres ip serwera minecraft: 25.19.225.194',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
-    'ile masz lat': 'urodziłęm się 15 kwietnia 2021, więc mam powyżej 6 miesięcy!',
+    'ile masz lat': 'urodziłem się 15 kwietnia 2021!',
     'co potrafisz?': 'reagować na wiadomości!',
     'kiedy sie spotykamy': 'Ja mogę z wami zawsze być ♥',
     'jak sie nauczyc grac w poe?': 'Polecam ten poradnik: \
@@ -180,7 +180,7 @@ send_library = {
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: \
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
     'gdzie jedziemy': 'Wykres dostępnych gier jest dostępny tu: \
-        https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
+        https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=740564050',
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid',
     'emoji sraker' : 'https://www.youtube.com/watch?v=eWb78tJtYRk'
