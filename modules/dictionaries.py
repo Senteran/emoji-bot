@@ -179,7 +179,7 @@ send_library = {
         https://www.poe-vault.com/guides/ultimate-beginners-comprehensive-guide',
     'w co gramy': 'Wykres dostępnych gier jest dostępny tu: \
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=0',
-    'gdzie jedziemy': 'Wykres dostępnych gier jest dostępny tu: \
+    'gdzie jedziemy': 'Wykres dostępnych dat jest dostępny tu: \
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=740564050',
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid',
