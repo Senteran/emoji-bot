@@ -27,7 +27,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message
+    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -121,6 +121,10 @@ async def on_message(message):
     # Wyświetlenie sufiksu
     if 'jaki sufix' in content or 'jaki suffix' in content:
         await display_suffix(message)
+
+    # Ustawia nick niezależnie od prefiksu i sufiksu
+    if message.content.startswith('emoji nick ') and len(message.content) > 12:
+        await change_nick(message)
 
     # Granie muzyki los santos
     if PREFIX + ' zagraj ' in message.content:

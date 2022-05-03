@@ -347,6 +347,10 @@ async def display_suffix(message):
     """
     message.channel.send('Aktualny sufiks to: ' + SUFFIX)
 
+async def change_nick(message):
+    nickname = message.content.removeprefix('emoji nick ')
+    await message.guild.me.edit(nick=nickname)
+
 async def play_music(message):
     """Gra muzykę pobierając ją z YouTube
 
