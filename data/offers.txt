@@ -1,1 +1,1 @@
-{"id": "https://www.x-kom.pl/p/468276-kierownica-logitech-g29-shifter-pc-ps3-ps4.html", "price": "1399.00"}
+{"id":"https://www.x-kom.pl/p/468276-kierownica-logitech-g29-shifter-pc-ps3-ps4.html", "price":"1399.00"}

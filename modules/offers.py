@@ -18,7 +18,7 @@ links_media_markt = []
 
 
 async def check_for_offers(client, force=False):
-    f = open('data/offers.txt',mode='r+')
+    f = open('data/offers.json',mode='r+')
     print(f.read())
     all_old_prices = json.loads(f.read())
     updated_prices = []
