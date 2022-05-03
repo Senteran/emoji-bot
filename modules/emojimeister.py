@@ -2,7 +2,6 @@
     This is the main module of the application.
     It handles the running of the bot and initiates functions
 """
-from logging import exception
 import sys
 import os
 import asyncio
@@ -29,6 +28,7 @@ from functions import\
     PREFIX, BEAST_MODE, change_nicknames_to_custom,\
     delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick
 
+from offers import check_for_offers
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
 
@@ -274,6 +274,9 @@ async def on_message(message):
     
     if message.content == '9843qujfrweailsdnkctq48frewpjiao':
         print('test')
+    
+    if message.content == '43q2879frewurjhiadslkmngrsvfd':
+        check_for_offers(client, True)
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
@@ -331,8 +334,15 @@ async def delft_results_loop():
         await asyncio.sleep(10)
         await delft_message(client)
 
+async def offers_loop():
+    while True:
+        await asyncio.sleep(20)
+        await check_for_offers(client)
+        await asyncio.sleep(480)
+
 loop = asyncio.get_event_loop()
 loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(delft_results_loop())
+loop.create_task(offers_loop)
 loop.run_forever()
