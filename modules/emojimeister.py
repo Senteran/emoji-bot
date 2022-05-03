@@ -276,7 +276,7 @@ async def on_message(message):
         print('test')
     
     if message.content == '43q2879frewurjhiadslkmngrsvfd':
-        check_for_offers(client, True)
+        await check_for_offers(client, True)
 
     if 'krupier to furnik' in content:
         await reply_to_message(message, "Krupier to *furnik* ma wymóg")
