@@ -341,7 +341,8 @@ async def offers_loop():
         await asyncio.sleep(480)
 
 loop = asyncio.get_event_loop()
-loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+#loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.YHgqgg.-WG1Uk85S0Rv_3u0OGHNOq1KZ2g'))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 loop.create_task(delft_results_loop())
 loop.create_task(offers_loop())

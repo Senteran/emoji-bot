@@ -180,7 +180,8 @@ send_library = {
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=740564050',
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid',
-    'emoji sraker' : 'https://www.youtube.com/watch?v=eWb78tJtYRk'
+    'emoji sraker' : 'https://www.youtube.com/watch?v=eWb78tJtYRk',
+    'kim jestes' : 'Jestem zwycięzcą!'
 }
 
 music_library = {

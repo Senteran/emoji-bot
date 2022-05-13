@@ -18,8 +18,7 @@ links_media_markt = []
 
 
 async def check_for_offers(client, force=False):
-    f = open('data/offers.json',mode='r+')
-    print(f.read())
+    f = open('data/offers.json',mode='r+',encoding='utf-8', errors='ignore')
     all_old_prices = json.loads(f.read())
     updated_prices = []
 
@@ -27,7 +26,7 @@ async def check_for_offers(client, force=False):
     for link in links_xkom:
         r = requests.get(link, headers=headers)
         new_price = BeautifulSoup(r.content, "html.parser").find('meta', property="product:price:amount").attrs['content']
-        old_price = next(filter(lambda item: item['id'] == link, all_old_prices))['price']
+        old_price = next(filter(lambda item: item["id"] == link, all_old_prices))["prices"]
         if float(new_price) < float(old_price) or force:
             print(f'nizsza {link} {old_price} {new_price}')
             channel = await client.fetch_channel(AGAR_AGAR_CHANNEL)
