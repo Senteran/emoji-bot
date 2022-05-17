@@ -166,7 +166,7 @@ custom_emoji_library = {
 }
 
 send_library = {
-    'adres ip serwera': 'Adres ip serwera minecraft: 25.19.225.194',
+    'adres ip serwera': 'Adres ip serwera na hamachi: 25.19.225.194\nAdres serwera Mariusza: 146.59.44.91',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
     'ile masz lat': 'urodziłem się 15 kwietnia 2021!',
