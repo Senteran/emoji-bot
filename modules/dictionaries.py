@@ -181,7 +181,9 @@ send_library = {
     'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid',
     'emoji sraker' : 'https://www.youtube.com/watch?v=eWb78tJtYRk',
-    'kim jestes' : 'Jestem zwycięzcą!'
+    'kim jestes' : 'Jestem zwycięzcą!',
+    'gdzie jest baza' : 'Ważne lokacje na świecie Minecraft dostępne są tu!: https://docs.google.com/spreadsheets/d/1Fst-3Lsc_8-G_2YjI4cfTSEK3NGHaGtteFz175vvGeo/edit?usp=sharing',
+    'minecraft serwer kordy' : 'Ważne lokacje na świecie Minecraft dostępne są tu!: https://docs.google.com/spreadsheets/d/1Fst-3Lsc_8-G_2YjI4cfTSEK3NGHaGtteFz175vvGeo/edit?usp=sharing'
 }
 
 music_library = {
