@@ -10,7 +10,7 @@ import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
-from dictionaries import admin_ids, krupier_users, STATUSERTY_CHANNEL, OGOLNY_CHANNEL, BUDOWA_CHANNEL, WIEZIENIE_CHANNEL, KRUPIER_ID
+from dictionaries import admin_ids, krupier_users, STATUSERTY_CHANNEL, OGOLNY_CHANNEL, BUDOWA_CHANNEL, WIEZIENIE_CHANNEL, KRUPIER_ID, EMOJIBOT_ID
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message, karerty_message
 from word import send_word_of_emojis
@@ -67,10 +67,7 @@ async def on_ready():
 
     if GO_TO_KRUPIER:
         kr = await client.fetch_guild(KRUPIER_ID)
-        me = kr.me
-        print(type(me))
-        print(type(kr))
-        print(type(kr.me))
+        me = await kr.fetch_member(EMOJIBOT_ID)
         nick = me.nick
         if nick == "Mieszadło do betonu":
             channel = await client.fetch_channel(BUDOWA_CHANNEL)
