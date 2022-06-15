@@ -10,22 +10,21 @@ import discord
 from discord.utils import get
 from google_images_search import GoogleImagesSearch
 
-from dictionaries import admin_ids, krupier_users, AGAR_AGAR_CHANNEL, MUSIQQO_CHANNEL, STATUSERTY_CHANNEL, OGOLNY_CHANNEL
+from dictionaries import admin_ids, krupier_users, STATUSERTY_CHANNEL, OGOLNY_CHANNEL, BUDOWA_CHANNEL, WIEZIENIE_CHANNEL, KRUPIER_ID
 from file_handler import get_value
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message, karerty_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
 
 from functions import\
-    initilise_variables, process_content, default_reactions,\
-    custom_reactions,play_default_music, change_prefix, display_prefix, change_suffix,\
-    display_suffix, play_music, send_messages, send_word_triangle, search_for_image,\
+    process_content, default_reactions,\
+    custom_reactions,play_default_music, play_music, send_messages, send_word_triangle, search_for_image,\
     display_reactions, join_voice_channel, leave_voice_channel, pause_music,\
     resume_music, manual_response, emojimeister_return,\
     custom_reaction, reply_to_message, help_other_helps,\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
-    PREFIX, BEAST_MODE, change_nicknames_to_custom,\
+    BEAST_MODE, change_nicknames_to_custom,\
     delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick
 
 from offers import check_for_offers
@@ -48,7 +47,6 @@ GO_TO_SVB = False
 GO_TO_KRUPIER = True
 THIS_SHOULDNT_EXIST = False
 
-initilise_variables()
 
 async def shotbow(client_t):
     while True:
@@ -68,9 +66,16 @@ async def on_ready():
     for server in client.guilds:
         print(server)
 
-    if GO_TO_KRUPIER: 
-        channel = await client.fetch_channel(788023076402495518)
-        await channel.connect()
+    if GO_TO_KRUPIER:
+        kr = await client.fetch_guild(KRUPIER_ID)
+        nick = kr.me.nick
+        if nick == "Mieszadło do betonu":
+            channel = await client.fetch_channel(BUDOWA_CHANNEL)
+            await channel.connect()
+        else:
+            channel = await client.fetch_channel(WIEZIENIE_CHANNEL)
+            await channel.connect()
+    
     if GO_TO_SVB: 
         channel = await client.fetch_channel(640859405247709185)
         channel.connect()
@@ -82,7 +87,6 @@ async def on_message(message):
     """This runs upon a message being sent where the bot can see it,
     so it can be a DM or a message in a channel"""
     global BEAST_MODE
-    global PREFIX
 
     content = process_content(message.content)
 
@@ -106,28 +110,12 @@ async def on_message(message):
     # Granie muzyki
     await play_default_music(message, content)
 
-    # Zmienienie prefiksu
-    if message.content.startswith('emoji prefix ') or message.content.startswith('emoji prefiks '):
-        await change_prefix(message)
-
-    # Wyświetlenie prefiksu
-    if 'jaki prefix' in content or 'jaki prefiks' in content:
-        await display_prefix(message)
-
-    # Zmienienie sufiksu
-    if message.content.startswith('emoji sufiks ') or message.content.startswith('emoji suffix'):
-        await change_suffix(message)
-
-    # Wyświetlenie sufiksu
-    if 'jaki sufix' in content or 'jaki suffix' in content:
-        await display_suffix(message)
-
-    # Ustawia nick niezależnie od prefiksu i sufiksu
+    # Ustawia nick
     if message.content.startswith('emoji nick ') and len(message.content) > 12:
         await change_nick(message)
 
     # Granie muzyki los santos
-    if PREFIX + ' zagraj ' in message.content:
+    if 'emoji zagraj ' in message.content:
         await play_music(message)
 
     # send messages
@@ -145,25 +133,23 @@ async def on_message(message):
         await display_reactions(message)
 
     # Wchodzenie na kanał
-    if message.content.startswith(PREFIX) and ' wejdz' in content:
+    if 'emoji wejdz' in content:
         await join_voice_channel(message)
 
     # Wychodzenie z kanału
-    if ((message.content.startswith(PREFIX) and ' wyjdz' in content) or
-     'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393'
-      in message.content):
+    if ('emoji wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
         await leave_voice_channel(message)
 
     # Stop muzyki
-    if message.content.startswith(PREFIX) and ' stop' in content:
+    if 'emoji stop' in content:
         await pause_music(message)
 
     # Pauza muzyki
-    if message.content.startswith(PREFIX) and ' pauza' in content:
+    if 'emoji pauza' in content:
         await pause_music(message)
 
     # Wstrzymanie muzyki
-    if message.content.startswith(PREFIX) and ' wznow' in content:
+    if 'emoji wznow' in content:
         await resume_music(message)
 
     # Ręczna odpowiedź

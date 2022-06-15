@@ -6,6 +6,8 @@ from os import remove
 import shutil
 import datetime
 import asyncio
+from io import BytesIO
+from PIL import Image
 
 import discord
 from discord.utils import get
@@ -27,8 +29,6 @@ ASSIGNED_NICKNAMES = False
 SHOULD_EMOJI_BOT_CHANGE_NICKNAMES = False
 SEND_NICKNAMES_TO_USER = False
 
-PREFIX = ''
-SUFFIX = ''
 BEAST_MODE = False
 
 def to_en_str(pl_str):
@@ -181,15 +181,6 @@ def seperate_into_2000_words(message):
     ret.append(message[last_append:len(message)])
     return ret
 
-def initilise_variables():
-    """Inicjalizuje globalne variable. Czyta z plików i wgrywa poprawny:
-    prefix, suffix, banned_ids i beast_banned_ids"""
-    global PREFIX
-    global SUFFIX
-
-    PREFIX = get_value('prefix')
-    SUFFIX = get_value('suffix')
-
 async def delete_message(message):
     """Usuwa wiadomość
 
@@ -273,34 +264,6 @@ async def play_default_music(message, content):
             voice_client.play(discord.FFmpegPCMAudio(executable='data/ffmpeg.exe', source=filename))
             await message.channel.send('Currently playing: ' + music_library[element])
 
-async def change_prefix(message):
-    """Changes the bot's prefix
-
-    Args:
-        message (message): The received message
-    """
-    if message.content.startswith('emoji prefix '):
-        new_prefix = message.content.removeprefix('emoji prefix')
-    else:
-        new_prefix = message.content.removeprefix('emoji prefiks ')
-    encoded_prefix = new_prefix.encode('utf-8')
-    store_value('prefix', encoded_prefix)
-    global PREFIX
-    suf = get_value('suffix')
-    prefix = new_prefix
-    if len(prefix + suf) >= 30:
-        await message.guild.me.edit(nick=prefix[0 : min(len(prefix), 30)]+suf[0 : 30 - len(prefix)])
-    else:
-        await message.guild.me.edit(nick=prefix+suf)
-
-async def display_prefix(message):
-    """Writes a message with the bot's prefix
-
-    Args:
-        message (message): The received message
-    """
-    await message.channel.send('Aktualny prefiks to: ' + PREFIX)
-
 def write_song_filename(filename):
     """Pisze ścieżke aktualnie granej piosenki do data/song.txt
 
@@ -320,32 +283,6 @@ def remove_song():
             print("The file was not found")
         store_value('song', '')
 
-async def change_suffix(message):
-    """Zmienia sufiks bota
-
-    Args:
-        message (message): Otrzymana wiadomość
-    """
-    if message.content.startswith('emoji sufiks '):
-        new_suffix = message.content.removeprefix('emoji sufiks ')
-    else:
-        new_suffix = message.content.removeprefix('emoji suffix ')
-    encoded_suffix = new_suffix.encode('utf-8')
-    store_value('suffix', encoded_suffix)
-    global SUFFIX
-    SUFFIX = new_suffix
-    if len(PREFIX + SUFFIX) >= 30:
-        await message.guild.me.edit(nick=PREFIX + SUFFIX[0 : 29 - len(PREFIX)])
-    else:
-        await message.guild.me.edit(nick=PREFIX+SUFFIX)
-
-async def display_suffix(message):
-    """Pisze sufiks bota do kanału
-
-    Args:
-        message (message): Otrzymana wiadomość
-    """
-    message.channel.send('Aktualny sufiks to: ' + SUFFIX)
 
 async def change_nick(message):
     nickname = message.content.removeprefix('emoji nick ')
@@ -409,28 +346,52 @@ async def search_for_image(message, client, gis):
     print('zdjęcie...')
     query = message.content.removeprefix('emoji zdjęcie ')
     image_search_params['q'] = query
-    gis.search(search_params=image_search_params, custom_image_name='img')
+    gis.search(search_params=image_search_params)
+
+    my_bytes_io = BytesIO()
+
     for image in gis.results():
-        image.download('src/')
-    try:
-        file = open('src/img.jpg', 'rb')
-        path = 'src/img.jpg'
-    except FileNotFoundError:
-        try:
-            file = open('src/img.png', 'rb')
-            path = 'src/img.png'
-        except FileNotFoundError:
-            try:
-                file = open('src/img.gif', 'rb')
-                path = 'src/img.gif'
-            except FileNotFoundError:
-                await message.channel.send('Image not found')
-                return
-    avatar = file.read()
-    file.close()
-    await client.user.edit(avatar=avatar)
-    time.sleep(1)
-    remove(path)
+        # here we tell the BytesIO object to go back to address 0
+        my_bytes_io.seek(0)
+
+        # take raw image data
+        raw_image_data = image.get_raw_data()
+
+        # this function writes the raw image data to the object
+        image.copy_to(my_bytes_io, raw_image_data)
+
+        # we go back to address 0 again so PIL can read it from start to finish
+        my_bytes_io.seek(0)
+
+        # create a temporary image object
+        temp_img = Image.open(my_bytes_io)
+
+        converted_img = temp_img.convert("RGB")
+
+        await client.user.edit(avatar=converted_img)
+        
+    
+    # for image in gis.results():
+    #     image.download('src/')
+    # try:
+    #     file = open('src/img.jpg', 'rb')
+    #     path = 'src/img.jpg'
+    # except FileNotFoundError:
+    #     try:
+    #         file = open('src/img.png', 'rb')
+    #         path = 'src/img.png'
+    #     except FileNotFoundError:
+    #         try:
+    #             file = open('src/img.gif', 'rb')
+    #             path = 'src/img.gif'
+    #         except FileNotFoundError:
+    #             await message.channel.send('Image not found')
+    #             return
+    # avatar = file.read()
+    # file.close()
+    # await client.user.edit(avatar=avatar)
+    # time.sleep(1)
+    # remove(path)
 
 async def display_reactions(message):
     """Pisze ile reakcji zostało już wykonanych
@@ -512,8 +473,7 @@ async def emojimeister_return(message, client):
     pfp = file.read()
     file.close()
     await client.user.edit(avatar=pfp)
-    await message.guild.me.edit(nick=PREFIX[0 : min(len(PREFIX), 29)] +
-     SUFFIX[0 : 29 - len(PREFIX)])
+    await message.guild.me.edit(nick='emojimeister')
 
 async def custom_reaction(message, client, emoji_name):
     """Reaguje reakcją krupierową
@@ -555,12 +515,11 @@ async def help_commands(message):
         message (message): Otrzymana wiadomość
     """
     await send_message(message, '''
-    - prefix wejdz - wchodzi do kanału\n
-    - prefix wyjdz - wychodzi z kanału\n
-    - prefix zagraj {nazwa piosenki} - gra piosenkę z YouTube\n
+    - emoji wejdz - wchodzi do kanału\n
+    - emoji wyjdz - wychodzi z kanału\n
+    - emoji zagraj {nazwa piosenki} - gra piosenkę z YouTube\n
     - emoji zdjęcie {nazwa zdjęcia} - szuka zdjęcia na Google Image i ustawia je jako profilowe\n
-    - emoji prefix {prefix} - zmienia prefix bota\n
-    - emoji suffix {suffix} - zmienia suffix bota\n
+    - emoji nick {nick} - zmienia nick bota\n
     - ile reakcji? - wyświetla ilość reakcji wykonanych''')
 
 async def help_replies(message):

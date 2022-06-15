@@ -6,6 +6,8 @@ MUSIQQO_CHANNEL = 768865735841546261
 AGAR_AGAR_CHANNEL = 803636340369260544
 STATUSERTY_CHANNEL = 952611789974151278
 SHOTBOW_TRACKER_DISCORD_ID = 923253469597540402
+BUDOWA_CHANNEL = 791066706218844161
+WIEZIENIE_CHANNEL = 788023076402495518
 
 sending_hours = [
     [7, 11],
@@ -166,7 +168,7 @@ custom_emoji_library = {
 }
 
 send_library = {
-    'adres ip serwera': 'Adres ip serwera na hamachi: 25.19.225.194\nAdres serwera Mariusza: 146.59.44.91\nAdres serwera Jacka: senteran.mine.game',
+    'adres ip serwera': 'Adres ip serwera na hamachi: 25.19.225.194\nAdres serwera Mariusza: 146.59.44.91\nAdres serwera Jacka: senteran.mine.game lub s369810.mine.game:25635',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
     'ile masz lat': 'urodziłem się 15 kwietnia 2021!',
