@@ -170,6 +170,7 @@ custom_emoji_library = {
 }
 
 send_library = {
+    'jakie ip' : 'Adres ip serwera na hamachi: 25.19.225.194\nAdres serwera Mariusza: 146.59.44.91\nAdres serwera Jacka: senteran.mine.game lub s369810.mine.game:25635',
     'adres ip serwera': 'Adres ip serwera na hamachi: 25.19.225.194\nAdres serwera Mariusza: 146.59.44.91\nAdres serwera Jacka: senteran.mine.game lub s369810.mine.game:25635',
     'login do hamachi': 'Login do hamachi: Senteran12345 (możliwe \
         także +6, + 7), hasło: senteran12',
