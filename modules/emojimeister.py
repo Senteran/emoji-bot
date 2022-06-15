@@ -68,7 +68,8 @@ async def on_ready():
 
     if GO_TO_KRUPIER:
         kr = await client.fetch_guild(KRUPIER_ID)
-        nick = kr.me.nick
+        me = kr.me
+        nick = me.nick
         if nick == "Mieszadło do betonu":
             channel = await client.fetch_channel(BUDOWA_CHANNEL)
             await channel.connect()
@@ -125,7 +126,7 @@ async def on_message(message):
         await send_word_triangle(message)
 
     # Zdjęcie profilowe z Google Image Search
-    if message.content.startswith('emoji zdjęcie '):
+    if content.startswith('emoji zdjecie '):
         await search_for_image(message, client, gis)
 
     # Wyświetlenie liczby reakcji

@@ -367,8 +367,14 @@ async def search_for_image(message, client, gis):
         temp_img = Image.open(my_bytes_io)
 
         converted_img = temp_img.convert("RGB")
+        converted_img.save('src/temp.jpg')
+        file = open('src/temp.jpg', 'rb')
+        pfp = file.open()
 
-        await client.user.edit(avatar=converted_img)
+        await client.user.edit(avatar=pfp)
+        file.close()
+        await asyncio.sleep(1)
+        remove('src/temp.jpg')
         
     
     # for image in gis.results():
