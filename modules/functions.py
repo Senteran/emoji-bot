@@ -369,7 +369,7 @@ async def search_for_image(message, client, gis):
         converted_img = temp_img.convert("RGB")
         converted_img.save('src/temp.jpg')
         file = open('src/temp.jpg', 'rb')
-        pfp = file.open()
+        pfp = file.read()
 
         await client.user.edit(avatar=pfp)
         file.close()
