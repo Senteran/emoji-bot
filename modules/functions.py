@@ -399,6 +399,30 @@ async def search_for_image(message, client, gis):
     # time.sleep(1)
     # remove(path)
 
+async def attachment_profile_picture(message, client):
+    atts = message.Attachment
+    if len(atts) == 0:
+        message.reply('No attachments')
+        return
+    
+    att = atts[0]
+    bytes = await att.read()
+    my_bytes_io = BytesIO(bytes)
+    my_bytes_io.seek(0)
+
+    temp_img = Image.open(my_bytes_io)
+
+    converted_img = temp_img.convert("RGB")
+    converted_img.save('src/temp.jpg')
+    file = open('src/temp.jpg', 'rb')
+    pfp = file.read()
+
+    await client.user.edit(avatar=pfp)
+    file.close()
+    await asyncio.sleep(1)
+    remove('src/temp.jpg')
+
+
 async def display_reactions(message):
     """Pisze ile reakcji zostało już wykonanych
 

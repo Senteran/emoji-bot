@@ -25,7 +25,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick
+    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick, attachment_profile_picture
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -127,6 +127,9 @@ async def on_message(message):
     # Zdjęcie profilowe z Google Image Search
     if content.startswith('emoji zdjecie '):
         await search_for_image(message, client, gis)
+    
+    if content == 'emoji zdjecie_attachment':
+        await attachment_profile_picture(message, client)
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
