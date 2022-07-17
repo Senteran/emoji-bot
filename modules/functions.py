@@ -400,7 +400,7 @@ async def search_for_image(message, client, gis):
     # remove(path)
 
 async def attachment_profile_picture(message, client):
-    atts = message.Attachment
+    atts = message.attachments
     if len(atts) == 0:
         message.reply('No attachments')
         return
