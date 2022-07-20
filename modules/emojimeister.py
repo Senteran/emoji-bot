@@ -347,8 +347,7 @@ async def delft_results_loop():
         await delft_message(client)
 
 loop = asyncio.get_event_loop()
-#loop.create_task(client.start(os.getenv('EMOJI_BOT')))
-loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.G_nXZJ.NckrnSQ-PMmcBio3TCLZ0h8AwZBBJo-w0nb3jQ'))
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 
 # loop.create_task(emoji2.start(os.getenv('EMOJI2')))
@@ -360,16 +359,6 @@ loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 # loop.create_task(emoji8.start(os.getenv('EMOJI8')))
 # loop.create_task(emoji9.start(os.getenv('EMOJI9')))
 # loop.create_task(emoji10.start(os.getenv('EMOJI10')))
-
-loop.create_task(emoji2.start('OTk4NjIxMTAxNTU3MDIyOTEw.GPmiiv.IjKMNIOFj2qBqz-6iBqSv2WHY-NlrKCq6_5aFE'))
-loop.create_task(emoji3.start('OTk4NjIxOTIxMTQwODIyMDU3.G1Aab2.eRyIOJ0hzfL7PHBo1dZj1utS0Lpg65wso3mDyE'))
-loop.create_task(emoji4.start('OTk4NjIyMDk5MzIzMjQ0NTc1.GhstHn.i8QCHeWAw3Sg_mfk4K1mZgq_KjPZ82a6LoGEHs'))
-loop.create_task(emoji5.start('OTk4NjIyMzU2MTQwNDYyMTAw.GB0c06.rqg6TYSwv2De394xbdNsQJpMttHEX6hjgh1qmo'))
-loop.create_task(emoji6.start('OTk4NjIyNDc2MjUyNzQxNzcz.GeWp7T.TDrR5BK0Ozx8pYDxjGx0Q-9N8OQBJVJudzQLAU'))
-loop.create_task(emoji7.start('OTk4NjIyNjM1NzQ1MzY2MTA3.GR_r5C.eCoHMjDH0df9Wruolf1j1X9I3QoU5kdxFFYtGU'))
-loop.create_task(emoji8.start('OTk4Njk5NDA5Mzg0NjY5MjM0.GZyATr.5usMU_7esORFNGrqJuYf0o5B23_7PSKmdvThbg'))
-loop.create_task(emoji9.start('OTk4Njk5NzkyNzY5MjQxMTYz.Gznkee.XMCeLjR6QXQBJfnSoCd0UjyfvIOhuzmf8Jeoyc'))
-loop.create_task(emoji10.start('OTk4Njk5OTE0OTUzNDk0NjM5.GnXe3i.qkyDPk_9uUHJeTf215BsTnK-oxcrH8zh0WcYl0'))
 
 
 loop.create_task(delft_results_loop())
