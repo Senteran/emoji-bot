@@ -359,6 +359,7 @@ loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
 # loop.create_task(emoji8.start(os.getenv('EMOJI8')))
 # loop.create_task(emoji9.start(os.getenv('EMOJI9')))
 # loop.create_task(emoji10.start(os.getenv('EMOJI10')))
+#sdadsa
 
 
 loop.create_task(delft_results_loop())
