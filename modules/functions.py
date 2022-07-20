@@ -997,3 +997,26 @@ async def delft_message(client):
     channel = await client.fetch_channel(int(chan_id))
     message = await channel.fetch_message(int(mess_id))
     await message.edit(content=f'**{delft_string()}**')
+
+def bot_selection(msg):
+    bots = []
+    if msg == '':
+        return [1]
+    
+    separated_bots = msg.split(',')
+
+    for bot in separated_bots:
+        if '-' in bot:
+            rg = bot.split('-')
+            for i in range(int(rg[0]),int(rg[1])+1):
+                bots.append(i)
+        else:
+            bots.append(int(bot))
+    
+    bots_final = []
+    for i in range(1,11):
+        if i in bots:
+            bots_final.append(i)
+    
+    return bots_final
+            

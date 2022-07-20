@@ -25,7 +25,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick, attachment_profile_picture
+    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick, attachment_profile_picture, bot_selection
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
@@ -37,6 +37,15 @@ sys.dont_write_bytecode = True
 intnets = discord.Intents.all()
 client = discord.Client(intents = intnets)
 client2 = discord.Client(intents = intnets)
+emoji2 = discord.Client(intnets = intnets)
+emoji3 = discord.Client(intnets = intnets)
+emoji4 = discord.Client(intnets = intnets)
+emoji5 = discord.Client(intnets = intnets)
+emoji6 = discord.Client(intnets = intnets)
+emoji7 = discord.Client(intnets = intnets)
+emoji8 = discord.Client(intnets = intnets)
+emoji9 = discord.Client(intnets = intnets)
+emoji10 = discord.Client(intnets = intnets)
 gis = GoogleImagesSearch(os.getenv('GOOGLE_KEY'), '6a39c51a75423e301')
 
 CHANGE_NICKS = False
@@ -110,13 +119,30 @@ async def on_message(message):
     # Granie muzyki
     await play_default_music(message, content)
 
-    # Ustawia nick
-    if message.content.startswith('emoji nick ') and len(message.content) > 12:
-        await change_nick(message)
+    if not content.startswith('emoji'):
+        return
 
-    # Granie muzyki los santos
-    if 'emoji zagraj ' in message.content:
-        await play_music(message)
+    args = message.content.split()
+    bots = bot_selection(args[0].removeprefix('emoji'))
+
+    for bot in bots:
+        if bot == 1: current = client
+        elif bot == 2: current = emoji2
+        elif bot == 3: current = emoji3
+        elif bot == 4: current = emoji4
+        elif bot == 5: current = emoji5
+        elif bot == 6: current = emoji6
+        elif bot == 7: current = emoji7
+        elif bot == 8: current = emoji8
+        elif bot == 9: current = emoji9
+        elif bot == 10: current = emoji10
+
+        command = process_content(args[1])
+
+        if command == 'nick':
+            await change_nick(message)
+        elif command == 'zagraj':
+            await play_music(message)
 
     # send messages
     await send_messages(content, message)
@@ -128,7 +154,7 @@ async def on_message(message):
     if content.startswith('emoji zdjecie '):
         await search_for_image(message, client, gis)
     
-    if content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik':
+    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik') and not (message.author.id == krupier_users['Krupier']):
         await attachment_profile_picture(message, client)
 
     # Wyświetlenie liczby reakcji
@@ -203,7 +229,7 @@ async def on_message(message):
     if content == 'emoji help':
         await help_other_helps(message)
 
-    if message.content.startswith('emoji napisz do '):
+    if message.content.startswith('emoji napisz do ') and not (message.author.id == krupier_users['Krupier']) :
         try:
             await write_to_channel(message, client)
         except discord.errors.HTTPException:
@@ -321,7 +347,30 @@ async def delft_results_loop():
         await delft_message(client)
 
 loop = asyncio.get_event_loop()
-loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+#loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client.start('ODMyMjIzNDczOTk2MTM2NDU5.G_nXZJ.NckrnSQ-PMmcBio3TCLZ0h8AwZBBJo-w0nb3jQ'))
 loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
+
+# loop.create_task(emoji2.start(os.getenv('EMOJI2')))
+# loop.create_task(emoji3.start(os.getenv('EMOJI3')))
+# loop.create_task(emoji4.start(os.getenv('EMOJI4')))
+# loop.create_task(emoji5.start(os.getenv('EMOJI5')))
+# loop.create_task(emoji6.start(os.getenv('EMOJI6')))
+# loop.create_task(emoji7.start(os.getenv('EMOJI7')))
+# loop.create_task(emoji8.start(os.getenv('EMOJI8')))
+# loop.create_task(emoji9.start(os.getenv('EMOJI9')))
+# loop.create_task(emoji10.start(os.getenv('EMOJI10')))
+
+loop.create_task(emoji2.start('OTk4NjIxMTAxNTU3MDIyOTEw.GPmiiv.IjKMNIOFj2qBqz-6iBqSv2WHY-NlrKCq6_5aFE'))
+loop.create_task(emoji3.start('OTk4NjIxOTIxMTQwODIyMDU3.G1Aab2.eRyIOJ0hzfL7PHBo1dZj1utS0Lpg65wso3mDyE'))
+loop.create_task(emoji4.start('OTk4NjIyMDk5MzIzMjQ0NTc1.GhstHn.i8QCHeWAw3Sg_mfk4K1mZgq_KjPZ82a6LoGEHs'))
+loop.create_task(emoji5.start('OTk4NjIyMzU2MTQwNDYyMTAw.GB0c06.rqg6TYSwv2De394xbdNsQJpMttHEX6hjgh1qmo'))
+loop.create_task(emoji6.start('OTk4NjIyNDc2MjUyNzQxNzcz.GeWp7T.TDrR5BK0Ozx8pYDxjGx0Q-9N8OQBJVJudzQLAU'))
+loop.create_task(emoji7.start('OTk4NjIyNjM1NzQ1MzY2MTA3.GR_r5C.eCoHMjDH0df9Wruolf1j1X9I3QoU5kdxFFYtGU'))
+loop.create_task(emoji8.start('OTk4Njk5NDA5Mzg0NjY5MjM0.GZyATr.5usMU_7esORFNGrqJuYf0o5B23_7PSKmdvThbg'))
+loop.create_task(emoji9.start('OTk4Njk5NzkyNzY5MjQxMTYz.Gznkee.XMCeLjR6QXQBJfnSoCd0UjyfvIOhuzmf8Jeoyc'))
+loop.create_task(emoji10.start('OTk4Njk5OTE0OTUzNDk0NjM5.GnXe3i.qkyDPk_9uUHJeTf215BsTnK-oxcrH8zh0WcYl0'))
+
+
 loop.create_task(delft_results_loop())
 loop.run_forever()
