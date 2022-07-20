@@ -120,7 +120,8 @@ async def on_message(message):
     await play_default_music(message, content)
 
     if not content.startswith('emoji'):
-        return
+        pass
+        #return
 
     args = message.content.split()
     bots = bot_selection(args[0].removeprefix('emoji'))
