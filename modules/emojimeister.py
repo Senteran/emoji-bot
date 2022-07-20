@@ -124,7 +124,8 @@ async def on_message(message):
         #return
 
     args = message.content.split()
-    bots = bot_selection(args[0].removeprefix('emoji'))
+    #bots = bot_selection(args[0].removeprefix('emoji'))
+    bots = [1]
 
     for bot in bots:
         if bot == 1: current = client
