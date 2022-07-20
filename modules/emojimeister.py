@@ -37,15 +37,15 @@ sys.dont_write_bytecode = True
 intnets = discord.Intents.all()
 client = discord.Client(intents = intnets)
 client2 = discord.Client(intents = intnets)
-emoji2 = discord.Client(intnets = intnets)
-emoji3 = discord.Client(intnets = intnets)
-emoji4 = discord.Client(intnets = intnets)
-emoji5 = discord.Client(intnets = intnets)
-emoji6 = discord.Client(intnets = intnets)
-emoji7 = discord.Client(intnets = intnets)
-emoji8 = discord.Client(intnets = intnets)
-emoji9 = discord.Client(intnets = intnets)
-emoji10 = discord.Client(intnets = intnets)
+#emoji2 = discord.Client(intnets = intnets)
+#emoji3 = discord.Client(intnets = intnets)
+#emoji4 = discord.Client(intnets = intnets)
+#emoji5 = discord.Client(intnets = intnets)
+#emoji6 = discord.Client(intnets = intnets)
+#emoji7 = discord.Client(intnets = intnets)
+#emoji8 = discord.Client(intnets = intnets)
+#emoji9 = discord.Client(intnets = intnets)
+#emoji10 = discord.Client(intnets = intnets)
 gis = GoogleImagesSearch(os.getenv('GOOGLE_KEY'), '6a39c51a75423e301')
 
 CHANGE_NICKS = False
@@ -127,15 +127,15 @@ async def on_message(message):
 
     for bot in bots:
         if bot == 1: current = client
-        elif bot == 2: current = emoji2
-        elif bot == 3: current = emoji3
-        elif bot == 4: current = emoji4
-        elif bot == 5: current = emoji5
-        elif bot == 6: current = emoji6
-        elif bot == 7: current = emoji7
-        elif bot == 8: current = emoji8
-        elif bot == 9: current = emoji9
-        elif bot == 10: current = emoji10
+        #elif bot == 2: current = emoji2
+        #elif bot == 3: current = emoji3
+        #elif bot == 4: current = emoji4
+        #elif bot == 5: current = emoji5
+        #elif bot == 6: current = emoji6
+        #elif bot == 7: current = emoji7
+        #elif bot == 8: current = emoji8
+        #elif bot == 9: current = emoji9
+        #elif bot == 10: current = emoji10
 
         command = process_content(args[1])
 
