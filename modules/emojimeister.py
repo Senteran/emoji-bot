@@ -141,13 +141,14 @@ async def on_message(message):
 
         try:
             command = process_content(args[1])
+            if command == 'nick':
+                await change_nick(message)
+            elif command == 'zagraj':
+                await play_music(message)
         except IndexError:
             print('Index error in command parsing')
 
-        if command == 'nick':
-            await change_nick(message)
-        elif command == 'zagraj':
-            await play_music(message)
+        
 
     # send messages
     await send_messages(content, message)
