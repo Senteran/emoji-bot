@@ -139,7 +139,10 @@ async def on_message(message):
         #elif bot == 9: current = emoji9
         #elif bot == 10: current = emoji10
 
-        command = process_content(args[1])
+        try:
+            command = process_content(args[1])
+        except IndexError:
+            print('Index error in command parsing')
 
         if command == 'nick':
             await change_nick(message)
