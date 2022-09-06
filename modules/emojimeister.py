@@ -160,7 +160,7 @@ async def on_message(message):
     if content.startswith('emoji zdjecie '):
         await search_for_image(message, client, gis)
     
-    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik') and not (message.author.id == krupier_users['Krupier']):
+    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik'):
         await attachment_profile_picture(message, client)
 
     # Wyświetlenie liczby reakcji
