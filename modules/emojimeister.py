@@ -139,12 +139,16 @@ async def on_message(message):
         #elif bot == 9: current = emoji9
         #elif bot == 10: current = emoji10
 
-        command = process_content(args[1])
+        try:
+            command = process_content(args[1])
+            if command == 'nick':
+                await change_nick(message)
+            elif command == 'zagraj':
+                await play_music(message)
+        except IndexError:
+            print('Index error in command parsing')
 
-        if command == 'nick':
-            await change_nick(message)
-        elif command == 'zagraj':
-            await play_music(message)
+        
 
     # send messages
     await send_messages(content, message)
@@ -156,7 +160,7 @@ async def on_message(message):
     if content.startswith('emoji zdjecie '):
         await search_for_image(message, client, gis)
     
-    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik') and not (message.author.id == krupier_users['Krupier']):
+    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik'):
         await attachment_profile_picture(message, client)
 
     # Wyświetlenie liczby reakcji
