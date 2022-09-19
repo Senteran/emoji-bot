@@ -183,7 +183,7 @@ send_library = {
         https://docs.google.com/spreadsheets/d/1Tk6vV0c5k70WJvOZNuE3u0LINCpJogBk8Nj9Y97Hmjo/edit#gid=1942497178',
     'gdzie jedziemy': 'Wykres dostępnych dat jest dostępny tu: \
         https://docs.google.com/spreadsheets/d/1BefpD-0jU_2GDn-yyG8_-HUVYyUBxnoK86ntY4O6Uo4/edit#gid=740564050',
-    'cum trilogy': '-p welcome to the cumzone\n-p your cum wont last\n-p heir to the cum throne',
+    'cum trilogy': '/play welcome to the cumzone\n/play your cum wont last\n/play heir to the cum throne',
     'jak wielki jest penis seby?': '40 centymetrów flacid',
     'emoji sraker' : 'https://www.youtube.com/watch?v=eWb78tJtYRk',
     'kim jestes' : 'Jestem zwycięzcą!',
