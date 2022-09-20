@@ -54,6 +54,7 @@ SEND_GOOD_MESSAGES = False
 GO_TO_SVB = False
 GO_TO_KRUPIER = True
 THIS_SHOULDNT_EXIST = False
+TRACKERTY = True
 
 
 async def shotbow(client_t):
@@ -324,7 +325,7 @@ async def on_message(message):
 
 @client.event
 async def on_member_update(before, after):
-    if before.id == krupier_users['ertymaster']:
+    if before.id == krupier_users['ertymaster'] and TRACKERTY:
         if before.mobile_status != after.mobile_status:
             channel = await client2.fetch_channel(STATUSERTY_CHANNEL)
             message = await channel.history(limit=1).flatten()
