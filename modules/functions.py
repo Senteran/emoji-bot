@@ -288,7 +288,7 @@ async def change_nick(message, client, content):
     nickname = ""
     for s in content:
         nickname += s + " "
-    nickname -= " "
+    nickname.removesuffix(" ")
     await client.get_guild(message.guild.id).me.edit(nick=nickname)
 
 async def play_music(message):
