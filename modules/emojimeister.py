@@ -146,6 +146,8 @@ async def on_message(message):
                     print(args)
                 elif command == 'wejdz':
                     await join_voice_channel(message, current)
+                elif command == 'zdjecie':
+                    await search_for_image(message, current, gis)
                     
             except IndexError:
                 print('Index error in command parsing')
@@ -161,8 +163,7 @@ async def on_message(message):
         await send_word_triangle(message)
 
     # Zdjęcie profilowe z Google Image Search
-    if content.startswith('emoji zdjecie '):
-        await search_for_image(message, client, gis)
+    
     
     if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik'):
         await attachment_profile_picture(message, client)
