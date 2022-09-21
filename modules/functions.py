@@ -456,7 +456,7 @@ async def leave_voice_channel(message, current):
     """
     chan = current.get_channel(message.channel.id)
     mess = await chan.fetch_message(message.id)
-    await mess.add_recation('👋')
+    await mess.add_reaction('👋')
     await current.get_guild(message.guild.id).voice_client.disconnect()
 
 async def pause_music(message):
