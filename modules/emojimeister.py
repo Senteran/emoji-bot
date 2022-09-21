@@ -46,6 +46,20 @@ emoji7 = discord.Client(intnets = intnets)
 emoji8 = discord.Client(intnets = intnets)
 emoji9 = discord.Client(intnets = intnets)
 emoji10 = discord.Client(intnets = intnets)
+
+bots_dict =  {
+    1 : client,
+    2 : emoji2,
+    3 : emoji3,
+    4 : emoji4,
+    5 : emoji5,
+    6 : emoji6,
+    7 : emoji7,
+    8 : emoji8,
+    9 : emoji9,
+    10 : emoji10,
+}
+
 gis = GoogleImagesSearch(os.getenv('GOOGLE_KEY'), '6a39c51a75423e301')
 
 CHANGE_NICKS = False
@@ -125,16 +139,7 @@ async def on_message(message):
         bots = bot_selection(args[0].removeprefix('emoji'))
 
         for bot in bots:
-            if bot == 1: current = client
-            elif bot == 2: current = emoji2
-            elif bot == 3: current = emoji3
-            elif bot == 4: current = emoji4
-            elif bot == 5: current = emoji5
-            elif bot == 6: current = emoji6
-            elif bot == 7: current = emoji7
-            elif bot == 8: current = emoji8
-            elif bot == 9: current = emoji9
-            elif bot == 10: current = emoji10
+            current = bots_dict[bot]
 
             try:
                 command = process_content(args[1])
@@ -148,6 +153,8 @@ async def on_message(message):
                     await join_voice_channel(message, current)
                 elif command == 'zdjecie':
                     await search_for_image(message, current, gis)
+                elif command == 'wyjdz' or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
+                    await leave_voice_channel(message, current)
                     
             except IndexError:
                 print('Index error in command parsing')
@@ -176,8 +183,7 @@ async def on_message(message):
     
 
     # Wychodzenie z kanału
-    if ('emoji wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
-        await leave_voice_channel(message)
+    
 
     # Stop muzyki
     if 'emoji stop' in content:

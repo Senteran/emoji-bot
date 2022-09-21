@@ -448,14 +448,14 @@ async def join_voice_channel(message, client):
         except:
             await message.reply("Niestety nie udało mi się dołączyć 😢")
 
-async def leave_voice_channel(message):
+async def leave_voice_channel(message, current):
     """Opuszcza kanał głosowy
 
     Args:
         message (message): Otrzymana wiadomość
     """
-    await message.add_reaction('👋')
-    await message.guild.voice_client.disconnect()
+    await current.get_message(message.id).add_recation('👋')
+    await current.get_guild(message.guild.id).voice_client.disconnect()
 
 async def pause_music(message):
     """Pauzuje muzyke
