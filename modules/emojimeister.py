@@ -139,7 +139,7 @@ async def on_message(message):
             try:
                 command = process_content(args[1])
                 if command == 'nick':
-                    await change_nick(message)
+                    await change_nick(message, current)
                 elif command == 'zagraj':
                     await play_music(message)
                 elif command == 'print':
