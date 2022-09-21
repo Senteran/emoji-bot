@@ -120,34 +120,35 @@ async def on_message(message):
     # Granie muzyki
     await play_default_music(message, content)
 
-    if not content.startswith('emoji'):
-        pass
-        #return
+    if content.startswith('emoji'):
+        args = message.content.split()
+        bots = bot_selection(args[0].removeprefix('emoji'))
+        bots = [1]
 
-    args = message.content.split()
-    bots = bot_selection(args[0].removeprefix('emoji'))
-    bots = [1]
+        for bot in bots:
+            if bot == 1: current = client
+            elif bot == 2: current = emoji2
+            elif bot == 3: current = emoji3
+            elif bot == 4: current = emoji4
+            elif bot == 5: current = emoji5
+            elif bot == 6: current = emoji6
+            elif bot == 7: current = emoji7
+            elif bot == 8: current = emoji8
+            elif bot == 9: current = emoji9
+            elif bot == 10: current = emoji10
 
-    for bot in bots:
-        if bot == 1: current = client
-        #elif bot == 2: current = emoji2
-        #elif bot == 3: current = emoji3
-        #elif bot == 4: current = emoji4
-        #elif bot == 5: current = emoji5
-        #elif bot == 6: current = emoji6
-        #elif bot == 7: current = emoji7
-        #elif bot == 8: current = emoji8
-        #elif bot == 9: current = emoji9
-        #elif bot == 10: current = emoji10
+            try:
+                command = process_content(args[1])
+                if command == 'nick':
+                    await change_nick(message)
+                elif command == 'zagraj':
+                    await play_music(message)
+                elif command == 'print':
+                    print(args)
+            except IndexError:
+                print('Index error in command parsing')
 
-        try:
-            command = process_content(args[1])
-            if command == 'nick':
-                await change_nick(message)
-            elif command == 'zagraj':
-                await play_music(message)
-        except IndexError:
-            print('Index error in command parsing')
+    
 
         
 
