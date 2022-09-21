@@ -145,6 +145,9 @@ async def on_message(message):
                     await play_music(message)
                 elif command == 'print':
                     print(args)
+                elif command == 'wejdz':
+                    await join_voice_channel(message, current)
+                    
             except IndexError:
                 print('Index error in command parsing')
 
@@ -170,8 +173,7 @@ async def on_message(message):
         await display_reactions(message)
 
     # Wchodzenie na kanał
-    if 'emoji wejdz' in content:
-        await join_voice_channel(message)
+    
 
     # Wychodzenie z kanału
     if ('emoji wyjdz' in content) or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:

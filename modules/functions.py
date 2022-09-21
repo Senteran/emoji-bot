@@ -431,13 +431,14 @@ async def display_reactions(message):
     """
     await message.reply('Już zareagowałem: ' + get_value('reactions') + ' razy!')
 
-async def join_voice_channel(message):
+async def join_voice_channel(message, client):
     """Dołącza do kanału głosowego, w którym jest autor wiadomości
 
     Args:
         message (message): Otrzymana wiadomość
     """
     chan = message.author.voice.channel
+    chan = client.get_channel(chan.id)
     try:
         await chan.connect()
     except discord.errors.ClientException:
