@@ -338,7 +338,7 @@ async def send_word_triangle(message):
     except discord.errors.HTTPException:
         await message.channel.send("Ta wiadomość byłaby za długa :(")
 
-async def search_for_image(message, client, gis):
+async def search_for_image(client, cont, gis):
     """Wyszukuje zdjęcie na Google Images i ustawia je jako zdjęcie profilowe bota
 
     Args:
@@ -347,6 +347,7 @@ async def search_for_image(message, client, gis):
         gis (???): Nie wiem co to jest
     """
     print('zdjęcie...')
+    query = args_to_string(cont)
     query = message.content.removeprefix('emoji zdjęcie ')
     image_search_params['q'] = query
     gis.search(search_params=image_search_params)
@@ -1025,4 +1026,11 @@ def bot_selection(msg):
             bots_final.append(i)
     
     return bots_final
+
+def args_to_string(args):
+    ret = ""
+    for s in args:
+        ret += s + " "
+    ret.removesuffix(" ")
+    return ret
             

@@ -152,9 +152,11 @@ async def on_message(message):
                 elif command == 'wejdz':
                     await join_voice_channel(message, current)
                 elif command == 'zdjecie':
-                    await search_for_image(message, current, gis)
+                    await search_for_image(current, args[2:], gis)
                 elif command == 'wyjdz' or 'https://tenor.com/view/robert-kubica-orlen-wypierdalaj-autograph-signing-gif-14480393' in message.content:
                     await leave_voice_channel(message, current)
+                elif command == 'zdjecie_attachment' or command == 'zdjecie_zalacznik':
+                    await attachment_profile_picture(message, current)
                     
             except IndexError:
                 print('Index error in command parsing')
@@ -172,8 +174,7 @@ async def on_message(message):
     # Zdjęcie profilowe z Google Image Search
     
     
-    if (content == 'emoji zdjecie_attachment' or content == 'emoji zdjecie_zalacznik'):
-        await attachment_profile_picture(message, client)
+    
 
     # Wyświetlenie liczby reakcji
     if 'ile reakcji' in content:
