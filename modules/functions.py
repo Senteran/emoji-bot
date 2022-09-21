@@ -284,8 +284,11 @@ def remove_song():
         store_value('song', '')
 
 
-async def change_nick(message, client):
-    nickname = message.content.removeprefix('emoji nick ')
+async def change_nick(message, client, content):
+    nickname = ""
+    for s in content:
+        nickname += s + " "
+    nickname -= " "
     await client.get_guild(message.guild.id).me.edit(nick=nickname)
 
 async def play_music(message):
