@@ -34,18 +34,18 @@ sys.dont_write_bytecode = True
 # WAŻNE! Do działanie trzeba zainstalować dodatkowo moduł: windows-curses
 # dzięki, pomocny komentarz!
 
-intnets = 0
-client = 0
-client2 = 0
-emoji2 = 0
-emoji3 = 0
-emoji4 = 0
-emoji5 = 0
-emoji6 = 0
-emoji7 = 0
-emoji8 = 0
-emoji9 = 0
-emoji10 = 0
+intnets = discord.Intents.all()
+client = discord.Client(intents = intnets)
+client2 = discord.Client(intents = intnets)
+emoji2 = discord.Client(intnets = intnets)
+emoji3 = discord.Client(intnets = intnets)
+emoji4 = discord.Client(intnets = intnets)
+emoji5 = discord.Client(intnets = intnets)
+emoji6 = discord.Client(intnets = intnets)
+emoji7 = discord.Client(intnets = intnets)
+emoji8 = discord.Client(intnets = intnets)
+emoji9 = discord.Client(intnets = intnets)
+emoji10 = discord.Client(intnets = intnets)
 
 bots_dict =  {
     1 : client,
@@ -158,7 +158,7 @@ async def on_message(message):
                 elif command == 'zdjecie_attachment' or command == 'zdjecie_zalacznik':
                     await attachment_profile_picture(message, current)
                 elif command == 'restart':
-                    start()
+                    restart()
                     
             except IndexError:
                 print('Index error in command parsing')
@@ -365,7 +365,28 @@ async def delft_results_loop():
         await asyncio.sleep(10)
         await delft_message(client)
 
-def start():
+
+loop = asyncio.get_event_loop()
+loop.create_task(client.start(os.getenv('EMOJI_BOT')))
+loop.create_task(client2.start(os.getenv('SHOTBOW_BOT')))
+
+loop.create_task(emoji2.start(os.getenv('EMOJI2')))
+loop.create_task(emoji3.start(os.getenv('EMOJI3')))
+loop.create_task(emoji4.start(os.getenv('EMOJI4')))
+loop.create_task(emoji5.start(os.getenv('EMOJI5')))
+loop.create_task(emoji6.start(os.getenv('EMOJI6')))
+loop.create_task(emoji7.start(os.getenv('EMOJI7')))
+loop.create_task(emoji8.start(os.getenv('EMOJI8')))
+loop.create_task(emoji9.start(os.getenv('EMOJI9')))
+loop.create_task(emoji10.start(os.getenv('EMOJI10')))
+
+
+loop.create_task(delft_results_loop())
+loop.run_forever()
+
+
+
+def restart():
     intnets = discord.Intents.all()
     client = discord.Client(intents = intnets)
     client2 = discord.Client(intents = intnets)
@@ -398,5 +419,3 @@ def start():
 
     loop.create_task(delft_results_loop())
     loop.run_forever()
-
-start()
