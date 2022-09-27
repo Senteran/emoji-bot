@@ -136,7 +136,10 @@ async def on_message(message):
 
     if content.startswith('emoji'):
         args = message.content.split()
-        bots = bot_selection(args[0].removeprefix('emoji'))
+        try:
+            bots = bot_selection(args[0].removeprefix('emoji'))
+        except:
+            pass
 
         for bot in bots:
             current = bots_dict[bot]

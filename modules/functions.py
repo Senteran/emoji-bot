@@ -348,7 +348,6 @@ async def search_for_image(client, cont, gis):
     """
     print('zdjęcie...')
     query = args_to_string(cont)
-    query = message.content.removeprefix('emoji zdjęcie ')
     image_search_params['q'] = query
     gis.search(search_params=image_search_params)
 
