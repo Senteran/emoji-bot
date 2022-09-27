@@ -139,7 +139,7 @@ async def on_message(message):
         try:
             bots = bot_selection(args[0].removeprefix('emoji'))
         except:
-            pass
+            bots = []
 
         for bot in bots:
             current = bots_dict[bot]
