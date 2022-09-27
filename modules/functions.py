@@ -446,10 +446,7 @@ async def join_voice_channel(message, client):
         await chan.connect()
     except discord.errors.ClientException:
         await message.guild.voice_client.disconnect()
-        try:
-            await chan.connect()
-        except:
-            await message.reply("Niestety nie udało mi się dołączyć 😢")
+        await chan.connect()
 
 async def leave_voice_channel(message, current):
     """Opuszcza kanał głosowy
