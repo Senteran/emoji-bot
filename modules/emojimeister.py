@@ -278,6 +278,10 @@ async def on_message(message):
         except Exception as e:
             print(f'Exception in emoji slowo: {e}')
             await message.reply('An error occurred')
+    
+    if content.startswith('emoji status '):
+        new_status = content.removeprefix('emoji status ')
+        await message.reply(f'Changing status to {new_status}')
 
     if ' ekonomi ' in content or content[len(content)-7:len(content)] == 'ekonomi':
         try:
