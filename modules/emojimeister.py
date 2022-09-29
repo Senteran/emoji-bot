@@ -69,7 +69,7 @@ SEND_GOOD_MESSAGES = False
 GO_TO_SVB = False
 GO_TO_KRUPIER = True
 THIS_SHOULDNT_EXIST = False
-TRACKERTY = True
+TRACKERTY = False #Aczkolwiek myślałem też nad TRACKTERAN = True
 
 
 async def shotbow(client_t):
