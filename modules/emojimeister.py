@@ -12,7 +12,6 @@ from google_images_search import GoogleImagesSearch
 
 from dictionaries import admin_ids, krupier_users, STATUSERTY_CHANNEL, OGOLNY_CHANNEL, BUDOWA_CHANNEL, WIEZIENIE_CHANNEL, KRUPIER_ID, EMOJIBOT_ID
 from file_handler import get_value
-from modules.functions import args_to_string
 from shotbow_tracker import CHECK_DELAY, SEND_DELAY, shotbow_checker, shotbow_request, status_message, karerty_message
 from word import send_word_of_emojis
 from slalom import emoji_slalom, emoji_slalom_infinite
@@ -26,7 +25,7 @@ from functions import\
     help_commands, help_replies, help_songs, help_emoji, help_custom_emoji,\
     change_nicknames, return_nicknames, write_to_channel, dm_user,\
     BEAST_MODE, change_nicknames_to_custom,\
-    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick, attachment_profile_picture, bot_selection
+    delete_message_by_id, paper_janka, policjant, deszcz, delft_results, delft_message, change_nick, attachment_profile_picture, bot_selection, args_to_string
 
 # prevent __pycache__ folder from being created
 sys.dont_write_bytecode = True
