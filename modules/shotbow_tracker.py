@@ -51,7 +51,7 @@ async def status_message(channel, last, status, mobile):
     created = last.created_at
 
     cur_mod = cur
-    cur_mod += datetime.timedelta(hours=2)
+    cur_mod += datetime.timedelta(hours=1)
     
 
     min = f"{cur_mod.minute}"
